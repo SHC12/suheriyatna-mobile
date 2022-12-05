@@ -31,5 +31,20 @@ class Nav {
       page: () => const HomeScreen(),
       binding: HomeControllerBinding(),
     ),
+    GetPage(
+      name: Routes.LOGIN,
+      page: () => const LoginScreen(),
+      binding: LoginControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.SPLASHSCREEN,
+      page: () => SplashscreenScreen(),
+      binding: SplashscreenControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.SHARED,
+      page: () => const SharedScreen(),
+      binding: SharedControllerBinding(),
+    ),
   ];
 }
