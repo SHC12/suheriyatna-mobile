@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "735924773000",
+    "project_id": "suheriyatna-mobile",
+    "storage_bucket": "suheriyatna-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735924773000:android:8f66fbbfff559ee3ebbf3d",
+        "android_client_info": {
+          "package_name": "com.suheriyatna.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735924773000-6ksb8fps2m95tm4qn4bltkelu0647gn8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.suheriyatna.mobile",
+            "certificate_hash": "4c1091f12e2969724012675ff47e0703c79d762d"
+          }
+        },
+        {
+          "client_id": "735924773000-60vh5at5cn8urps5iselrttkumkcp5hs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLJGZiL5B4J4b6Sf0u0MGOoP21FUL3bew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735924773000-60vh5at5cn8urps5iselrttkumkcp5hs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
