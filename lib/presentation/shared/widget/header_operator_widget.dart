@@ -18,7 +18,7 @@ class HeaderOperatorWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),
       decoration: BoxDecoration(
-        color: mainColor,
+        color: primaryColor,
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(30),
           bottomRight: Radius.circular(30),

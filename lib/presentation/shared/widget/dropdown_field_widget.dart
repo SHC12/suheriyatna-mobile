@@ -9,9 +9,14 @@ class DropdownFieldWidget extends StatefulWidget {
   final String? title;
 
   String? value;
+  final String? valueName;
+  final String? listName;
   final List? listValue;
+  final ValueChanged<String>? itemCallback;
 
-  DropdownFieldWidget({Key? key, this.title, this.value, this.listValue}) : super(key: key);
+  DropdownFieldWidget(
+      {Key? key, this.title, this.value, this.listValue, this.valueName, this.listName, this.itemCallback})
+      : super(key: key);
 
   @override
   State<DropdownFieldWidget> createState() => _DropdownFieldWidgetState();
@@ -46,14 +51,15 @@ class _DropdownFieldWidgetState extends State<DropdownFieldWidget> {
             value: widget.value,
             items: widget.listValue?.map((value) {
               return DropdownMenuItem(
-                child: Text(value['nama'], style: defaultTextStyle.copyWith(fontSize: 12)),
-                value: value['status'],
+                child: Text(value[widget.listName], style: defaultTextStyle.copyWith(fontSize: 12)),
+                value: value[widget.valueName],
               );
             }).toList(),
             onChanged: (v) {
               setState(() {
                 print(v);
                 widget.value = v.toString();
+                widget.itemCallback!(widget.value!);
               });
             },
           ),

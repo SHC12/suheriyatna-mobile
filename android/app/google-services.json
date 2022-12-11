@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:735924773000:android:8f66fbbfff559ee3ebbf3d",
+        "mobilesdk_app_id": "1:735924773000:android:d1181a7978b37b17ebbf3d",
         "android_client_info": {
-          "package_name": "com.suheriyatna.mobile"
+          "package_name": "com.suheriyatna.mobile.suheriyatna_mobile"
         }
       },
       "oauth_client": [
         {
-          "client_id": "735924773000-6ksb8fps2m95tm4qn4bltkelu0647gn8.apps.googleusercontent.com",
+          "client_id": "735924773000-obtfii2lhbl3l2gsoeufc39isr9d2vsq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.suheriyatna.mobile",
+            "package_name": "com.suheriyatna.mobile.suheriyatna_mobile",
             "certificate_hash": "4c1091f12e2969724012675ff47e0703c79d762d"
           }
         },
@@ -37,6 +37,13 @@
             {
               "client_id": "735924773000-60vh5at5cn8urps5iselrttkumkcp5hs.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "735924773000-u4hgcrcq57o6v79dmne9m6sede8a8m63.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.suheriyatna.mobile.suheriyatnaMobile"
+              }
             }
           ]
         }

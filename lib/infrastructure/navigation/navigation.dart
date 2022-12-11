@@ -28,12 +28,12 @@ class Nav {
   static List<GetPage> routes = [
     GetPage(
       name: Routes.HOME,
-      page: () => const HomeScreen(),
+      page: () => HomeScreen(),
       binding: HomeControllerBinding(),
     ),
     GetPage(
       name: Routes.LOGIN,
-      page: () => const LoginScreen(),
+      page: () => LoginScreen(),
       binding: LoginControllerBinding(),
     ),
     GetPage(
@@ -45,6 +45,26 @@ class Nav {
       name: Routes.SHARED,
       page: () => const SharedScreen(),
       binding: SharedControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.REGISTRATION,
+      page: () => RegistrationScreen(),
+      binding: RegistrationControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.RELAWAN,
+      page: () => RelawanScreen(),
+      binding: RelawanControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.NOTIFIKASI,
+      page: () => NotifikasiScreen(),
+      binding: NotifikasiControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.PROFIL,
+      page: () => ProfilScreen(),
+      binding: ProfilControllerBinding(),
     ),
   ];
 }

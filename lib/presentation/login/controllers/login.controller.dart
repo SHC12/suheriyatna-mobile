@@ -1,21 +1,14 @@
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  Future loginUser() async {
+    // UserCredential result = await auth.signInAnonymously();
+    // // await FirebaseAuth.instance.verifyPhoneNumber(
+    // //   phoneNumber: '+6281270477940',
+    // //   verificationCompleted: (PhoneAuthCredential credential) {},
+    // //   verificationFailed: (FirebaseAuthException e) {},
+    // //   codeSent: (String verificationId, int? resendToken) {},
+    // //   codeAutoRetrievalTimeout: (String verificationId) {},
+    // // );
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

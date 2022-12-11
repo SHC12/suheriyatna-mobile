@@ -6,6 +6,10 @@ class Routes {
 
   static const HOME = '/home';
   static const LOGIN = '/login';
-  static const SPLASHSCREEN = '/splashscreen';
+  static const NOTIFIKASI = '/notifikasi';
+  static const REGISTRATION = '/registration';
+  static const RELAWAN = '/relawan';
   static const SHARED = '/shared';
+  static const SPLASHSCREEN = '/splashscreen';
+  static const PROFIL = '/profil';
 }

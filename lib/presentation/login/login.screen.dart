@@ -5,27 +5,31 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:sizer/sizer.dart';
+import 'package:suheriyatna_mobile/presentation/login/verifikasi_otp.screen.dart';
 
 import '../../infrastructure/theme/colors.dart';
 import '../../infrastructure/theme/fonts.dart';
 import '../home/home.screen.dart';
+import '../registration/registration.screen.dart';
 import '../shared/widget/button_widget.dart';
 import '../shared/widget/custom_textfield_widget.dart';
 import 'controllers/login.controller.dart';
 
 class LoginScreen extends GetView<LoginController> {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
+  LoginController loginController = Get.put(LoginController());
+  TextEditingController tNoHP = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: mainColor,
+      backgroundColor: primaryColor,
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 5.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Halo, Sobat Bang Yatna',
+            Text('Selamat datang di Suheriyatna Mobile',
                 style: headTextStyle.copyWith(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 14.sp)),
             SizedBox(height: 2.h),
             Container(
@@ -43,28 +47,31 @@ class LoginScreen extends GetView<LoginController> {
                     style: headTextStyle.copyWith(fontSize: 14.sp, fontWeight: FontWeight.bold, color: secondaryColor),
                   ),
                   SizedBox(
-                    height: 5.h,
+                    height: 10.h,
                   ),
                   CustomTextfielWidget(
                     hintText: 'No HP',
                     iconPrefix: Remix.phone_line,
+                    tController: tNoHP,
                   ),
                   SizedBox(
                     height: 2.h,
                   ),
-                  CustomTextfielWidget(
-                    hintText: 'Password',
-                    iconPrefix: Remix.lock_line,
-                    obscureText: true,
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
                   ButtonWidget(
                     color: secondaryColor,
                     title: 'Login',
-                    onTap: () {
-                      Get.offAll(() => HomeScreen());
+                    onTap: () async {
+                      // if (tNoHP.text.isEmpty || tNoHP.text == null) {
+                      //   Get.snackbar(
+                      //     'Error',
+                      //     'No HP tidak boleh kosong',
+                      //     backgroundColor: whiteColor,
+                      //   );
+                      // } else {
+                      //   Get.to(() => VerifikasiOTPSCreen());
+                      // }
+
+                      Get.offAll(HomeScreen());
                     },
                   ),
                   SizedBox(
@@ -106,11 +113,11 @@ class LoginScreen extends GetView<LoginController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // Get.to(RegistrationScreen());
+                          Get.to(RegistrationScreen());
                         },
                         child: Text(
                           ' Daftar Sekarang ',
-                          style: defaultTextStyle.copyWith(color: mainColor, fontWeight: FontWeight.bold),
+                          style: defaultTextStyle.copyWith(color: primaryColor, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
