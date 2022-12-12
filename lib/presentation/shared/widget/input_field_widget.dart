@@ -12,8 +12,10 @@ class InputFieldWidget extends StatefulWidget {
   final Function? onTap;
   final TextInputType? inputType;
   final bool? currency;
+  final bool? isRequired;
 
-  InputFieldWidget({Key? key, this.title, this.hint, this.tController, this.onTap, this.inputType, this.currency})
+  InputFieldWidget(
+      {Key? key, this.title, this.hint, this.tController, this.onTap, this.inputType, this.currency, this.isRequired})
       : super(key: key);
 
   @override
@@ -29,9 +31,20 @@ class _InputFieldWidgetState extends State<InputFieldWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 2.h),
-        Text(
-          widget.title!,
-          style: defaultTextStyle.copyWith(fontSize: 12.0.sp, fontWeight: FontWeight.bold),
+        Row(
+          children: [
+            Text(
+              widget.title!,
+              style: defaultTextStyle.copyWith(fontSize: 12.0.sp, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(width: 1.w),
+            widget.isRequired == null
+                ? SizedBox()
+                : Text(
+                    '*',
+                    style: defaultTextStyle.copyWith(fontSize: 12.0.sp, fontWeight: FontWeight.bold, color: Colors.red),
+                  ),
+          ],
         ),
         SizedBox(height: 0.5.h),
         TextField(

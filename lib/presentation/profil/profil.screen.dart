@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:sizer/sizer.dart';
+import 'package:suheriyatna_mobile/main.dart';
+import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
 
 import '../../infrastructure/theme/colors.dart';
 import '../../infrastructure/theme/fonts.dart';
@@ -10,6 +12,7 @@ import '../shared/widget/header_widget.dart';
 import 'controllers/profil.controller.dart';
 
 class ProfilScreen extends GetView<ProfilController> {
+  SharedController sharedController = Get.put(SharedController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +44,7 @@ class ProfilScreen extends GetView<ProfilController> {
                           child: CircleAvatar(
                             radius: 30.sp,
                             child: Text(
-                              'DK',
+                              sharedController.getInitials(prefs.read('namaLengkap')),
                               style: defaultTextStyle.copyWith(fontSize: 16.sp),
                             ),
                           ),
@@ -50,7 +53,7 @@ class ProfilScreen extends GetView<ProfilController> {
                           height: 2.h,
                         ),
                         Text(
-                          'Dedi Kurniawan',
+                          prefs.read('namaLengkap'),
                           style: headTextStyle,
                         ),
                         SizedBox(
@@ -72,7 +75,7 @@ class ProfilScreen extends GetView<ProfilController> {
                               ),
                               Row(
                                 children: [
-                                  Text('123456789',
+                                  Text(prefs.read('my_referral_code'),
                                       style: defaultTextStyle.copyWith(color: primaryColor, fontSize: 18.sp)),
                                   Spacer(),
                                   Icon(Icons.copy, color: primaryColor),
@@ -99,7 +102,7 @@ class ProfilScreen extends GetView<ProfilController> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Ganti Kata Sandi',
+                              'Lihat Data Saya',
                               style: defaultTextStyle,
                             ),
                             Icon(Remix.arrow_right_s_line)

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:suheriyatna_mobile/main.dart';
+import 'package:suheriyatna_mobile/presentation/home/home.screen.dart';
 
 import '../../login/login.screen.dart';
 
@@ -24,7 +26,11 @@ class SplashscreenController extends GetxController {
     var duration = const Duration(seconds: 3);
 
     return Timer(duration, () {
-      Get.offAll(LoginScreen());
+      if (prefs.read('nik') == null) {
+        Get.offAll(LoginScreen());
+      } else {
+        Get.offAll(HomeScreen());
+      }
     });
   }
 }

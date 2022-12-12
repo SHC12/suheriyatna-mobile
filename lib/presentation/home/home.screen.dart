@@ -98,14 +98,14 @@ class HomeScreen extends GetView<HomeController> {
                             icon: Remix.notification_3_line,
                             title: 'Notifikasi',
                             onTap: () {
-                              // Get.to(() => NotificationScreen());
+                              Get.to(() => NotifikasiScreen());
                             },
                           ),
                           MainIconWidget(
                             icon: Remix.customer_service_2_line,
                             title: 'Info Hotline',
                             onTap: () {
-                              // Get.to(() => HotlineScreen());
+                              Get.to(() => HotlineScreen());
                             },
                           ),
                         ],

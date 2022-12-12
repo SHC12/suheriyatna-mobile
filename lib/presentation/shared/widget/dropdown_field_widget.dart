@@ -13,9 +13,17 @@ class DropdownFieldWidget extends StatefulWidget {
   final String? listName;
   final List? listValue;
   final ValueChanged<String>? itemCallback;
+  final bool? isRequired;
 
   DropdownFieldWidget(
-      {Key? key, this.title, this.value, this.listValue, this.valueName, this.listName, this.itemCallback})
+      {Key? key,
+      this.title,
+      this.value,
+      this.listValue,
+      this.valueName,
+      this.listName,
+      this.itemCallback,
+      this.isRequired})
       : super(key: key);
 
   @override
@@ -31,9 +39,20 @@ class _DropdownFieldWidgetState extends State<DropdownFieldWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 2.h),
-        Text(
-          widget.title!,
-          style: defaultTextStyle.copyWith(fontSize: 12.0.sp, fontWeight: FontWeight.bold),
+        Row(
+          children: [
+            Text(
+              widget.title!,
+              style: defaultTextStyle.copyWith(fontSize: 12.0.sp, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(width: 1.w),
+            widget.isRequired == null
+                ? SizedBox()
+                : Text(
+                    '*',
+                    style: defaultTextStyle.copyWith(fontSize: 12.0.sp, fontWeight: FontWeight.bold, color: Colors.red),
+                  ),
+          ],
         ),
         SizedBox(height: 0.5.h),
         Container(

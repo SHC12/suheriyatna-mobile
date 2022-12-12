@@ -1,4 +1,5 @@
 export 'package:suheriyatna_mobile/presentation/home/home.screen.dart';
+export 'package:suheriyatna_mobile/presentation/hotline/hotline.screen.dart';
 export 'package:suheriyatna_mobile/presentation/login/login.screen.dart';
 export 'package:suheriyatna_mobile/presentation/notifikasi/notifikasi.screen.dart';
 export 'package:suheriyatna_mobile/presentation/profil/profil.screen.dart';

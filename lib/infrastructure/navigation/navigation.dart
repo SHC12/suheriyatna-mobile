@@ -66,5 +66,10 @@ class Nav {
       page: () => ProfilScreen(),
       binding: ProfilControllerBinding(),
     ),
+    GetPage(
+      name: Routes.HOTLINE,
+      page: () => HotlineScreen(),
+      binding: HotlineControllerBinding(),
+    ),
   ];
 }

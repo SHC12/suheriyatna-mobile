@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:remixicon/remixicon.dart';
 
 import 'package:sizer/sizer.dart';
+import 'package:suheriyatna_mobile/main.dart';
+import 'package:suheriyatna_mobile/presentation/notifikasi/notifikasi.screen.dart';
 import '../../../infrastructure/theme/colors.dart';
 import '../../../infrastructure/theme/fonts.dart';
 import '../../login/login.screen.dart';
@@ -47,9 +49,10 @@ class HeaderWidget extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   if (isHome != null || isHome == true) {
-                    Get.to(LoginScreen());
+                    prefs.erase();
+                    Get.offAll(LoginScreen());
                   } else {
-                    // Get.to(NotificationScreen());
+                    Get.to(NotifikasiScreen());
                   }
                 },
                 child: Icon(

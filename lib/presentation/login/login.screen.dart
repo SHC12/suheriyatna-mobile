@@ -33,7 +33,7 @@ class LoginScreen extends GetView<LoginController> {
                 style: headTextStyle.copyWith(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 14.sp)),
             SizedBox(height: 2.h),
             Container(
-              height: 60.h,
+              // height: 60.h,
               width: 100.w,
               padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
               decoration: BoxDecoration(
@@ -61,17 +61,15 @@ class LoginScreen extends GetView<LoginController> {
                     color: secondaryColor,
                     title: 'Login',
                     onTap: () async {
-                      // if (tNoHP.text.isEmpty || tNoHP.text == null) {
-                      //   Get.snackbar(
-                      //     'Error',
-                      //     'No HP tidak boleh kosong',
-                      //     backgroundColor: whiteColor,
-                      //   );
-                      // } else {
-                      //   Get.to(() => VerifikasiOTPSCreen());
-                      // }
-
-                      Get.offAll(HomeScreen());
+                      if (tNoHP.text.isEmpty || tNoHP.text == null) {
+                        Get.snackbar(
+                          'Error',
+                          'No HP tidak boleh kosong',
+                          backgroundColor: whiteColor,
+                        );
+                      } else {
+                        loginController.login(tNoHP.text, context);
+                      }
                     },
                   ),
                   SizedBox(
