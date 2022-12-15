@@ -1,8 +1,10 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import 'package:suheriyatna_mobile/presentation/registration/registration_complete.screen.dart';
 import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
@@ -145,6 +147,18 @@ class RegistrationScreen extends GetView<RegistrationController> {
                               title: 'Tanggal Lahir',
                               tController: tTanggalLahir,
                               isRequired: true,
+                              onTap: () async {
+                                DateTime? newDateTime = await showRoundedDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(DateTime.now().year - 100),
+                                  lastDate: DateTime(DateTime.now().year + 1),
+                                  borderRadius: 16,
+                                );
+
+                                tTanggalLahir.text =
+                                    DateFormat('dd-MM-yyy').format(DateTime.parse(newDateTime.toString())).toString();
+                              },
                             ),
                           ),
                         ],

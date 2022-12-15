@@ -5,6 +5,7 @@ class Routes {
   }
 
   static const HOME = '/home';
+  static const HOTLINE = '/hotline';
   static const LOGIN = '/login';
   static const NOTIFIKASI = '/notifikasi';
   static const PROFIL = '/profil';
@@ -12,5 +13,5 @@ class Routes {
   static const RELAWAN = '/relawan';
   static const SHARED = '/shared';
   static const SPLASHSCREEN = '/splashscreen';
-  static const HOTLINE = '/hotline';
+  static const KUISIONER = '/kuisioner';
 }

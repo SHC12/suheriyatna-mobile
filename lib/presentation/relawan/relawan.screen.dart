@@ -1,12 +1,20 @@
+import 'dart:io';
+
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 
 import 'package:get/get.dart';
-import 'package:im_stepper/stepper.dart';
+// import 'package:im_stepper/stepper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:sizer/sizer.dart';
+import 'package:suheriyatna_mobile/main.dart';
+import 'package:suheriyatna_mobile/presentation/registration/controllers/registration.controller.dart';
 import 'package:suheriyatna_mobile/presentation/screens.dart';
+import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
 
 import '../../infrastructure/theme/colors.dart';
 import '../../infrastructure/theme/fonts.dart';
@@ -24,11 +32,32 @@ class RelawanScreen extends StatefulWidget {
 }
 
 class _RelawanScreenState extends State<RelawanScreen> {
+  RegistrationController registrationController = Get.put(RegistrationController());
+  RelawanController relawanController = Get.put(RelawanController());
+  SharedController sharedController = Get.put(SharedController());
+  TextEditingController tNIK = TextEditingController();
+  TextEditingController tNamaLengkap = TextEditingController();
+  TextEditingController tTempatLahir = TextEditingController();
+  TextEditingController tTanggalLahir = TextEditingController();
+  TextEditingController tGolDarah = TextEditingController();
+  TextEditingController tAlamat = TextEditingController();
+  TextEditingController tRTRW = TextEditingController();
+  TextEditingController tPekerjaan = TextEditingController();
+  TextEditingController tEmail = TextEditingController();
+  TextEditingController tKodeReferral = TextEditingController();
+  TextEditingController tNoTelp = TextEditingController();
   int activeStep = 0;
 
   int upperBound = 2;
   var agamaValue;
   var jenisKelaminValue;
+  var kabupatenValue;
+  var kecamatanValue;
+  var kabupatenStringValue;
+  var kecamatanStringValue;
+  var kelurahanStringValue;
+  var kelurahanValue;
+  var golDarahValue;
   var agamaList = [
     {'nama': 'Islam', 'status': 'Islam'},
     {'nama': 'Kristen', 'status': 'Kristen'},
@@ -36,6 +65,20 @@ class _RelawanScreenState extends State<RelawanScreen> {
     {'nama': 'Budha', 'status': 'Budha'},
   ];
 
+  var golDarahList = [
+    {'nama': 'A', 'status': 'A'},
+    {'nama': 'B', 'status': 'B'},
+    {'nama': 'AB', 'status': 'AB'},
+    {'nama': 'O', 'status': 'O'},
+    {'nama': 'A+', 'status': 'A+'},
+    {'nama': 'A-', 'status': 'A-'},
+    {'nama': 'B+', 'status': 'B+'},
+    {'nama': 'B-', 'status': 'B-'},
+    {'nama': 'AB+', 'status': 'AB+'},
+    {'nama': 'AB-', 'status': 'AB-'},
+    {'nama': 'O+', 'status': 'O+'},
+    {'nama': 'O-', 'status': 'O-'},
+  ];
   var jenisKelaminList = [
     {'nama': 'Laki-laki', 'status': 'laki-laki'},
     {'nama': 'Perempuan', 'status': 'perempuan'},
@@ -136,22 +179,6 @@ class _RelawanScreenState extends State<RelawanScreen> {
                         ],
                       ),
                       SizedBox(height: 2.h),
-                      NumberStepper(
-                          stepRadius: 20,
-                          activeStepColor: secondaryColor,
-                          enableNextPreviousButtons: false,
-                          numberStyle: TextStyle(color: whiteColor, fontSize: 20.sp),
-                          enableStepTapping: false,
-                          previousButtonIcon: Icon(Remix.arrow_left_s_line),
-                          activeStep: activeStep,
-
-                          // This ensures step-tapping updates the activeStep.
-                          onStepReached: (index) {
-                            setState(() {
-                              activeStep = index;
-                            });
-                          },
-                          numbers: [1, 2, 3]),
                       SizedBox(
                         height: 2.h,
                       ),
@@ -180,17 +207,85 @@ class _RelawanScreenState extends State<RelawanScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Obx(() => Container(
+                    width: double.infinity,
+                    child: DropdownFieldWidget(
+                      title: 'Kabupaten',
+                      listValue: registrationController.kabupatenList.value,
+                      value: kabupatenValue,
+                      isRequired: true,
+                      listName: 'name',
+                      valueName: 'id',
+                      itemCallback: (String value) {
+                        kabupatenValue = value;
+                        registrationController.fetchKecamatan(value);
+                        var kabupatenTempValue = registrationController.kabupatenList.value
+                            .where((element) => element['id'] == value)
+                            .toList();
+
+                        kabupatenStringValue = kabupatenTempValue[0]['name'];
+                        kecamatanValue = null;
+                        kelurahanValue = null;
+                      },
+                    ),
+                  )),
+              Obx(() => Container(
+                    child: Row(
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          child: DropdownFieldWidget(
+                            title: 'Kecamatan',
+                            listValue: registrationController.kecamatanList.value,
+                            value: kecamatanValue,
+                            isRequired: true,
+                            listName: 'name',
+                            valueName: 'id',
+                            itemCallback: (String value) {
+                              kecamatanValue = value;
+                              registrationController.fetchKelurahan(value);
+
+                              var kecamatanTempValue = registrationController.kecamatanList.value
+                                  .where((element) => element['id'] == value)
+                                  .toList();
+
+                              kecamatanStringValue = kecamatanTempValue[0]['name'];
+                              kelurahanValue = null;
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: 2.w,
+                        ),
+                        Flexible(
+                          flex: 1,
+                          child: DropdownFieldWidget(
+                            title: 'Kelurahan',
+                            listValue: registrationController.kelurahanList.value,
+                            value: kelurahanValue,
+                            isRequired: true,
+                            listName: 'name',
+                            valueName: 'id',
+                            itemCallback: (String value) {
+                              kelurahanValue = value;
+                              var kelurahanTempValue = registrationController.kelurahanList.value
+                                  .where((element) => element['id'] == value)
+                                  .toList();
+
+                              kelurahanStringValue = kelurahanTempValue[0]['name'];
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
               TextAreaWidget(
                 title: 'Alamat Lengkap',
+                tController: tAlamat,
               ),
               InputFieldWidget(
                 title: 'RT/RW',
-              ),
-              DropdownFieldWidget(
-                title: 'Kecamatan',
-              ),
-              DropdownFieldWidget(
-                title: 'Kelurahan/Desa',
+                tController: tRTRW,
               ),
               SizedBox(
                 height: 2.h,
@@ -277,6 +372,24 @@ class _RelawanScreenState extends State<RelawanScreen> {
               SizedBox(
                 height: 2.h,
               ),
+              Center(
+                child: DottedBorder(
+                  borderType: BorderType.RRect,
+                  radius: Radius.circular(12),
+                  padding: EdgeInsets.all(6),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    child: Container(
+                      height: 15.h,
+                      width: 30.w,
+                      child: opsionalImage == null ? null : Image.file(File(opsionalImage!.path)),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
               SizedBox(
                 height: 2.h,
               ),
@@ -309,6 +422,60 @@ class _RelawanScreenState extends State<RelawanScreen> {
                           setState(() {
                             activeStep++;
                           });
+                        } else {
+                          var nik = tNIK.text == null ? '' : tNIK.text;
+                          var namaLengkap = tNamaLengkap.text == null ? '' : tNamaLengkap.text;
+                          var tempatLahir = tTempatLahir.text == null ? '' : tTempatLahir.text;
+                          var tanggalLahir = tTanggalLahir.text == null ? '' : tTanggalLahir.text;
+
+                          var alamat = tAlamat.text == null ? '' : tAlamat.text;
+                          var rtRw = tRTRW.text == null ? '' : tRTRW.text;
+                          var pekerjaan = tPekerjaan.text == null ? '' : tPekerjaan.text;
+                          var email = tEmail.text == null ? '' : tEmail.text;
+
+                          var noTelp = tNoTelp.text == null ? '' : tNoTelp.text;
+
+                          Map a = {
+                            'nik': nik,
+                            'nama_lengkap': namaLengkap,
+                            'tempat_lahir': tempatLahir,
+                            'tanggal_lahir': tanggalLahir,
+                            'jenis_kelamin': jenisKelaminValue,
+                            'gol_darah': golDarahValue,
+                            'kabupaten': kabupatenStringValue,
+                            'kecamatan': kecamatanStringValue,
+                            'kelurahan': kelurahanStringValue,
+                            'alamat': alamat,
+                            'rt_rw': rtRw,
+                            'pekerjaan': pekerjaan,
+                            'email': email,
+                            'no_telp': noTelp,
+                          };
+
+                          print(a);
+
+                          sharedController.popUpMessage(
+                              'Konfirmasi', 'Apakah Anda yakin ingin menambahkan relawan?', 'Batal', 'Ya', () {
+                            Get.back();
+
+                            relawanController.registrasiSubRelawan(
+                                nik,
+                                namaLengkap,
+                                tempatLahir,
+                                tanggalLahir,
+                                jenisKelaminValue,
+                                golDarahValue,
+                                kabupatenStringValue,
+                                kecamatanStringValue,
+                                kelurahanStringValue,
+                                alamat,
+                                rtRw,
+                                pekerjaan,
+                                email,
+                                noTelp,
+                                opsionalImage!,
+                                context);
+                          }, true, context);
                         }
                       },
                       title: 'Lanjut',
@@ -328,9 +495,16 @@ class _RelawanScreenState extends State<RelawanScreen> {
             children: [
               InputFieldWidget(
                 title: 'NIK',
+                tController: tNIK,
               ),
               InputFieldWidget(
                 title: 'Nama Lengkap',
+                tController: tNamaLengkap,
+              ),
+              InputFieldWidget(
+                title: 'Nomor Telepon',
+                tController: tNoTelp,
+                inputType: TextInputType.phone,
               ),
               DropdownFieldWidget(
                 title: 'Jenis Kelamin',
@@ -344,22 +518,41 @@ class _RelawanScreenState extends State<RelawanScreen> {
               ),
               InputFieldWidget(
                 title: 'Tempat Lahir',
+                tController: tTempatLahir,
               ),
               InputFieldWidget(
                 title: 'Tanggal Lahir',
+                tController: tTanggalLahir,
+                onTap: () async {
+                  DateTime? newDateTime = await showRoundedDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(DateTime.now().year - 100),
+                    lastDate: DateTime(DateTime.now().year + 1),
+                    borderRadius: 16,
+                  );
+
+                  tTanggalLahir.text =
+                      DateFormat('dd-MM-yyy').format(DateTime.parse(newDateTime.toString())).toString();
+                },
               ),
               DropdownFieldWidget(
-                title: 'Agama',
-                listValue: agamaList,
-                value: agamaValue,
+                title: 'Gol. Darah',
+                listValue: golDarahList,
+                value: golDarahValue,
                 valueName: 'status',
                 listName: 'nama',
                 itemCallback: (String value) {
-                  agamaValue = value;
+                  golDarahValue = value;
                 },
               ),
               InputFieldWidget(
                 title: 'Pekerjaan',
+                tController: tPekerjaan,
+              ),
+              InputFieldWidget(
+                title: 'Email',
+                tController: tEmail,
               ),
               SizedBox(
                 height: 2.h,

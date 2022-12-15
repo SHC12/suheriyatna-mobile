@@ -9,12 +9,12 @@ class InputFieldWidget extends StatefulWidget {
   final String? title;
   final String? hint;
   final TextEditingController? tController;
-  final Function? onTap;
+  final Function()? onTap;
   final TextInputType? inputType;
   final bool? currency;
   final bool? isRequired;
 
-  InputFieldWidget(
+  const InputFieldWidget(
       {Key? key, this.title, this.hint, this.tController, this.onTap, this.inputType, this.currency, this.isRequired})
       : super(key: key);
 
@@ -50,6 +50,7 @@ class _InputFieldWidgetState extends State<InputFieldWidget> {
         TextField(
           minLines: 1,
           maxLines: 2,
+          onTap: widget.onTap,
           keyboardType: widget.inputType != null ? widget.inputType : null,
           controller: widget.tController,
           onChanged: widget.currency == true

@@ -3,11 +3,11 @@ import 'package:sizer/sizer.dart';
 import 'package:suheriyatna_mobile/infrastructure/theme/colors.dart';
 import 'package:suheriyatna_mobile/infrastructure/theme/fonts.dart';
 
-class CardListRelawanWidget extends StatelessWidget {
-  final String? nik;
-  final String? nama;
+class CardListKuisionerWidget extends StatelessWidget {
+  final String? title;
+  final String? subtitle;
   final Function()? onTap;
-  const CardListRelawanWidget({Key? key, this.nik, this.nama, this.onTap}) : super(key: key);
+  const CardListKuisionerWidget({Key? key, this.title, this.subtitle, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +28,16 @@ class CardListRelawanWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              nik!,
+              title!,
               style: defaultPrimaryTextStyle,
             ),
-            SizedBox(
-              height: 1.h,
-            ),
-            Text(
-              nama!,
-              style: defaultTextStyle,
-            ),
+            // SizedBox(
+            //   height: 1.h,
+            // ),
+            // Text(
+            //   subtitle!,
+            //   style: defaultTextStyle,
+            // ),
           ],
         ),
       ),

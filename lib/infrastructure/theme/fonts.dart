@@ -8,4 +8,5 @@ TextStyle headTextStyle = GoogleFonts.openSans(fontSize: 14.sp);
 TextStyle defaultTextStyle = GoogleFonts.openSans(fontSize: 12.sp);
 TextStyle defaultPrimaryTextStyle = GoogleFonts.openSans(fontSize: 12.sp, color: primaryColor);
 TextStyle defaultSecondaryTextStyle = GoogleFonts.openSans(fontSize: 12.sp, color: secondaryColor);
-TextStyle greyTextStyle = GoogleFonts.openSans(fontSize: 14.sp, color: greyTextColor);
+TextStyle greyTextStyle = GoogleFonts.openSans(fontSize: 12.sp, color: greyTextColor);
+TextStyle whiteTextStyle = GoogleFonts.openSans(fontSize: 12.sp, color: whiteColor);

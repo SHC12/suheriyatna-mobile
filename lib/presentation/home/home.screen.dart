@@ -75,8 +75,7 @@ class HomeScreen extends GetView<HomeController> {
                             icon: Remix.add_circle_line,
                             title: 'Kuisioner',
                             onTap: () {
-                              // Get.to(() => DtdcScreen());
-                              FToast.toast(context, msg: "Segera Hadir");
+                              Get.to(() => KuisionerScreen());
                             },
                           ),
                           MainIconWidget(

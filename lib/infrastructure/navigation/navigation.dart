@@ -71,5 +71,10 @@ class Nav {
       page: () => HotlineScreen(),
       binding: HotlineControllerBinding(),
     ),
+    GetPage(
+      name: Routes.KUISIONER,
+      page: () => KuisionerScreen(),
+      binding: KuisionerControllerBinding(),
+    ),
   ];
 }
