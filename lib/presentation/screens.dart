@@ -6,5 +6,6 @@ export 'package:suheriyatna_mobile/presentation/notifikasi/notifikasi.screen.dar
 export 'package:suheriyatna_mobile/presentation/profil/profil.screen.dart';
 export 'package:suheriyatna_mobile/presentation/registration/registration.screen.dart';
 export 'package:suheriyatna_mobile/presentation/relawan/relawan.screen.dart';
+export 'package:suheriyatna_mobile/presentation/role/role.screen.dart';
 export 'package:suheriyatna_mobile/presentation/shared/shared.screen.dart';
 export 'package:suheriyatna_mobile/presentation/splashscreen/splashscreen.screen.dart';

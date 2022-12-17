@@ -13,9 +13,18 @@ class InputFieldWidget extends StatefulWidget {
   final TextInputType? inputType;
   final bool? currency;
   final bool? isRequired;
+  final bool? isObscure;
 
   const InputFieldWidget(
-      {Key? key, this.title, this.hint, this.tController, this.onTap, this.inputType, this.currency, this.isRequired})
+      {Key? key,
+      this.title,
+      this.hint,
+      this.tController,
+      this.onTap,
+      this.inputType,
+      this.currency,
+      this.isRequired,
+      this.isObscure})
       : super(key: key);
 
   @override
@@ -48,8 +57,7 @@ class _InputFieldWidgetState extends State<InputFieldWidget> {
         ),
         SizedBox(height: 0.5.h),
         TextField(
-          minLines: 1,
-          maxLines: 2,
+          obscureText: widget.isObscure ?? false,
           onTap: widget.onTap,
           keyboardType: widget.inputType != null ? widget.inputType : null,
           controller: widget.tController,

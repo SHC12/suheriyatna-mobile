@@ -33,6 +33,8 @@ dependencies:
   get_storage: 2.0.3
   flutter_rounded_date_picker: 3.0.2
   dotted_border: 2.0.0+3
+  clipboard: 0.1.3
+  crypto: 3.0.2
   flutter: 
     sdk: flutter
 
@@ -45,5 +47,6 @@ flutter:
   assets: 
     - assets/images/
     - assets/lottie/
+    - assets/gif/
   uses-material-design: true
 

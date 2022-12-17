@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sort_child_properties_last
 
 import 'package:flutter/material.dart';
 
@@ -19,113 +19,153 @@ class LoginScreen extends GetView<LoginController> {
   LoginScreen({Key? key}) : super(key: key);
   LoginController loginController = Get.put(LoginController());
   TextEditingController tNoHP = TextEditingController();
+  TextEditingController tKataSandi = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 5.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Selamat datang di Suheriyatna Mobile',
-                style: headTextStyle.copyWith(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 14.sp)),
-            SizedBox(height: 2.h),
-            Container(
-              // height: 60.h,
-              width: 100.w,
-              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
-              decoration: BoxDecoration(
-                color: whiteColor,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'Login',
-                    style: headTextStyle.copyWith(fontSize: 14.sp, fontWeight: FontWeight.bold, color: secondaryColor),
+        backgroundColor: primaryColor,
+        body: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+            child: Column(
+              children: [
+                Flexible(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Center(
+                        child: Image.asset(
+                      'assets/images/main_logo_transparent.png',
+                      width: 35.w,
+                    )),
                   ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  CustomTextfielWidget(
-                    hintText: 'No HP',
-                    iconPrefix: Remix.phone_line,
-                    tController: tNoHP,
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  ButtonWidget(
-                    color: secondaryColor,
-                    title: 'Login',
-                    onTap: () async {
-                      if (tNoHP.text.isEmpty || tNoHP.text == null) {
-                        Get.snackbar(
-                          'Error',
-                          'No HP tidak boleh kosong',
-                          backgroundColor: whiteColor,
-                        );
-                      } else {
-                        loginController.login(tNoHP.text, context);
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Row(
-                    children: [
-                      Flexible(
-                          flex: 1,
-                          child: Divider(
-                            thickness: 2,
-                          )),
-                      SizedBox(
-                        width: 2.w,
-                      ),
-                      Text(
-                        ' atau ',
-                        style: defaultTextStyle,
-                      ),
-                      SizedBox(
-                        width: 2.w,
-                      ),
-                      Flexible(
-                          flex: 1,
-                          child: Divider(
-                            thickness: 2,
-                          )),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Belum memiliki akun ?',
-                        style: defaultTextStyle,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.to(RegistrationScreen());
-                        },
-                        child: Text(
-                          ' Daftar Sekarang ',
-                          style: defaultTextStyle.copyWith(color: primaryColor, fontWeight: FontWeight.bold),
+                  flex: 1,
+                ),
+                Flexible(
+                  // ignore: sort_child_properties_last
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 4.w),
+                    height: double.infinity,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: whiteColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Selamat Datang di',
+                                style: defaultPrimaryTextStyle.copyWith(
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                              Text(
+                                'Suheriyatna Mobile !',
+                                style: defaultPrimaryTextStyle.copyWith(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                        SizedBox(
+                          height: 4.h,
+                        ),
+                        CustomTextfielWidget(
+                          hintText: 'No HP',
+                          iconPrefix: Remix.phone_line,
+                          tController: tNoHP,
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        CustomTextfielWidget(
+                          hintText: 'Password',
+                          obscureText: true,
+                          iconPrefix: Remix.lock_2_line,
+                          tController: tKataSandi,
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        ButtonWidget(
+                          color: secondaryColor,
+                          title: 'Login',
+                          onTap: () async {
+                            if (tNoHP.text.isEmpty ||
+                                tNoHP.text == null ||
+                                tKataSandi.text.isEmpty ||
+                                tKataSandi.text == null) {
+                              Get.snackbar(
+                                'Error',
+                                'No HP atau Kata Sandi tidak boleh kosong',
+                                backgroundColor: whiteColor,
+                              );
+                            } else {
+                              loginController.login(tNoHP.text, tKataSandi.text, context);
+                            }
+                          },
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Row(
+                          children: [
+                            Flexible(
+                                flex: 1,
+                                child: Divider(
+                                  thickness: 2,
+                                )),
+                            SizedBox(
+                              width: 2.w,
+                            ),
+                            Text(
+                              ' atau ',
+                              style: defaultTextStyle,
+                            ),
+                            SizedBox(
+                              width: 2.w,
+                            ),
+                            Flexible(
+                                flex: 1,
+                                child: Divider(
+                                  thickness: 2,
+                                )),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Belum memiliki akun ?',
+                              style: defaultTextStyle,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(RegistrationScreen());
+                              },
+                              child: Text(
+                                ' Daftar Sekarang ',
+                                style: defaultTextStyle.copyWith(color: primaryColor, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+
+                  flex: 2,
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }

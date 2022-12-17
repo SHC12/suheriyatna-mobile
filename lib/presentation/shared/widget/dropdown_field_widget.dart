@@ -57,7 +57,7 @@ class _DropdownFieldWidgetState extends State<DropdownFieldWidget> {
         SizedBox(height: 0.5.h),
         Container(
           width: 100.w,
-          height: 6.h,
+          height: 7.h,
           padding: EdgeInsets.symmetric(vertical: 2.w, horizontal: 1.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),

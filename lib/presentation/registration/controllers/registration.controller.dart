@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:random_string/random_string.dart';
@@ -14,7 +17,7 @@ class RegistrationController extends GetxController {
   NetworkService networkService = Get.put(NetworkService());
   SharedController sharedController = Get.put(SharedController());
 
-  final CollectionReference relawan = FirebaseFirestore.instance.collection('relawan');
+  final CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   var kabupatenList = [].obs;
   var kecamatanList = [].obs;
@@ -38,22 +41,22 @@ class RegistrationController extends GetxController {
     super.onClose();
   }
 
-  registrasiRelawan(
+  registrasiUser(
+      var role,
       var nik,
       var namaLengkap,
       var tempatLahir,
       var tanggalLahir,
-      var jenisKelamin,
-      var golDarah,
       var kabupaten,
       var kecamatan,
       var kelurahan,
       var alamat,
-      var rtRW,
-      var pekerjaan,
-      var email,
+      var rt,
+      var rw,
       var kodeReferral,
       var noTelp,
+      var wilayahKerja,
+      var password,
       BuildContext context) async {
     sharedController.loading(context);
     var isCheckNik = await checkNIK(nik);
@@ -62,40 +65,30 @@ class RegistrationController extends GetxController {
       return;
     } else {
       var referralCode = randomAlpha(6);
-      prefs.write('nik', nik);
-      prefs.write('noTelp', noTelp);
-      prefs.write('namaLengkap', namaLengkap);
-      prefs.write('tempatLahir', tempatLahir);
-      prefs.write('tanggalLahir', tanggalLahir);
-      prefs.write('jenisKelamin', jenisKelamin);
-      prefs.write('golDarah', golDarah);
-      prefs.write('kabupaten', kabupaten);
-      prefs.write('kecamatan', kecamatan);
-      prefs.write('kelurahan', kelurahan);
-      prefs.write('alamat', alamat);
-      prefs.write('rtRW', rtRW);
-      prefs.write('pekerjaan', pekerjaan);
-      prefs.write('email', email);
-      prefs.write('kodeReferral', kodeReferral);
-      prefs.write('my_referral_code', referralCode);
+      var key = utf8.encode(password);
+      var bytes = utf8.encode("foobar");
 
-      await relawan.add({
+      var hmacSha256 = Hmac(sha256, key);
+      var digest = hmacSha256.convert(bytes);
+
+      await users.add({
+        'role': role,
         'my_referral_code': referralCode,
         'nik': nik,
         'nama_lengkap': namaLengkap,
         'tempat_lahir': tempatLahir,
         'tanggal_lahir': tanggalLahir,
-        'jenis_kelamin': jenisKelamin,
-        'gol_darah': golDarah,
         'kabupaten': kabupaten,
         'kecamatan': kecamatan,
         'kelurahan': kelurahan,
         'alamat': alamat,
-        'rt_rw': rtRW,
-        'pekerjaan': pekerjaan,
-        'email': email,
+        'rt': rt,
+        'rw': rw,
         'kode_referral': kodeReferral,
         'no_telp': noTelp,
+        'wilayah_kerja': wilayahKerja,
+        'is_verified': false,
+        'password': digest.toString(),
         'created_at': DateTime.now()
       });
 
@@ -105,7 +98,7 @@ class RegistrationController extends GetxController {
 
   checkNIK(var nik) async {
     bool isAvailable = false;
-    await relawan.where('nik', isEqualTo: nik).get().then((QuerySnapshot query) {
+    await users.where('nik', isEqualTo: nik).get().then((QuerySnapshot query) {
       if (query.docs.length > 0) {
         Get.back();
         Get.snackbar(

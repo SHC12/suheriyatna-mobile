@@ -41,7 +41,8 @@ class _RelawanScreenState extends State<RelawanScreen> {
   TextEditingController tTanggalLahir = TextEditingController();
   TextEditingController tGolDarah = TextEditingController();
   TextEditingController tAlamat = TextEditingController();
-  TextEditingController tRTRW = TextEditingController();
+  TextEditingController tRT = TextEditingController();
+  TextEditingController tRW = TextEditingController();
   TextEditingController tPekerjaan = TextEditingController();
   TextEditingController tEmail = TextEditingController();
   TextEditingController tKodeReferral = TextEditingController();
@@ -178,281 +179,244 @@ class _RelawanScreenState extends State<RelawanScreen> {
                           )
                         ],
                       ),
-                      SizedBox(height: 2.h),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Text(
-                        headerText(),
-                        style: headTextStyle.copyWith(fontWeight: FontWeight.bold, color: whiteColor, fontSize: 14.sp),
-                      ),
                     ],
                   ),
                 ),
                 SizedBox(
                   height: 1.h,
                 ),
-                content()!,
-              ],
-            )),
-      ),
-    );
-  }
-
-  Widget? content() {
-    switch (activeStep) {
-      case 1:
-        return Container(
-          margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Obx(() => Container(
-                    width: double.infinity,
-                    child: DropdownFieldWidget(
-                      title: 'Kabupaten',
-                      listValue: registrationController.kabupatenList.value,
-                      value: kabupatenValue,
-                      isRequired: true,
-                      listName: 'name',
-                      valueName: 'id',
-                      itemCallback: (String value) {
-                        kabupatenValue = value;
-                        registrationController.fetchKecamatan(value);
-                        var kabupatenTempValue = registrationController.kabupatenList.value
-                            .where((element) => element['id'] == value)
-                            .toList();
-
-                        kabupatenStringValue = kabupatenTempValue[0]['name'];
-                        kecamatanValue = null;
-                        kelurahanValue = null;
-                      },
-                    ),
-                  )),
-              Obx(() => Container(
-                    child: Row(
-                      children: [
-                        Flexible(
-                          flex: 1,
-                          child: DropdownFieldWidget(
-                            title: 'Kecamatan',
-                            listValue: registrationController.kecamatanList.value,
-                            value: kecamatanValue,
-                            isRequired: true,
-                            listName: 'name',
-                            valueName: 'id',
-                            itemCallback: (String value) {
-                              kecamatanValue = value;
-                              registrationController.fetchKelurahan(value);
-
-                              var kecamatanTempValue = registrationController.kecamatanList.value
-                                  .where((element) => element['id'] == value)
-                                  .toList();
-
-                              kecamatanStringValue = kecamatanTempValue[0]['name'];
-                              kelurahanValue = null;
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          width: 2.w,
-                        ),
-                        Flexible(
-                          flex: 1,
-                          child: DropdownFieldWidget(
-                            title: 'Kelurahan',
-                            listValue: registrationController.kelurahanList.value,
-                            value: kelurahanValue,
-                            isRequired: true,
-                            listName: 'name',
-                            valueName: 'id',
-                            itemCallback: (String value) {
-                              kelurahanValue = value;
-                              var kelurahanTempValue = registrationController.kelurahanList.value
-                                  .where((element) => element['id'] == value)
-                                  .toList();
-
-                              kelurahanStringValue = kelurahanTempValue[0]['name'];
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
-              TextAreaWidget(
-                title: 'Alamat Lengkap',
-                tController: tAlamat,
-              ),
-              InputFieldWidget(
-                title: 'RT/RW',
-                tController: tRTRW,
-              ),
-              SizedBox(
-                height: 2.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    flex: 1,
-                    child: ButtonWidget(
-                      color: Colors.yellow[900],
-                      onTap: () {
-                        if (activeStep > 0) {
-                          setState(() {
-                            activeStep--;
-                          });
-                        }
-                      },
-                      title: 'Sebelumnya',
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: ButtonWidget(
-                      color: primaryColor,
-                      onTap: () {
-                        if (activeStep < upperBound) {
-                          setState(() {
-                            activeStep++;
-                          });
-                        }
-                      },
-                      title: 'Lanjut',
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        );
-      case 2:
-        return Container(
-          margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 2.h,
-              ),
-              GestureDetector(
-                onTap: () {
-                  _onAlertPress();
-                },
-                child: Container(
-                  height: 20.h,
-                  width: 100.w,
-                  decoration: BoxDecoration(
-                    color: whiteColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Upload Dokumen Pendukung',
-                        style: headTextStyle.copyWith(fontWeight: FontWeight.bold),
+                      InputFieldWidget(
+                        title: 'NIK',
+                        tController: tNIK,
+                      ),
+                      InputFieldWidget(
+                        title: 'Nama Lengkap',
+                        tController: tNamaLengkap,
+                      ),
+                      InputFieldWidget(
+                        title: 'Nomor Telepon',
+                        tController: tNoTelp,
+                        inputType: TextInputType.phone,
+                      ),
+                      DropdownFieldWidget(
+                        title: 'Jenis Kelamin',
+                        value: jenisKelaminValue,
+                        listValue: jenisKelaminList,
+                        valueName: 'status',
+                        listName: 'nama',
+                        itemCallback: (String value) {
+                          jenisKelaminValue = value;
+                        },
+                      ),
+                      Row(
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: InputFieldWidget(
+                              title: 'Tempat Lahir',
+                              tController: tTempatLahir,
+                              isRequired: true,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: InputFieldWidget(
+                              title: 'Tanggal Lahir',
+                              tController: tTanggalLahir,
+                              isRequired: true,
+                              onTap: () async {
+                                DateTime? newDateTime = await showRoundedDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(DateTime.now().year - 100),
+                                  lastDate: DateTime(DateTime.now().year + 1),
+                                  borderRadius: 16,
+                                );
+
+                                tTanggalLahir.text =
+                                    DateFormat('dd-MM-yyy').format(DateTime.parse(newDateTime.toString())).toString();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      Obx(() => Container(
+                            width: double.infinity,
+                            child: DropdownFieldWidget(
+                              title: 'Kabupaten',
+                              listValue: registrationController.kabupatenList.value,
+                              value: kabupatenValue,
+                              isRequired: true,
+                              listName: 'name',
+                              valueName: 'id',
+                              itemCallback: (String value) {
+                                kabupatenValue = value;
+                                registrationController.fetchKecamatan(value);
+                                var kabupatenTempValue = registrationController.kabupatenList.value
+                                    .where((element) => element['id'] == value)
+                                    .toList();
+
+                                kabupatenStringValue = kabupatenTempValue[0]['name'];
+                                kecamatanValue = null;
+                                kelurahanValue = null;
+                              },
+                            ),
+                          )),
+                      Obx(() => Container(
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  flex: 1,
+                                  child: DropdownFieldWidget(
+                                    title: 'Kecamatan',
+                                    listValue: registrationController.kecamatanList.value,
+                                    value: kecamatanValue,
+                                    isRequired: true,
+                                    listName: 'name',
+                                    valueName: 'id',
+                                    itemCallback: (String value) {
+                                      kecamatanValue = value;
+                                      registrationController.fetchKelurahan(value);
+
+                                      var kecamatanTempValue = registrationController.kecamatanList.value
+                                          .where((element) => element['id'] == value)
+                                          .toList();
+
+                                      kecamatanStringValue = kecamatanTempValue[0]['name'];
+                                      kelurahanValue = null;
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 2.w,
+                                ),
+                                Flexible(
+                                  flex: 1,
+                                  child: DropdownFieldWidget(
+                                    title: 'Kelurahan',
+                                    listValue: registrationController.kelurahanList.value,
+                                    value: kelurahanValue,
+                                    isRequired: true,
+                                    listName: 'name',
+                                    valueName: 'id',
+                                    itemCallback: (String value) {
+                                      kelurahanValue = value;
+                                      var kelurahanTempValue = registrationController.kelurahanList.value
+                                          .where((element) => element['id'] == value)
+                                          .toList();
+
+                                      kelurahanStringValue = kelurahanTempValue[0]['name'];
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )),
+                      TextAreaWidget(
+                        title: 'Alamat Lengkap',
+                        tController: tAlamat,
+                      ),
+                      Row(
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: InputFieldWidget(
+                              title: 'RT',
+                              tController: tRT,
+                              isRequired: true,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: InputFieldWidget(
+                              title: 'RW',
+                              tController: tRW,
+                              isRequired: true,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
-                        height: 1.h,
+                        height: 2.h,
                       ),
-                      Icon(
-                        Remix.image_add_line,
+                      GestureDetector(
+                        onTap: () {
+                          _onAlertPress();
+                        },
+                        child: Container(
+                          height: 20.h,
+                          width: 100.w,
+                          decoration: BoxDecoration(
+                            color: whiteColor,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Upload Dokumen Pendukung',
+                                style: headTextStyle.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+                              Icon(
+                                Remix.image_add_line,
+                                color: primaryColor,
+                                size: 40.sp,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Center(
+                        child: DottedBorder(
+                          borderType: BorderType.RRect,
+                          radius: Radius.circular(12),
+                          padding: EdgeInsets.all(6),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                            child: Container(
+                              height: 15.h,
+                              width: 30.w,
+                              child: opsionalImage == null ? null : Image.file(File(opsionalImage!.path)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      ButtonWidget(
                         color: primaryColor,
-                        size: 40.sp,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 2.h,
-              ),
-              Center(
-                child: DottedBorder(
-                  borderType: BorderType.RRect,
-                  radius: Radius.circular(12),
-                  padding: EdgeInsets.all(6),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    child: Container(
-                      height: 15.h,
-                      width: 30.w,
-                      child: opsionalImage == null ? null : Image.file(File(opsionalImage!.path)),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 2.h,
-              ),
-              SizedBox(
-                height: 2.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    flex: 1,
-                    child: ButtonWidget(
-                      color: Colors.yellow[900],
-                      onTap: () {
-                        if (activeStep > 0) {
-                          setState(() {
-                            activeStep--;
-                          });
-                        }
-                      },
-                      title: 'Sebelumnya',
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: ButtonWidget(
-                      color: primaryColor,
-                      onTap: () {
-                        if (activeStep < upperBound) {
-                          setState(() {
-                            activeStep++;
-                          });
-                        } else {
+                        onTap: () {
                           var nik = tNIK.text == null ? '' : tNIK.text;
                           var namaLengkap = tNamaLengkap.text == null ? '' : tNamaLengkap.text;
                           var tempatLahir = tTempatLahir.text == null ? '' : tTempatLahir.text;
                           var tanggalLahir = tTanggalLahir.text == null ? '' : tTanggalLahir.text;
 
                           var alamat = tAlamat.text == null ? '' : tAlamat.text;
-                          var rtRw = tRTRW.text == null ? '' : tRTRW.text;
+                          var rt = tRT.text == null ? '' : tRT.text;
+                          var rw = tRW.text == null ? '' : tRW.text;
                           var pekerjaan = tPekerjaan.text == null ? '' : tPekerjaan.text;
                           var email = tEmail.text == null ? '' : tEmail.text;
 
                           var noTelp = tNoTelp.text == null ? '' : tNoTelp.text;
-
-                          Map a = {
-                            'nik': nik,
-                            'nama_lengkap': namaLengkap,
-                            'tempat_lahir': tempatLahir,
-                            'tanggal_lahir': tanggalLahir,
-                            'jenis_kelamin': jenisKelaminValue,
-                            'gol_darah': golDarahValue,
-                            'kabupaten': kabupatenStringValue,
-                            'kecamatan': kecamatanStringValue,
-                            'kelurahan': kelurahanStringValue,
-                            'alamat': alamat,
-                            'rt_rw': rtRw,
-                            'pekerjaan': pekerjaan,
-                            'email': email,
-                            'no_telp': noTelp,
-                          };
-
-                          print(a);
 
                           sharedController.popUpMessage(
                               'Konfirmasi', 'Apakah Anda yakin ingin menambahkan relawan?', 'Batal', 'Ya', () {
@@ -469,121 +433,22 @@ class _RelawanScreenState extends State<RelawanScreen> {
                                 kecamatanStringValue,
                                 kelurahanStringValue,
                                 alamat,
-                                rtRw,
+                                rt,
                                 pekerjaan,
                                 email,
                                 noTelp,
                                 opsionalImage!,
                                 context);
                           }, true, context);
-                        }
-                      },
-                      title: 'Lanjut',
-                    ),
+                        },
+                        title: 'Kirim',
+                      )
+                    ],
                   ),
-                ],
-              )
-            ],
-          ),
-        );
-
-      default:
-        return Container(
-          margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InputFieldWidget(
-                title: 'NIK',
-                tController: tNIK,
-              ),
-              InputFieldWidget(
-                title: 'Nama Lengkap',
-                tController: tNamaLengkap,
-              ),
-              InputFieldWidget(
-                title: 'Nomor Telepon',
-                tController: tNoTelp,
-                inputType: TextInputType.phone,
-              ),
-              DropdownFieldWidget(
-                title: 'Jenis Kelamin',
-                value: jenisKelaminValue,
-                listValue: jenisKelaminList,
-                valueName: 'status',
-                listName: 'nama',
-                itemCallback: (String value) {
-                  jenisKelaminValue = value;
-                },
-              ),
-              InputFieldWidget(
-                title: 'Tempat Lahir',
-                tController: tTempatLahir,
-              ),
-              InputFieldWidget(
-                title: 'Tanggal Lahir',
-                tController: tTanggalLahir,
-                onTap: () async {
-                  DateTime? newDateTime = await showRoundedDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(DateTime.now().year - 100),
-                    lastDate: DateTime(DateTime.now().year + 1),
-                    borderRadius: 16,
-                  );
-
-                  tTanggalLahir.text =
-                      DateFormat('dd-MM-yyy').format(DateTime.parse(newDateTime.toString())).toString();
-                },
-              ),
-              DropdownFieldWidget(
-                title: 'Gol. Darah',
-                listValue: golDarahList,
-                value: golDarahValue,
-                valueName: 'status',
-                listName: 'nama',
-                itemCallback: (String value) {
-                  golDarahValue = value;
-                },
-              ),
-              InputFieldWidget(
-                title: 'Pekerjaan',
-                tController: tPekerjaan,
-              ),
-              InputFieldWidget(
-                title: 'Email',
-                tController: tEmail,
-              ),
-              SizedBox(
-                height: 2.h,
-              ),
-              ButtonWidget(
-                color: primaryColor,
-                onTap: () {
-                  if (activeStep < upperBound) {
-                    setState(() {
-                      activeStep++;
-                    });
-                  }
-                },
-                title: 'Lanjut',
-              )
-            ],
-          ),
-        );
-    }
-  }
-
-  String headerText() {
-    switch (activeStep) {
-      case 1:
-        return 'Alamat Relawan';
-
-      case 2:
-        return 'Dokumen Pendukung Relawan';
-
-      default:
-        return 'Identitas Relawan';
-    }
+                )
+              ],
+            )),
+      ),
+    );
   }
 }

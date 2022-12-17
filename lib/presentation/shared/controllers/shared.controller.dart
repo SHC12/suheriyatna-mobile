@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +49,16 @@ class SharedController extends GetxController {
     final url = await snapshot.ref.getDownloadURL();
 
     return url;
+  }
+
+  hash(var text) {
+    var key = utf8.encode(text);
+    var bytes = utf8.encode("foobar");
+
+    var hmacSha256 = Hmac(sha256, key);
+    var digest = hmacSha256.convert(bytes);
+
+    return digest.toString();
   }
 
   popUpMessage(var titleMessage, var message, var titleButtonNo, var tittleButtonYes, Function() onTap, bool isButton,

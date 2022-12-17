@@ -2,6 +2,7 @@
     package="com.suheriyatna.mobile.suheriyatna_mobile">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
    <application
         android:label="suheriyatna_mobile"

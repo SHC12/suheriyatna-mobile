@@ -37,7 +37,8 @@ class _RegistrationCompleteScreenState extends State<RegistrationCompleteScreen>
               height: 2.h,
             ),
             Text(
-              'Sekarang Anda dapat menggunakan aplikasi Sobat Bang Yatna',
+              'Data Anda sedang di review, silahkan cek berkala',
+              textAlign: TextAlign.center,
               style: defaultTextStyle.copyWith(fontSize: 12.0.sp),
             ),
             SizedBox(
@@ -45,9 +46,9 @@ class _RegistrationCompleteScreenState extends State<RegistrationCompleteScreen>
             ),
             ButtonWidget(
               color: secondaryColor,
-              title: 'Mulai Sekarang',
+              title: 'Kembali',
               onTap: () {
-                Get.offAll(() => HomeScreen());
+                Get.offAll(() => LoginScreen());
               },
             ),
           ],

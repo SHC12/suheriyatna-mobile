@@ -76,5 +76,10 @@ class Nav {
       page: () => KuisionerScreen(),
       binding: KuisionerControllerBinding(),
     ),
+    GetPage(
+      name: Routes.ROLE,
+      page: () => const RoleScreen(),
+      binding: RoleControllerBinding(),
+    ),
   ];
 }

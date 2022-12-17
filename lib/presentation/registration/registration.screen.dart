@@ -1,18 +1,21 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:remixicon/remixicon.dart';
 import 'package:sizer/sizer.dart';
 import 'package:suheriyatna_mobile/presentation/registration/registration_complete.screen.dart';
 import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
+import 'package:suheriyatna_mobile/presentation/shared/widget/text_area_field_widget.dart';
 
 import '../../infrastructure/theme/colors.dart';
 import '../../infrastructure/theme/fonts.dart';
 import '../login/login.screen.dart';
 import '../shared/widget/button_widget.dart';
+import '../shared/widget/custom_textfield_widget.dart';
 import '../shared/widget/dropdown_field_widget.dart';
 import '../shared/widget/input_field_widget.dart';
 import 'controllers/registration.controller.dart';
@@ -27,14 +30,19 @@ class RegistrationScreen extends GetView<RegistrationController> {
   TextEditingController tTanggalLahir = TextEditingController();
   TextEditingController tGolDarah = TextEditingController();
   TextEditingController tAlamat = TextEditingController();
-  TextEditingController tRTRW = TextEditingController();
+  TextEditingController tRT = TextEditingController();
+  TextEditingController tRW = TextEditingController();
   TextEditingController tPekerjaan = TextEditingController();
   TextEditingController tEmail = TextEditingController();
   TextEditingController tKodeReferral = TextEditingController();
+  TextEditingController tKataSandi = TextEditingController();
+  TextEditingController tKataSandiConfirm = TextEditingController();
   TextEditingController tNoTelp = TextEditingController();
 
   var jenisKelaminValue;
   var kabupatenValue;
+  var wilayahKerjaValue;
+  var wilayahKerjaStringValue;
   var kecamatanValue;
   var kabupatenStringValue;
   var kecamatanStringValue;
@@ -43,10 +51,16 @@ class RegistrationScreen extends GetView<RegistrationController> {
   var agamaValue;
   var golDarahValue;
   var statusPernikahanValue;
+  var roleValue;
 
   var jenisKelaminList = [
     {'nama': 'Laki-laki', 'status': 'laki-laki'},
     {'nama': 'Perempuan', 'status': 'perempuan'},
+  ];
+  var roleList = [
+    {'name': 'Relawan', 'id': '1'},
+    {'name': 'DTDC', 'id': '2'},
+    {'name': 'Quick Count', 'id': '3'},
   ];
   var agamaList = [
     {'nama': 'Islam', 'status': 'Islam'},
@@ -117,6 +131,17 @@ class RegistrationScreen extends GetView<RegistrationController> {
                       SizedBox(
                         height: 2.h,
                       ),
+                      DropdownFieldWidget(
+                        title: 'Daftar Sebagai ?',
+                        listValue: roleList,
+                        value: roleValue,
+                        isRequired: true,
+                        listName: 'name',
+                        valueName: 'id',
+                        itemCallback: (String value) {
+                          roleValue = value;
+                        },
+                      ),
                       InputFieldWidget(
                         inputType: TextInputType.number,
                         title: 'NIK',
@@ -158,41 +183,6 @@ class RegistrationScreen extends GetView<RegistrationController> {
 
                                 tTanggalLahir.text =
                                     DateFormat('dd-MM-yyy').format(DateTime.parse(newDateTime.toString())).toString();
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Flexible(
-                            flex: 1,
-                            child: DropdownFieldWidget(
-                              title: 'Jenis Kelamin',
-                              listValue: jenisKelaminList,
-                              isRequired: true,
-                              value: jenisKelaminValue,
-                              listName: 'nama',
-                              valueName: 'status',
-                              itemCallback: (String value) {
-                                jenisKelaminValue = value;
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: 2.w,
-                          ),
-                          Flexible(
-                            flex: 1,
-                            child: DropdownFieldWidget(
-                              title: 'Gol. Darah',
-                              listValue: golDarahList,
-                              value: golDarahValue,
-                              isRequired: true,
-                              listName: 'nama',
-                              valueName: 'status',
-                              itemCallback: (String value) {
-                                golDarahValue = value;
                               },
                             ),
                           ),
@@ -270,13 +260,18 @@ class RegistrationScreen extends GetView<RegistrationController> {
                               ],
                             ),
                           )),
+                      TextAreaWidget(
+                        title: 'Alamat',
+                        isRequired: true,
+                        tController: tAlamat,
+                      ),
                       Row(
                         children: [
                           Flexible(
-                            flex: 3,
+                            flex: 1,
                             child: InputFieldWidget(
-                              title: 'Alamat',
-                              tController: tAlamat,
+                              title: 'RT',
+                              tController: tRT,
                               isRequired: true,
                             ),
                           ),
@@ -286,28 +281,12 @@ class RegistrationScreen extends GetView<RegistrationController> {
                           Flexible(
                             flex: 1,
                             child: InputFieldWidget(
-                              title: 'RT/RW',
-                              tController: tRTRW,
+                              title: 'RW',
+                              tController: tRW,
                               isRequired: true,
                             ),
                           ),
                         ],
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      InputFieldWidget(
-                        title: 'Pekerjaan',
-                        tController: tPekerjaan,
-                        isRequired: true,
-                      ),
-                      InputFieldWidget(
-                        title: 'Email',
-                        tController: tEmail,
-                      ),
-                      InputFieldWidget(
-                        tController: tKodeReferral,
-                        title: 'Kode Referal',
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -323,6 +302,41 @@ class RegistrationScreen extends GetView<RegistrationController> {
                           ),
                         ],
                       ),
+                      InputFieldWidget(
+                        tController: tKodeReferral,
+                        title: 'Kode Referal',
+                      ),
+                      InputFieldWidget(
+                        tController: tKataSandi,
+                        title: 'Kata Sandi',
+                        isRequired: true,
+                        isObscure: true,
+                      ),
+                      InputFieldWidget(
+                        tController: tKataSandiConfirm,
+                        title: 'Konfirmasi Kata Sandi',
+                        isRequired: true,
+                        isObscure: true,
+                      ),
+                      Obx(() => Container(
+                            width: double.infinity,
+                            child: DropdownFieldWidget(
+                              title: 'Wilayah Kerja',
+                              listValue: registrationController.kabupatenList.value,
+                              value: kabupatenValue,
+                              isRequired: true,
+                              listName: 'name',
+                              valueName: 'id',
+                              itemCallback: (String value) {
+                                wilayahKerjaValue = value;
+                                var wilayahKerjaempValue = registrationController.kabupatenList.value
+                                    .where((element) => element['id'] == value)
+                                    .toList();
+
+                                wilayahKerjaStringValue = wilayahKerjaempValue[0]['name'];
+                              },
+                            ),
+                          )),
                       SizedBox(
                         height: 2.h,
                       ),
@@ -336,63 +350,52 @@ class RegistrationScreen extends GetView<RegistrationController> {
                           var tanggalLahir = tTanggalLahir.text == null ? '' : tTanggalLahir.text;
 
                           var alamat = tAlamat.text == null ? '' : tAlamat.text;
-                          var rtRw = tRTRW.text == null ? '' : tRTRW.text;
-                          var pekerjaan = tPekerjaan.text == null ? '' : tPekerjaan.text;
-                          var email = tEmail.text == null ? '' : tEmail.text;
+                          var rw = tRW.text == null ? '' : tRW.text;
+                          var rt = tRT.text == null ? '' : tRT.text;
+
                           var kodeReferral = tKodeReferral.text == null ? '' : tKodeReferral.text;
                           var noTelp = tNoTelp.text == null ? '' : tNoTelp.text;
-
-                          Map a = {
-                            'nik': nik,
-                            'nama_lengkap': namaLengkap,
-                            'tempat_lahir': tempatLahir,
-                            'tanggal_lahir': tanggalLahir,
-                            'jenis_kelamin': jenisKelaminValue,
-                            'gol_darah': golDarahValue,
-                            'kabupaten': kabupatenStringValue,
-                            'kecamatan': kecamatanStringValue,
-                            'kelurahan': kelurahanStringValue,
-                            'alamat': alamat,
-                            'rt_rw': rtRw,
-                            'pekerjaan': pekerjaan,
-                            'email': email,
-                            'kode_referral': kodeReferral,
-                            'no_telp': noTelp,
-                          };
-                          print(a);
-
-                          if (nik == '' ||
-                              namaLengkap == '' ||
-                              tempatLahir == '' ||
-                              tanggalLahir == '' ||
-                              jenisKelaminValue == null ||
-                              golDarahValue == null ||
-                              kabupatenStringValue == null ||
-                              kecamatanStringValue == null ||
-                              kelurahanStringValue == null ||
-                              alamat == '' ||
-                              rtRw == '' ||
-                              pekerjaan == '' ||
-                              noTelp == '') {
-                            sharedController.showSnackbar('Gagal', 'Silahkan isi data yang memiliki simbol (*)');
+                          if (tKataSandi.text != tKataSandiConfirm.text) {
+                            sharedController.showSnackbar('Gagal', 'Kata sandi tidak sama');
+                            return;
                           } else {
-                            registrationController.registrasiRelawan(
-                                nik,
-                                namaLengkap,
-                                tempatLahir,
-                                tanggalLahir,
-                                jenisKelaminValue,
-                                golDarahValue,
-                                kabupatenStringValue,
-                                kecamatanStringValue,
-                                kelurahanStringValue,
-                                alamat,
-                                rtRw,
-                                pekerjaan,
-                                email,
-                                kodeReferral,
-                                noTelp,
-                                context);
+                            if (roleValue == null ||
+                                nik == '' ||
+                                namaLengkap == '' ||
+                                tempatLahir == '' ||
+                                tanggalLahir == '' ||
+                                kabupatenStringValue == null ||
+                                kecamatanStringValue == null ||
+                                kelurahanStringValue == null ||
+                                alamat == '' ||
+                                rt == '' ||
+                                rw == '' ||
+                                noTelp == '' ||
+                                wilayahKerjaStringValue == null) {
+                              sharedController.showSnackbar('Gagal', 'Silahkan isi data yang memiliki simbol (*)');
+                            } else {
+                              if (nik.length == 16) {
+                                registrationController.registrasiUser(
+                                    roleValue,
+                                    nik,
+                                    namaLengkap,
+                                    tempatLahir,
+                                    tanggalLahir,
+                                    kabupatenStringValue,
+                                    kecamatanStringValue,
+                                    kelurahanStringValue,
+                                    alamat,
+                                    rt,
+                                    rw,
+                                    kodeReferral,
+                                    noTelp,
+                                    wilayahKerjaStringValue,
+                                    tKataSandi.text,
+                                    context);
+                              } else {
+                                sharedController.showSnackbar('Gagal', 'NIK harus terdiri dari 16 digit');
+                              }
+                            }
                           }
                         },
                       ),

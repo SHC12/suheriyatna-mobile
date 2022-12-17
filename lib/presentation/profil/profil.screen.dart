@@ -1,3 +1,4 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -78,7 +79,12 @@ class ProfilScreen extends GetView<ProfilController> {
                                   Text(prefs.read('my_referral_code'),
                                       style: defaultTextStyle.copyWith(color: primaryColor, fontSize: 18.sp)),
                                   Spacer(),
-                                  Icon(Icons.copy, color: primaryColor),
+                                  GestureDetector(
+                                      onTap: () {
+                                        FlutterClipboard.copy(prefs.read('my_referral_code')).then((value) =>
+                                            sharedController.showSnackbar('Info', 'Kode referral berhasil di salin'));
+                                      },
+                                      child: Icon(Icons.copy, color: primaryColor)),
                                 ],
                               )
                             ],
