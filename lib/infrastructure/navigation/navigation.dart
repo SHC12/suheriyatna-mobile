@@ -81,5 +81,10 @@ class Nav {
       page: () => const RoleScreen(),
       binding: RoleControllerBinding(),
     ),
+    GetPage(
+      name: Routes.CEK_DATA,
+      page: () => CekDataScreen(),
+      binding: CekDataControllerBinding(),
+    ),
   ];
 }

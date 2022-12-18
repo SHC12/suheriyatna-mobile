@@ -14,7 +14,7 @@ import '../../../infrastructure/theme/colors.dart';
 
 class RelawanController extends GetxController {
   SharedController sharedController = Get.put(SharedController());
-  RegistrationController registrationController = Get.put(RegistrationController());
+
   var docID = ''.obs;
   final CollectionReference relawan = FirebaseFirestore.instance.collection('relawan');
 
@@ -62,77 +62,79 @@ class RelawanController extends GetxController {
     });
   }
 
-  registrasiSubRelawan(
+  addRelawan(
       var nik,
       var namaLengkap,
+      var noTelp,
+      var jenisKelamin,
       var tempatLahir,
       var tanggalLahir,
-      var jenisKelamin,
-      var golDarah,
       var kabupaten,
       var kecamatan,
       var kelurahan,
       var alamat,
-      var rtRW,
-      var pekerjaan,
-      var email,
-      var noTelp,
+      var rt,
+      var rw,
+      var wilayahKerja,
       XFile image,
+      bool isRegistration,
       BuildContext context) async {
-    sharedController.loading(context);
     var isCheckNik = await checkNIK(nik);
 
     if (isCheckNik == false) {
       return;
     } else {
-      final CollectionReference subRelawan =
-          FirebaseFirestore.instance.collection('relawan').doc(docID.value).collection('sub_relawan');
       var referralCode = randomAlpha(6);
 
-      var urlFile = await sharedController.uploadImage(image);
+      if (isRegistration == true) {
+        await relawan.add({
+          'my_referral_code': referralCode,
+          'nik_referral': '',
+          'no_telp_referral': '',
+          'nik': nik,
+          'nama_lengkap': namaLengkap,
+          'no_telp': noTelp,
+          'jenis_kelamin': jenisKelamin,
+          'tempat_lahir': tempatLahir,
+          'tanggal_lahir': tanggalLahir,
+          'kabupaten': kabupaten,
+          'kecamatan': kecamatan,
+          'kelurahan': kelurahan,
+          'alamat': alamat,
+          'rt': rt,
+          'rw': rw,
+          'wilayah_kerja': wilayahKerja,
+          'file_pendukung': '',
+          'kode_referral': '',
+          'created_at': DateTime.now()
+        });
+      } else {
+        var urlFile = await sharedController.uploadImage(image);
 
-      await subRelawan.add({
-        'my_referral_code': referralCode,
-        'nik': nik,
-        'nama_lengkap': namaLengkap,
-        'tempat_lahir': tempatLahir,
-        'tanggal_lahir': tanggalLahir,
-        'jenis_kelamin': jenisKelamin,
-        'gol_darah': golDarah,
-        'kabupaten': kabupaten,
-        'kecamatan': kecamatan,
-        'kelurahan': kelurahan,
-        'alamat': alamat,
-        'rt_rw': rtRW,
-        'pekerjaan': pekerjaan,
-        'email': email,
-        'kode_referral': prefs.read('my_referral_code'),
-        'no_telp': noTelp,
-        'file_pendukung': urlFile,
-        'created_at': DateTime.now()
-      });
+        await relawan.add({
+          'my_referral_code': referralCode,
+          'nik_referral': prefs.read('nik'),
+          'no_telp_referral': prefs.read('noTelp'),
+          'nik': nik,
+          'nama_lengkap': namaLengkap,
+          'no_telp': noTelp,
+          'jenis_kelamin': jenisKelamin,
+          'tempat_lahir': tempatLahir,
+          'tanggal_lahir': tanggalLahir,
+          'kabupaten': kabupaten,
+          'kecamatan': kecamatan,
+          'kelurahan': kelurahan,
+          'alamat': alamat,
+          'rt': rt,
+          'rw': rw,
+          'wilayah_kerja': wilayahKerja,
+          'file_pendukung': urlFile,
+          'kode_referral': prefs.read('my_referral_code'),
+          'created_at': DateTime.now()
+        });
 
-      await relawan.add({
-        'my_referral_code': referralCode,
-        'nik': nik,
-        'nama_lengkap': namaLengkap,
-        'tempat_lahir': tempatLahir,
-        'tanggal_lahir': tanggalLahir,
-        'jenis_kelamin': jenisKelamin,
-        'gol_darah': golDarah,
-        'kabupaten': kabupaten,
-        'kecamatan': kecamatan,
-        'kelurahan': kelurahan,
-        'alamat': alamat,
-        'rt_rw': rtRW,
-        'pekerjaan': pekerjaan,
-        'email': email,
-        'kode_referral': prefs.read('my_referral_code'),
-        'no_telp': noTelp,
-        'created_at': DateTime.now()
-      });
-
-      Get.offAll(() => RegistrationRelawanCompleteScreen());
+        Get.offAll(() => RegistrationRelawanCompleteScreen());
+      }
     }
   }
 

@@ -148,7 +148,7 @@ class LoginScreen extends GetView<LoginController> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Get.to(RegistrationScreen());
+                                Get.to(() => RegistrationScreen());
                               },
                               child: Text(
                                 ' Daftar Sekarang ',

@@ -208,54 +208,6 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                   rowSpacer,
                                   TableRow(children: [
                                     Text(
-                                      'Gol. Darah',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataRelawan!['gol_darah'] ?? '',
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'Pekerjaan',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataRelawan!['pekerjaan'],
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'Email',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataRelawan!['email'] ?? '',
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
                                       'Kabupaten',
                                       style: defaultPrimaryTextStyle,
                                     ),
@@ -328,7 +280,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['rt_rw'],
+                                      dataRelawan!['rt'] + '/' + dataRelawan!['rw'],
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),
@@ -347,6 +299,22 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       dataRelawan!['created_at'] == null
                                           ? ''
                                           : DateFormat('dd-MM-yyyy').format(DateTime.parse(t.toDate().toString())),
+                                      textAlign: TextAlign.left,
+                                      style: defaultTextStyle,
+                                    ),
+                                  ]),
+                                  rowSpacer,
+                                  TableRow(children: [
+                                    Text(
+                                      'Wilayah Kerja',
+                                      style: defaultPrimaryTextStyle,
+                                    ),
+                                    Text(
+                                      ':',
+                                      style: defaultPrimaryTextStyle,
+                                    ),
+                                    Text(
+                                      dataRelawan!['wilayah_kerja'],
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),

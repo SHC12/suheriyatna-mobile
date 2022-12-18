@@ -62,7 +62,7 @@ class HomeScreen extends GetView<HomeController> {
                               icon: Remix.search_eye_line,
                               title: 'Cek Data',
                               onTap: () {
-                                // Get.to(() => CheckDataScreen());
+                                Get.to(() => CekDataScreen());
                               },
                             ),
                           ],

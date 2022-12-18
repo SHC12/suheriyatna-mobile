@@ -59,6 +59,8 @@ class _RelawanScreenState extends State<RelawanScreen> {
   var kelurahanStringValue;
   var kelurahanValue;
   var golDarahValue;
+  var wilayahKerjaValue;
+  var wilayahKerjaStringValue;
   var agamaList = [
     {'nama': 'Islam', 'status': 'Islam'},
     {'nama': 'Kristen', 'status': 'Kristen'},
@@ -347,6 +349,25 @@ class _RelawanScreenState extends State<RelawanScreen> {
                           ),
                         ],
                       ),
+                      Obx(() => Container(
+                            width: double.infinity,
+                            child: DropdownFieldWidget(
+                              title: 'Wilayah Kerja',
+                              listValue: registrationController.kabupatenList.value,
+                              value: kabupatenValue,
+                              isRequired: true,
+                              listName: 'name',
+                              valueName: 'id',
+                              itemCallback: (String value) {
+                                wilayahKerjaValue = value;
+                                var wilayahKerjaempValue = registrationController.kabupatenList.value
+                                    .where((element) => element['id'] == value)
+                                    .toList();
+
+                                wilayahKerjaStringValue = wilayahKerjaempValue[0]['name'];
+                              },
+                            ),
+                          )),
                       SizedBox(
                         height: 2.h,
                       ),
@@ -421,23 +442,24 @@ class _RelawanScreenState extends State<RelawanScreen> {
                           sharedController.popUpMessage(
                               'Konfirmasi', 'Apakah Anda yakin ingin menambahkan relawan?', 'Batal', 'Ya', () {
                             Get.back();
+                            sharedController.loading(context);
 
-                            relawanController.registrasiSubRelawan(
+                            relawanController.addRelawan(
                                 nik,
                                 namaLengkap,
+                                noTelp,
+                                jenisKelaminValue,
                                 tempatLahir,
                                 tanggalLahir,
-                                jenisKelaminValue,
-                                golDarahValue,
                                 kabupatenStringValue,
                                 kecamatanStringValue,
                                 kelurahanStringValue,
                                 alamat,
                                 rt,
-                                pekerjaan,
-                                email,
-                                noTelp,
+                                rw,
+                                wilayahKerjaStringValue,
                                 opsionalImage!,
+                                false,
                                 context);
                           }, true, context);
                         },

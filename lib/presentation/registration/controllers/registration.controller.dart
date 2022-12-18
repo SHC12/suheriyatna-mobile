@@ -4,11 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:random_string/random_string.dart';
 import 'package:suheriyatna_mobile/infrastructure/dal/services/network_service.dart';
 import 'package:suheriyatna_mobile/infrastructure/dal/services/url_list_service.dart';
 import 'package:suheriyatna_mobile/main.dart';
 import 'package:suheriyatna_mobile/presentation/registration/registration_complete.screen.dart';
+import 'package:suheriyatna_mobile/presentation/relawan/controllers/relawan.controller.dart';
 import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
 
 import '../../../infrastructure/theme/colors.dart';
@@ -16,8 +18,12 @@ import '../../../infrastructure/theme/colors.dart';
 class RegistrationController extends GetxController {
   NetworkService networkService = Get.put(NetworkService());
   SharedController sharedController = Get.put(SharedController());
+  RelawanController relawanController = Get.put(RelawanController());
 
   final CollectionReference users = FirebaseFirestore.instance.collection('users');
+  final CollectionReference relawan = FirebaseFirestore.instance.collection('relawan');
+  final CollectionReference dtdc = FirebaseFirestore.instance.collection('DTDC');
+  final CollectionReference quickCount = FirebaseFirestore.instance.collection('quick_count');
 
   var kabupatenList = [].obs;
   var kecamatanList = [].obs;
@@ -45,6 +51,7 @@ class RegistrationController extends GetxController {
       var role,
       var nik,
       var namaLengkap,
+      var jenisKelamin,
       var tempatLahir,
       var tanggalLahir,
       var kabupaten,
@@ -76,6 +83,7 @@ class RegistrationController extends GetxController {
         'my_referral_code': referralCode,
         'nik': nik,
         'nama_lengkap': namaLengkap,
+        'jenis_kelamin': jenisKelamin,
         'tempat_lahir': tempatLahir,
         'tanggal_lahir': tanggalLahir,
         'kabupaten': kabupaten,
@@ -91,6 +99,11 @@ class RegistrationController extends GetxController {
         'password': digest.toString(),
         'created_at': DateTime.now()
       });
+
+      if (role == '1') {
+        relawanController.addRelawan(nik, namaLengkap, noTelp, jenisKelamin, tempatLahir, tanggalLahir, kabupaten,
+            kecamatan, kelurahan, alamat, rt, rw, wilayahKerja, XFile('path'), true, context);
+      }
 
       Get.offAll(RegistrationCompleteScreen());
     }

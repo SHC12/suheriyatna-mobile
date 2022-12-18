@@ -153,6 +153,16 @@ class RegistrationScreen extends GetView<RegistrationController> {
                         tController: tNamaLengkap,
                         isRequired: true,
                       ),
+                      DropdownFieldWidget(
+                        title: 'Jenis Kelamin',
+                        value: jenisKelaminValue,
+                        listValue: jenisKelaminList,
+                        valueName: 'status',
+                        listName: 'nama',
+                        itemCallback: (String value) {
+                          jenisKelaminValue = value;
+                        },
+                      ),
                       Row(
                         children: [
                           Flexible(
@@ -362,6 +372,7 @@ class RegistrationScreen extends GetView<RegistrationController> {
                             if (roleValue == null ||
                                 nik == '' ||
                                 namaLengkap == '' ||
+                                jenisKelaminValue == null ||
                                 tempatLahir == '' ||
                                 tanggalLahir == '' ||
                                 kabupatenStringValue == null ||
@@ -379,6 +390,7 @@ class RegistrationScreen extends GetView<RegistrationController> {
                                     roleValue,
                                     nik,
                                     namaLengkap,
+                                    jenisKelaminValue,
                                     tempatLahir,
                                     tanggalLahir,
                                     kabupatenStringValue,

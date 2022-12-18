@@ -12,7 +12,8 @@ class Routes {
   static const PROFIL = '/profil';
   static const REGISTRATION = '/registration';
   static const RELAWAN = '/relawan';
+  static const ROLE = '/role';
   static const SHARED = '/shared';
   static const SPLASHSCREEN = '/splashscreen';
-  static const ROLE = '/role';
+  static const CEK_DATA = '/cek-data';
 }

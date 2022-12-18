@@ -56,7 +56,7 @@ class HeaderWidget extends StatelessWidget {
                   }
                 },
                 child: Icon(
-                  isHome != null || isHome == true ? Remix.logout_circle_r_line : Remix.notification_3_line,
+                  isHome == true ? Remix.logout_circle_r_line : Remix.notification_3_line,
                   color: whiteColor,
                 ),
               )

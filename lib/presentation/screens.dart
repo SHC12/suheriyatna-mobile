@@ -1,3 +1,4 @@
+export 'package:suheriyatna_mobile/presentation/cek_data/cek_data.screen.dart';
 export 'package:suheriyatna_mobile/presentation/home/home.screen.dart';
 export 'package:suheriyatna_mobile/presentation/hotline/hotline.screen.dart';
 export 'package:suheriyatna_mobile/presentation/kuisioner/kuisioner.screen.dart';
