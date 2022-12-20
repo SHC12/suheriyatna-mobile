@@ -27,6 +27,8 @@ class CekDataController extends GetxController {
   getCheckData() {
     if (prefs.read('role') == '1') {
       getDataRelawan();
+    } else if (prefs.read('role') == '2') {
+      getDataKuisioner();
     }
   }
 
@@ -40,6 +42,15 @@ class CekDataController extends GetxController {
       dataList.assignAll(dataRelawanTemp);
 
       print('data relawan : $dataRelawanTemp');
+    });
+  }
+
+  getDataKuisioner() async {
+    await dtdc.where('nik_relawan', isEqualTo: prefs.read('nik')).get().then((QuerySnapshot query) async {
+      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      dataList.assignAll(dataRelawanTemp);
+
+      print('data kuisioner : $dataRelawanTemp');
     });
   }
 }

@@ -9,6 +9,7 @@ import 'package:random_string/random_string.dart';
 import 'package:suheriyatna_mobile/infrastructure/dal/services/network_service.dart';
 import 'package:suheriyatna_mobile/infrastructure/dal/services/url_list_service.dart';
 import 'package:suheriyatna_mobile/main.dart';
+import 'package:suheriyatna_mobile/presentation/kuisioner/controllers/kuisioner.controller.dart';
 import 'package:suheriyatna_mobile/presentation/registration/registration_complete.screen.dart';
 import 'package:suheriyatna_mobile/presentation/relawan/controllers/relawan.controller.dart';
 import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
@@ -19,6 +20,7 @@ class RegistrationController extends GetxController {
   NetworkService networkService = Get.put(NetworkService());
   SharedController sharedController = Get.put(SharedController());
   RelawanController relawanController = Get.put(RelawanController());
+  KuisionerController kuisionerController = Get.put(KuisionerController());
 
   final CollectionReference users = FirebaseFirestore.instance.collection('users');
   final CollectionReference relawan = FirebaseFirestore.instance.collection('relawan');
