@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
+import 'package:suheriyatna_mobile/main.dart';
+import 'package:suheriyatna_mobile/presentation/approval/controllers/approval.controller.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
-  final count = 0.obs;
+  ApprovalController approvalController = Get.put(ApprovalController());
   @override
   void onInit() {
     super.onInit();
+
+    if (prefs.read('role') == '0') {
+      approvalController.getUnVerified();
+    }
   }
 
   @override
@@ -18,6 +22,4 @@ class HomeController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

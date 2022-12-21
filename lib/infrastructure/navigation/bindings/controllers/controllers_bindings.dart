@@ -1,3 +1,4 @@
+export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/approval.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/cek_data.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/home.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/hotline.controller.binding.dart'; 

@@ -4,6 +4,7 @@ class Routes {
     return SPLASHSCREEN;
   }
 
+  static const CEK_DATA = '/cek-data';
   static const HOME = '/home';
   static const HOTLINE = '/hotline';
   static const KUISIONER = '/kuisioner';
@@ -15,5 +16,5 @@ class Routes {
   static const ROLE = '/role';
   static const SHARED = '/shared';
   static const SPLASHSCREEN = '/splashscreen';
-  static const CEK_DATA = '/cek-data';
+  static const APPROVAL = '/approval';
 }

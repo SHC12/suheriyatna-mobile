@@ -86,5 +86,10 @@ class Nav {
       page: () => CekDataScreen(),
       binding: CekDataControllerBinding(),
     ),
+    GetPage(
+      name: Routes.APPROVAL,
+      page: () => const ApprovalScreen(),
+      binding: ApprovalControllerBinding(),
+    ),
   ];
 }

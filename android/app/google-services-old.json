@@ -14,14 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "735924773000-ih9rmtca12ms3ob0mk5vk6cmvvmfuskr.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.suheriyatna.mobile.suheriyatna_mobile",
-            "certificate_hash": "a5ab6ead1542ea061d05fdd5e10f2ac625584eee"
-          }
-        },
-        {
           "client_id": "735924773000-o3bfv5sfvc2r0anbcg9i13j5vhgoslti.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
