@@ -18,7 +18,7 @@ class SplashscreenScreen extends GetView<SplashscreenController> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/gif/splashscreen.gif"),
+                  image: AssetImage("assets/images/splash_image_new.png"),
                   fit: BoxFit.fill,
                 ),
               ),

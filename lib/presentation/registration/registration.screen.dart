@@ -157,6 +157,7 @@ class RegistrationScreen extends GetView<RegistrationController> {
                         title: 'Jenis Kelamin',
                         value: jenisKelaminValue,
                         listValue: jenisKelaminList,
+                        isRequired: true,
                         valueName: 'status',
                         listName: 'nama',
                         itemCallback: (String value) {

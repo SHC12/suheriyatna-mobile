@@ -194,14 +194,17 @@ class _RelawanScreenState extends State<RelawanScreen> {
                     children: [
                       InputFieldWidget(
                         title: 'NIK',
+                        isRequired: true,
                         tController: tNIK,
                       ),
                       InputFieldWidget(
                         title: 'Nama Lengkap',
                         tController: tNamaLengkap,
+                        isRequired: true,
                       ),
                       InputFieldWidget(
                         title: 'Nomor Telepon',
+                        isRequired: true,
                         tController: tNoTelp,
                         inputType: TextInputType.phone,
                       ),
@@ -209,6 +212,7 @@ class _RelawanScreenState extends State<RelawanScreen> {
                         title: 'Jenis Kelamin',
                         value: jenisKelaminValue,
                         listValue: jenisKelaminList,
+                        isRequired: true,
                         valueName: 'status',
                         listName: 'nama',
                         itemCallback: (String value) {
@@ -324,6 +328,7 @@ class _RelawanScreenState extends State<RelawanScreen> {
                           )),
                       TextAreaWidget(
                         title: 'Alamat Lengkap',
+                        isRequired: true,
                         tController: tAlamat,
                       ),
                       Row(
@@ -438,30 +443,33 @@ class _RelawanScreenState extends State<RelawanScreen> {
                           var email = tEmail.text == null ? '' : tEmail.text;
 
                           var noTelp = tNoTelp.text == null ? '' : tNoTelp.text;
+                          if (opsionalImage == null) {
+                            sharedController.showSnackbar('Gagal', 'Upload dokumen pendukung tidak boleh kosong');
+                          } else {
+                            sharedController.popUpMessage(
+                                'Konfirmasi', 'Apakah Anda yakin ingin menambahkan relawan?', 'Batal', 'Ya', () {
+                              Get.back();
+                              sharedController.loading(context);
 
-                          sharedController.popUpMessage(
-                              'Konfirmasi', 'Apakah Anda yakin ingin menambahkan relawan?', 'Batal', 'Ya', () {
-                            Get.back();
-                            sharedController.loading(context);
-
-                            relawanController.addRelawan(
-                                nik,
-                                namaLengkap,
-                                noTelp,
-                                jenisKelaminValue,
-                                tempatLahir,
-                                tanggalLahir,
-                                kabupatenStringValue,
-                                kecamatanStringValue,
-                                kelurahanStringValue,
-                                alamat,
-                                rt,
-                                rw,
-                                wilayahKerjaStringValue,
-                                opsionalImage!,
-                                false,
-                                context);
-                          }, true, context);
+                              relawanController.addRelawan(
+                                  nik,
+                                  namaLengkap,
+                                  noTelp,
+                                  jenisKelaminValue,
+                                  tempatLahir,
+                                  tanggalLahir,
+                                  kabupatenStringValue,
+                                  kecamatanStringValue,
+                                  kelurahanStringValue,
+                                  alamat,
+                                  rt,
+                                  rw,
+                                  wilayahKerjaStringValue,
+                                  opsionalImage!,
+                                  false,
+                                  context);
+                            }, true, context);
+                          }
                         },
                         title: 'Kirim',
                       )

@@ -102,22 +102,6 @@ class HotlineScreen extends GetView<HotlineController> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 2.0.h,
-                      ),
-                      Text('Kantor Sobat Bang Yana ',
-                          style: defaultTextStyle.copyWith(fontSize: 12.0.sp, fontWeight: FontWeight.bold)),
-                      SizedBox(
-                        height: 0.5.h,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Jl. xxxxxx. No. xx',
-                              style: defaultTextStyle.copyWith(
-                                  fontSize: 10.0.sp, color: greyColor, fontWeight: FontWeight.bold)),
-                        ],
-                      ),
                     ],
                   ),
                 )
