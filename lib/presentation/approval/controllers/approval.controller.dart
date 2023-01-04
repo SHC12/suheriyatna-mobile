@@ -3,12 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
 
+import '../../../main.dart';
+
 class ApprovalController extends GetxController {
   SharedController sharedController = Get.put(SharedController());
   final CollectionReference user = FirebaseFirestore.instance.collection('users');
 
   var userUnverifiedList = [].obs;
   var docIDUserUnverifiedList = [].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    if (prefs.read('role') == '0') {
+      getUnVerified();
+    }
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
 
   getUnVerified() async {
     await user.where('is_verified', isEqualTo: false).get().then((QuerySnapshot query) async {

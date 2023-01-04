@@ -4,6 +4,7 @@ export 'package:suheriyatna_mobile/presentation/home/home.screen.dart';
 export 'package:suheriyatna_mobile/presentation/hotline/hotline.screen.dart';
 export 'package:suheriyatna_mobile/presentation/kuisioner/kuisioner.screen.dart';
 export 'package:suheriyatna_mobile/presentation/login/login.screen.dart';
+export 'package:suheriyatna_mobile/presentation/lupa_password/lupa_password.screen.dart';
 export 'package:suheriyatna_mobile/presentation/notifikasi/notifikasi.screen.dart';
 export 'package:suheriyatna_mobile/presentation/profil/profil.screen.dart';
 export 'package:suheriyatna_mobile/presentation/registration/registration.screen.dart';

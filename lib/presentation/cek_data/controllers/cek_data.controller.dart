@@ -29,6 +29,8 @@ class CekDataController extends GetxController {
       getDataRelawan();
     } else if (prefs.read('role') == '2') {
       getDataKuisioner();
+    } else if (prefs.read('role') == '0') {
+      getDataRelawanAll();
     }
   }
 
@@ -38,6 +40,15 @@ class CekDataController extends GetxController {
         .where('nik_referral', isEqualTo: prefs.read('nik'))
         .get()
         .then((QuerySnapshot query) async {
+      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      dataList.assignAll(dataRelawanTemp);
+
+      print('data relawan : $dataRelawanTemp');
+    });
+  }
+
+  getDataRelawanAll() async {
+    await FirebaseFirestore.instance.collection('relawan').get().then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
       dataList.assignAll(dataRelawanTemp);
 

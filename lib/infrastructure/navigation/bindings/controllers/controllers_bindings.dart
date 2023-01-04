@@ -4,6 +4,7 @@ export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controller
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/hotline.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/kuisioner.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/login.controller.binding.dart'; 
+export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/lupa_password.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/notifikasi.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/profil.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/registration.controller.binding.dart'; 

@@ -37,7 +37,7 @@ class CekDataScreen extends GetView<CekDataController> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: FittedBox(
-                child: prefs.read('role') == '1'
+                child: prefs.read('role') == '0'
                     ? DataTable(
                         headingRowColor: MaterialStateColor.resolveWith((states) => primaryColor),
                         columns: [
@@ -61,7 +61,7 @@ class CekDataScreen extends GetView<CekDataController> {
                           return DataRow(cells: [
                             DataCell(GestureDetector(
                               onTap: () async {
-                                if (prefs.read('role') == '1') {
+                                if (prefs.read('role') == '0') {
                                   Get.to(() => RelawanDetailScreen(
                                         dataRelawan: e,
                                       ));
@@ -80,69 +80,122 @@ class CekDataScreen extends GetView<CekDataController> {
                               ),
                             )),
                             DataCell(Text(
-                              e['nik'],
+                              e['nik'] ?? '',
                               style: greyTextStyle,
                             )),
                             DataCell(Text(
-                              e['nama_lengkap'],
+                              e['nama_lengkap'] ?? '',
                               style: defaultPrimaryTextStyle,
                             )),
                           ]);
                         }).toList(),
                       )
-                    : DataTable(
-                        headingRowColor: MaterialStateColor.resolveWith((states) => primaryColor),
-                        columns: [
-                          DataColumn(
-                              label: Text(
-                            'Action',
-                            style: whiteTextStyle,
-                          )),
-                          DataColumn(
-                              label: Text(
-                            'Nama Lengkap',
-                            style: whiteTextStyle,
-                          )),
-                          DataColumn(
-                              label: Text(
-                            'Tanggal Kuisioner',
-                            style: whiteTextStyle,
-                          )),
-                        ],
-                        rows: cekDataController.dataList.value.map((e) {
-                          Timestamp t = e!['created_at'];
-                          return DataRow(cells: [
-                            DataCell(GestureDetector(
-                              onTap: () async {
-                                if (prefs.read('role') == '2') {
-                                  Get.to(() => KuisionerDetailScreen(
-                                        dataKuisioner: e,
-                                      ));
-                                }
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 0.4.h),
-                                decoration: BoxDecoration(
-                                  color: secondaryColor,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Icon(
-                                  Remix.eye_line,
-                                  color: whiteColor,
-                                ),
-                              ),
-                            )),
-                            DataCell(Text(
-                              e['nama_kuisioner'],
-                              style: defaultPrimaryTextStyle,
-                            )),
-                            DataCell(Text(
-                              DateFormat('dd-MM-yyyy').format(DateTime.parse(t.toDate().toString())),
-                              style: defaultPrimaryTextStyle,
-                            )),
-                          ]);
-                        }).toList(),
-                      ),
+                    : prefs.read('role') == '1'
+                        ? DataTable(
+                            headingRowColor: MaterialStateColor.resolveWith((states) => primaryColor),
+                            columns: [
+                              DataColumn(
+                                  label: Text(
+                                'Action',
+                                style: whiteTextStyle,
+                              )),
+                              DataColumn(
+                                  label: Text(
+                                'NIK',
+                                style: whiteTextStyle,
+                              )),
+                              DataColumn(
+                                  label: Text(
+                                'Nama Lengkap',
+                                style: whiteTextStyle,
+                              )),
+                            ],
+                            rows: cekDataController.dataList.value.map((e) {
+                              return DataRow(cells: [
+                                DataCell(GestureDetector(
+                                  onTap: () async {
+                                    if (prefs.read('role') == '1') {
+                                      Get.to(() => RelawanDetailScreen(
+                                            dataRelawan: e,
+                                          ));
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 0.4.h),
+                                    decoration: BoxDecoration(
+                                      color: secondaryColor,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Icon(
+                                      Remix.eye_line,
+                                      color: whiteColor,
+                                    ),
+                                  ),
+                                )),
+                                DataCell(Text(
+                                  e['nik'],
+                                  style: greyTextStyle,
+                                )),
+                                DataCell(Text(
+                                  e['nama_lengkap'],
+                                  style: defaultPrimaryTextStyle,
+                                )),
+                              ]);
+                            }).toList(),
+                          )
+                        : DataTable(
+                            headingRowColor: MaterialStateColor.resolveWith((states) => primaryColor),
+                            columns: [
+                              DataColumn(
+                                  label: Text(
+                                'Action',
+                                style: whiteTextStyle,
+                              )),
+                              DataColumn(
+                                  label: Text(
+                                'Nama Lengkap',
+                                style: whiteTextStyle,
+                              )),
+                              DataColumn(
+                                  label: Text(
+                                'Tanggal Kuisioner',
+                                style: whiteTextStyle,
+                              )),
+                            ],
+                            rows: cekDataController.dataList.value.map((e) {
+                              Timestamp t = e!['created_at'];
+                              return DataRow(cells: [
+                                DataCell(GestureDetector(
+                                  onTap: () async {
+                                    if (prefs.read('role') == '2') {
+                                      Get.to(() => KuisionerDetailScreen(
+                                            dataKuisioner: e,
+                                          ));
+                                    }
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 0.4.h),
+                                    decoration: BoxDecoration(
+                                      color: secondaryColor,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Icon(
+                                      Remix.eye_line,
+                                      color: whiteColor,
+                                    ),
+                                  ),
+                                )),
+                                DataCell(Text(
+                                  e['nama_kuisioner'],
+                                  style: defaultPrimaryTextStyle,
+                                )),
+                                DataCell(Text(
+                                  DateFormat('dd-MM-yyyy').format(DateTime.parse(t.toDate().toString())),
+                                  style: defaultPrimaryTextStyle,
+                                )),
+                              ]);
+                            }).toList(),
+                          ),
               )))
         ],
       ),

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:crypto/crypto.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,15 +15,15 @@ import '../widget/loading.widget.dart';
 class SharedController extends GetxController {
   UploadTask? uploadTask;
 
-  sendOTP() async {
-    await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+6283186552074',
-      verificationCompleted: (PhoneAuthCredential credential) {},
-      verificationFailed: (FirebaseAuthException e) {},
-      codeSent: (String verificationId, int? resendToken) {},
-      codeAutoRetrievalTimeout: (String verificationId) {},
-    );
-  }
+  // sendOTP() async {
+  //   await FirebaseAuth.instance.verifyPhoneNumber(
+  //     phoneNumber: '+6283186552074',
+  //     verificationCompleted: (PhoneAuthCredential credential) {},
+  //     verificationFailed: (FirebaseAuthException e) {},
+  //     codeSent: (String verificationId, int? resendToken) {},
+  //     codeAutoRetrievalTimeout: (String verificationId) {},
+  //   );
+  // }
 
   showSnackbar(String title, String message) {
     Get.snackbar(

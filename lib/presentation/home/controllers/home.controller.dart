@@ -7,10 +7,6 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    if (prefs.read('role') == '0') {
-      approvalController.getUnVerified();
-    }
   }
 
   @override

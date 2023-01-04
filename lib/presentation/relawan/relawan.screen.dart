@@ -192,10 +192,44 @@ class _RelawanScreenState extends State<RelawanScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      InputFieldWidget(
-                        title: 'NIK',
-                        isRequired: true,
-                        tController: tNIK,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Flexible(
+                            flex: 2,
+                            child: InputFieldWidget(
+                              title: 'NIK',
+                              isRequired: true,
+                              tController: tNIK,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 4.w,
+                          ),
+                          Flexible(
+                              flex: 1,
+                              child: ButtonWidget(
+                                color: primaryColor,
+                                title: 'Cek NIK',
+                                onTap: () {
+                                  // var isCekNik = relawanController.checkNIK(tNIK.text);
+                                  // if (isCekNik == true) {
+                                  //   Get.snackbar(
+                                  //     'Cek NIK',
+                                  //     'NIK belum terdaftar',
+                                  //     backgroundColor: whiteColor,
+                                  //   );
+                                  // } else {
+                                  //   Get.snackbar(
+                                  //     'Cek NIK',
+                                  //     'NIK sudah terdaftar',
+                                  //     backgroundColor: whiteColor,
+                                  //   );
+                                  // }
+                                  relawanController.checkNIKValidasi(tNIK.text);
+                                },
+                              )),
+                        ],
                       ),
                       InputFieldWidget(
                         title: 'Nama Lengkap',

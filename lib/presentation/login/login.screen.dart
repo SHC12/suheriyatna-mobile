@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:sizer/sizer.dart';
 import 'package:suheriyatna_mobile/presentation/login/verifikasi_otp.screen.dart';
+import 'package:suheriyatna_mobile/presentation/screens.dart';
 
 import '../../infrastructure/theme/colors.dart';
 import '../../infrastructure/theme/fonts.dart';
@@ -108,6 +109,23 @@ class LoginScreen extends GetView<LoginController> {
                               loginController.login(tNoHP.text, tKataSandi.text, context);
                             }
                           },
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.to(() => LupaPasswordScreen());
+                              },
+                              child: Text(
+                                'Lupa Password ?',
+                                style: defaultTextStyle.copyWith(color: primaryColor, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
                         ),
                         SizedBox(
                           height: 2.h,

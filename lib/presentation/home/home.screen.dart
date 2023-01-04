@@ -8,6 +8,7 @@ import 'package:suheriyatna_mobile/main.dart';
 import 'package:suheriyatna_mobile/presentation/approval/controllers/approval.controller.dart';
 import 'package:suheriyatna_mobile/presentation/home/widget/main_icon_widget.dart';
 import 'package:suheriyatna_mobile/presentation/kuisioner/kuisioner_add.screen.dart';
+import 'package:suheriyatna_mobile/presentation/kuisioner/kuisioner_list.screen.dart';
 import 'package:suheriyatna_mobile/presentation/relawan/relawan_list.screen.dart';
 import 'package:suheriyatna_mobile/presentation/screens.dart';
 import 'package:suheriyatna_mobile/presentation/shared/widget/button_widget.dart';
@@ -49,68 +50,50 @@ class HomeScreen extends GetView<HomeController> {
                           margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
                           child: Column(
                             children: [
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: ButtonWidget(
-                                    color: secondaryColor,
-                                    title: 'Approve Semua User',
-                                    onTap: () {
-                                      approvalController.approveAllUser(context);
-                                    }),
-                              ),
                               SizedBox(
                                 height: 1.h,
                               ),
-                              Obx(() => FittedBox(
-                                    child: DataTable(
-                                      headingRowColor: MaterialStateColor.resolveWith((states) => primaryColor),
-                                      columns: [
-                                        DataColumn(
-                                            label: Text(
-                                          'Approve',
-                                          style: whiteTextStyle,
-                                        )),
-                                        DataColumn(
-                                            label: Text(
-                                          'NIK',
-                                          style: whiteTextStyle,
-                                        )),
-                                        DataColumn(
-                                            label: Text(
-                                          'Nama Lengkap',
-                                          style: whiteTextStyle,
-                                        )),
-                                      ],
-                                      rows: approvalController.userUnverifiedList.value.map((e) {
-                                        return DataRow(cells: [
-                                          DataCell(GestureDetector(
-                                            onTap: () async {
-                                              approvalController.approveUser(e['id']);
-                                            },
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 0.4.h),
-                                              decoration: BoxDecoration(
-                                                color: secondaryColor,
-                                                borderRadius: BorderRadius.circular(8),
-                                              ),
-                                              child: Icon(
-                                                Remix.check_line,
-                                                color: whiteColor,
-                                              ),
-                                            ),
-                                          )),
-                                          DataCell(Text(
-                                            e['nik'],
-                                            style: greyTextStyle,
-                                          )),
-                                          DataCell(Text(
-                                            e['nama_lengkap'],
-                                            style: defaultPrimaryTextStyle,
-                                          )),
-                                        ]);
-                                      }).toList(),
-                                    ),
-                                  ))
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  MainIconWidget(
+                                    icon: Remix.check_double_line,
+                                    title: 'Approval',
+                                    onTap: () {
+                                      Get.to(() => ApprovalScreen());
+                                    },
+                                  ),
+                                  MainIconWidget(
+                                    icon: Remix.group_line,
+                                    title: 'Relawan',
+                                    onTap: () {
+                                      Get.to(() => CekDataScreen());
+                                    },
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2.h,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  MainIconWidget(
+                                    icon: Remix.survey_line,
+                                    title: 'Kuisioner',
+                                    onTap: () {
+                                      Get.to(() => KuisionerListScreen());
+                                    },
+                                  ),
+                                  MainIconWidget(
+                                    icon: Remix.chat_poll_line,
+                                    title: 'Quick Count',
+                                    onTap: () {
+                                      FToast.toast(context, msg: "Segera Hadir");
+                                    },
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         )

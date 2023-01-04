@@ -157,4 +157,26 @@ class RelawanController extends GetxController {
 
     return isAvailable;
   }
+
+  checkNIKValidasi(var nik) async {
+    if (nik.length == 16) {
+      await relawan.where('nik', isEqualTo: nik).get().then((QuerySnapshot query) {
+        if (query.docs.length > 0) {
+          Get.snackbar(
+            'Gagal',
+            'NIK sudah terdaftar',
+            backgroundColor: whiteColor,
+          );
+        } else {
+          Get.snackbar(
+            'Berhasil',
+            'NIK belum terdaftar',
+            backgroundColor: whiteColor,
+          );
+        }
+      });
+    } else {
+      sharedController.showSnackbar('Gagal', 'NIK harus terdiri dari 16 digit');
+    }
+  }
 }

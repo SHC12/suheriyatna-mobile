@@ -26,6 +26,8 @@ class KuisionerController extends GetxController {
     super.onClose();
   }
 
+  var dataList = [].obs;
+
   addKuisioner(var namaLengkap, var jenisKelamin, var kabupaten, var kecamatan, var kelurahan, var isMengenal,
       XFile image, BuildContext context) async {
     sharedController.loading(context);
@@ -48,11 +50,24 @@ class KuisionerController extends GetxController {
   }
 
   getKuisionerList() async {
-    await dtdc.where('nik_relawan', isEqualTo: prefs.read('nik')).get().then((QuerySnapshot query) async {
-      List dataKuisionerTemp = query.docs.map((e) => e.data()).toList();
-      dataKuisioner.assignAll(dataKuisionerTemp);
+    if (prefs.read('role') == '0') {
+      getDataKuisionerAll();
+    } else {
+      await dtdc.where('nik_relawan', isEqualTo: prefs.read('nik')).get().then((QuerySnapshot query) async {
+        List dataKuisionerTemp = query.docs.map((e) => e.data()).toList();
+        dataKuisioner.assignAll(dataKuisionerTemp);
 
-      print('data kuisioner : $dataKuisionerTemp');
+        print('data kuisioner : $dataKuisionerTemp');
+      });
+    }
+  }
+
+  getDataKuisionerAll() async {
+    await dtdc.get().then((QuerySnapshot query) async {
+      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      dataList.assignAll(dataRelawanTemp);
+
+      print('data kuisioner : $dataRelawanTemp');
     });
   }
 }

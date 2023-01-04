@@ -88,8 +88,13 @@ class Nav {
     ),
     GetPage(
       name: Routes.APPROVAL,
-      page: () => const ApprovalScreen(),
+      page: () => ApprovalScreen(),
       binding: ApprovalControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.LUPA_PASSWORD,
+      page: () => LupaPasswordScreen(),
+      binding: LupaPasswordControllerBinding(),
     ),
   ];
 }
