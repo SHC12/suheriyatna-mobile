@@ -12,3 +12,4 @@ export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controller
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/role.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/shared.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/splashscreen.controller.binding.dart'; 
+export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/timses.controller.binding.dart'; 

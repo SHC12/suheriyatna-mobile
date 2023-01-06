@@ -210,22 +210,8 @@ class _RelawanScreenState extends State<RelawanScreen> {
                               flex: 1,
                               child: ButtonWidget(
                                 color: primaryColor,
-                                title: 'Cek NIK',
+                                title: 'Cek',
                                 onTap: () {
-                                  // var isCekNik = relawanController.checkNIK(tNIK.text);
-                                  // if (isCekNik == true) {
-                                  //   Get.snackbar(
-                                  //     'Cek NIK',
-                                  //     'NIK belum terdaftar',
-                                  //     backgroundColor: whiteColor,
-                                  //   );
-                                  // } else {
-                                  //   Get.snackbar(
-                                  //     'Cek NIK',
-                                  //     'NIK sudah terdaftar',
-                                  //     backgroundColor: whiteColor,
-                                  //   );
-                                  // }
                                   relawanController.checkNIKValidasi(tNIK.text);
                                 },
                               )),
@@ -236,11 +222,31 @@ class _RelawanScreenState extends State<RelawanScreen> {
                         tController: tNamaLengkap,
                         isRequired: true,
                       ),
-                      InputFieldWidget(
-                        title: 'Nomor Telepon',
-                        isRequired: true,
-                        tController: tNoTelp,
-                        inputType: TextInputType.phone,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Flexible(
+                            flex: 2,
+                            child: InputFieldWidget(
+                              title: 'Nomor Telepon',
+                              isRequired: true,
+                              tController: tNoTelp,
+                              inputType: TextInputType.phone,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 4.w,
+                          ),
+                          Flexible(
+                              flex: 1,
+                              child: ButtonWidget(
+                                color: primaryColor,
+                                title: 'Cek',
+                                onTap: () {
+                                  relawanController.checkTeleponValidasi(tNoTelp.text);
+                                },
+                              )),
+                        ],
                       ),
                       DropdownFieldWidget(
                         title: 'Jenis Kelamin',

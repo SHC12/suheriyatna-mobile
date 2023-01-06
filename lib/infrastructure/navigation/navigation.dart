@@ -96,5 +96,10 @@ class Nav {
       page: () => LupaPasswordScreen(),
       binding: LupaPasswordControllerBinding(),
     ),
+    GetPage(
+      name: Routes.TIMSES,
+      page: () => TimsesScreen(),
+      binding: TimsesControllerBinding(),
+    ),
   ];
 }

@@ -8,18 +8,19 @@ import 'package:remixicon/remixicon.dart';
 import 'package:sizer/sizer.dart';
 import 'package:suheriyatna_mobile/presentation/relawan/controllers/relawan.controller.dart';
 import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
+import 'package:suheriyatna_mobile/presentation/shared/widget/button_widget.dart';
+import 'package:suheriyatna_mobile/presentation/timses/controllers/timses.controller.dart';
 
 import '../../infrastructure/theme/colors.dart';
 import '../../infrastructure/theme/fonts.dart';
 import '../notifikasi/notifikasi.screen.dart';
-import '../shared/widget/button_widget.dart';
 
-class RelawanDetailScreen extends GetView<RelawanController> {
-  final Map? dataRelawan;
-  RelawanDetailScreen({Key? key, this.dataRelawan}) : super(key: key);
-  RelawanController relawanController = Get.put(RelawanController());
+class TimsesDetailScreen extends GetView<TimsesController> {
+  final Map? dataTimses;
+  TimsesDetailScreen({Key? key, this.dataTimses}) : super(key: key);
 
   SharedController sharedController = Get.put(SharedController());
+  TimsesController timsesController = Get.put(TimsesController());
   static const rowSpacer = TableRow(children: [
     SizedBox(
       height: 8,
@@ -34,7 +35,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
 
   @override
   Widget build(BuildContext context) {
-    Timestamp t = dataRelawan!['created_at'];
+    Timestamp t = dataTimses!['created_at'];
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -61,7 +62,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                         },
                         child: Icon(Remix.arrow_left_line, color: whiteColor),
                       ),
-                      Text('Detail Relawan', style: headTextStyle.copyWith(color: whiteColor)),
+                      Text('Detail Timses', style: headTextStyle.copyWith(color: whiteColor)),
                       GestureDetector(
                         onTap: () => Get.to(() => NotifikasiScreen()),
                         child: Icon(
@@ -83,7 +84,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Data Relawan',
+                    'Data Timses',
                     style: defaultPrimaryTextStyle,
                   ),
                   SizedBox(
@@ -125,7 +126,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['nik'],
+                                      dataTimses!['nik'],
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),
@@ -141,7 +142,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['nama_lengkap'],
+                                      dataTimses!['nama_lengkap'],
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),
@@ -157,7 +158,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['no_telp'] ?? '',
+                                      dataTimses!['no_telp'] ?? '',
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),
@@ -173,7 +174,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['jenis_kelamin'],
+                                      dataTimses!['jenis_kelamin'] ?? '',
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),
@@ -189,7 +190,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['tempat_lahir'],
+                                      dataTimses!['tempat_lahir'],
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),
@@ -205,7 +206,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['tanggal_lahir'],
+                                      dataTimses!['tanggal_lahir'],
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),
@@ -221,7 +222,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['kabupaten'],
+                                      dataTimses!['kabupaten'],
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),
@@ -237,7 +238,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['kecamatan'],
+                                      dataTimses!['kecamatan'],
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),
@@ -253,7 +254,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['kelurahan'],
+                                      dataTimses!['kelurahan'],
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),
@@ -269,7 +270,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['alamat'],
+                                      dataTimses!['alamat'],
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),
@@ -285,7 +286,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['rt'] + '/' + dataRelawan!['rw'],
+                                      dataTimses!['rt'] + '/' + dataTimses!['rw'],
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),
@@ -301,7 +302,7 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['created_at'] == null
+                                      dataTimses!['created_at'] == null
                                           ? ''
                                           : DateFormat('dd-MM-yyyy').format(DateTime.parse(t.toDate().toString())),
                                       textAlign: TextAlign.left,
@@ -319,24 +320,13 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                                       style: defaultPrimaryTextStyle,
                                     ),
                                     Text(
-                                      dataRelawan!['wilayah_kerja'],
+                                      dataTimses!['wilayah_kerja'],
                                       textAlign: TextAlign.left,
                                       style: defaultTextStyle,
                                     ),
                                   ]),
                                 ],
                               ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-                              Text(
-                                'Dokumen Pendukung',
-                                style: defaultPrimaryTextStyle,
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              Image.network(dataRelawan!['file_pendukung']),
                             ],
                           ),
                         ),
@@ -345,19 +335,19 @@ class RelawanDetailScreen extends GetView<RelawanController> {
                   ),
                   ButtonWidget(
                     color: Colors.red,
-                    title: 'Hapus Relawan',
+                    title: 'Nonaktifkan Timses',
                     onTap: () {
                       sharedController
-                          .popUpMessage('Konfirmasi', 'Apakah Anda yakin ingin menghapus relawan?', 'Batal', 'Ya', () {
+                          .popUpMessage('Konfirmasi', 'Apakah Anda yakin ingin nonaktifkan timses?', 'Batal', 'Ya', () {
                         Get.back();
                         sharedController.loading(context);
-                        relawanController.nonAktifRelawan(dataRelawan!['nik']);
+                        timsesController.nonAktifkanTimses(dataTimses!['nik']);
                       }, true, context);
                     },
                   ),
                 ],
               ),
-            ),
+            )
           ],
         ),
       ),

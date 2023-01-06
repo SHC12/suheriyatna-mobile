@@ -64,10 +64,10 @@ class HomeScreen extends GetView<HomeController> {
                                     },
                                   ),
                                   MainIconWidget(
-                                    icon: Remix.group_line,
-                                    title: 'Relawan',
+                                    icon: Remix.user_star_line,
+                                    title: 'Timses',
                                     onTap: () {
-                                      Get.to(() => CekDataScreen());
+                                      Get.to(() => TimsesScreen());
                                     },
                                   ),
                                 ],
@@ -79,12 +79,27 @@ class HomeScreen extends GetView<HomeController> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   MainIconWidget(
+                                    icon: Remix.group_line,
+                                    title: 'Relawan',
+                                    onTap: () {
+                                      Get.to(() => CekDataScreen());
+                                    },
+                                  ),
+                                  MainIconWidget(
                                     icon: Remix.survey_line,
                                     title: 'Kuisioner',
                                     onTap: () {
                                       Get.to(() => KuisionerListScreen());
                                     },
                                   ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2.h,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
                                   MainIconWidget(
                                     icon: Remix.chat_poll_line,
                                     title: 'Quick Count',

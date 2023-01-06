@@ -38,6 +38,7 @@ class CekDataController extends GetxController {
     await FirebaseFirestore.instance
         .collection('relawan')
         .where('nik_referral', isEqualTo: prefs.read('nik'))
+        .where('is_deleted', isEqualTo: false)
         .get()
         .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
@@ -48,7 +49,11 @@ class CekDataController extends GetxController {
   }
 
   getDataRelawanAll() async {
-    await FirebaseFirestore.instance.collection('relawan').get().then((QuerySnapshot query) async {
+    await FirebaseFirestore.instance
+        .collection('relawan')
+        .where('is_deleted', isEqualTo: false)
+        .get()
+        .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
       dataList.assignAll(dataRelawanTemp);
 

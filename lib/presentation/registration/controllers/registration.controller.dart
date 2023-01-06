@@ -69,8 +69,9 @@ class RegistrationController extends GetxController {
       BuildContext context) async {
     sharedController.loading(context);
     var isCheckNik = await checkNIK(nik);
+    var isCheckTelepon = await checkTelepon(noTelp);
 
-    if (isCheckNik == false) {
+    if (isCheckNik == false || isCheckTelepon == false) {
       return;
     } else {
       var referralCode = randomAlpha(6);
@@ -98,6 +99,7 @@ class RegistrationController extends GetxController {
         'no_telp': noTelp,
         'wilayah_kerja': wilayahKerja,
         'is_verified': false,
+        'is_deleted': false,
         'password': digest.toString(),
         'created_at': DateTime.now()
       });
@@ -113,12 +115,32 @@ class RegistrationController extends GetxController {
 
   checkNIK(var nik) async {
     bool isAvailable = false;
-    await users.where('nik', isEqualTo: nik).get().then((QuerySnapshot query) {
+    await relawan.where('nik', isEqualTo: nik).get().then((QuerySnapshot query) {
       if (query.docs.length > 0) {
         Get.back();
         Get.snackbar(
           'Gagal',
           'NIK sudah terdaftar',
+          backgroundColor: whiteColor,
+        );
+        isAvailable = false;
+      } else {
+        print('NIK belum terdaftar');
+        isAvailable = true;
+      }
+    });
+
+    return isAvailable;
+  }
+
+  checkTelepon(var noTelp) async {
+    bool isAvailable = false;
+    await relawan.where('no_telp', isEqualTo: noTelp).get().then((QuerySnapshot query) {
+      if (query.docs.length > 0) {
+        Get.back();
+        Get.snackbar(
+          'Gagal',
+          'Nomor Telepon sudah terdaftar',
           backgroundColor: whiteColor,
         );
         isAvailable = false;

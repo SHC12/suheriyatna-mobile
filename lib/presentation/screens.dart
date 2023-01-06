@@ -12,3 +12,4 @@ export 'package:suheriyatna_mobile/presentation/relawan/relawan.screen.dart';
 export 'package:suheriyatna_mobile/presentation/role/role.screen.dart';
 export 'package:suheriyatna_mobile/presentation/shared/shared.screen.dart';
 export 'package:suheriyatna_mobile/presentation/splashscreen/splashscreen.screen.dart';
+export 'package:suheriyatna_mobile/presentation/timses/timses.screen.dart';
