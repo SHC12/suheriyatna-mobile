@@ -6,14 +6,21 @@ import 'package:remixicon/remixicon.dart';
 import 'package:sizer/sizer.dart';
 import 'package:suheriyatna_mobile/main.dart';
 import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
+import 'package:suheriyatna_mobile/presentation/shared/widget/input_field_widget.dart';
 
 import '../../infrastructure/theme/colors.dart';
 import '../../infrastructure/theme/fonts.dart';
+import '../pengumuman/pengumuman.screen.dart';
 import '../shared/widget/header_widget.dart';
 import 'controllers/profil.controller.dart';
 
 class ProfilScreen extends GetView<ProfilController> {
   SharedController sharedController = Get.put(SharedController());
+  ProfilController profilController = Get.put(ProfilController());
+
+  TextEditingController tPassword = TextEditingController();
+  TextEditingController tKonfirmasiPassword = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +83,7 @@ class ProfilScreen extends GetView<ProfilController> {
                               ),
                               Row(
                                 children: [
-                                  Text(prefs.read('my_referral_code'),
+                                  Text(prefs.read('my_referral_code') ?? '',
                                       style: defaultTextStyle.copyWith(color: primaryColor, fontSize: 18.sp)),
                                   Spacer(),
                                   GestureDetector(
@@ -104,15 +111,20 @@ class ProfilScreen extends GetView<ProfilController> {
                     ),
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Lihat Data Saya',
-                              style: defaultTextStyle,
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Lihat Data Saya',
+                                  style: defaultTextStyle,
+                                ),
+                                Icon(Remix.arrow_right_s_line)
+                              ],
                             ),
-                            Icon(Remix.arrow_right_s_line)
-                          ],
+                          ),
                         ),
                         SizedBox(
                           height: 1.h,
@@ -120,15 +132,153 @@ class ProfilScreen extends GetView<ProfilController> {
                         Divider(
                           thickness: 2,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Tentang Aplikasi',
-                              style: defaultTextStyle,
+                        GestureDetector(
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (context) {
+                                return StatefulBuilder(builder: (BuildContext context, StateSetter mystate) {
+                                  return SingleChildScrollView(
+                                    child: Padding(
+                                      padding: MediaQuery.of(context).viewInsets,
+                                      child: Container(
+                                        padding: EdgeInsets.all(20),
+                                        decoration: new BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: new BorderRadius.only(
+                                                topLeft: const Radius.circular(10.0),
+                                                topRight: const Radius.circular(10.0))),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                                margin: EdgeInsets.only(
+                                                  left: 10,
+                                                  right: 10,
+                                                ),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    InputFieldWidget(
+                                                      tController: tPassword,
+                                                      title: 'Password Baru',
+                                                      isObscure: true,
+                                                    ),
+                                                    InputFieldWidget(
+                                                      tController: tKonfirmasiPassword,
+                                                      title: 'Konfirmasi Password Baru',
+                                                      isObscure: true,
+                                                    )
+                                                  ],
+                                                )),
+                                            SizedBox(height: 1.0.h),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Center(
+                                                  child: Container(
+                                                    margin: EdgeInsets.all(8),
+                                                    height: Get.height / 22,
+                                                    width: Get.width / 3,
+                                                    child: RaisedButton(
+                                                      onPressed: () async {
+                                                        if (tPassword.text.isEmpty ||
+                                                            tPassword.text == null ||
+                                                            tKonfirmasiPassword.text.isEmpty ||
+                                                            tKonfirmasiPassword.text == null) {
+                                                          Get.snackbar(
+                                                            'Error',
+                                                            'Password atau Konfirmasi Password tidak boleh kosong',
+                                                            backgroundColor: whiteColor,
+                                                          );
+                                                        } else {
+                                                          if (tPassword.text != tKonfirmasiPassword.text) {
+                                                            Get.snackbar(
+                                                              'Error',
+                                                              'Password dan Konfirmasi Password tidak sama',
+                                                              backgroundColor: whiteColor,
+                                                            );
+                                                          } else {
+                                                            profilController.gantiPassword(tPassword.text);
+                                                          }
+                                                        }
+                                                      },
+                                                      color: primaryColor,
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(8)),
+                                                      child: Text(
+                                                        'OK',
+                                                        style: whiteTextStyle,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Center(
+                                                  child: Container(
+                                                    margin: EdgeInsets.all(8),
+                                                    height: Get.height / 22,
+                                                    width: Get.width / 3,
+                                                    child: RaisedButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      color: Colors.grey,
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(8)),
+                                                      child: Text(
+                                                        'KEMBALI',
+                                                        style: whiteTextStyle,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                });
+                              },
+                            );
+                          },
+                          child: Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Ganti Password',
+                                  style: defaultTextStyle,
+                                ),
+                                Icon(Remix.arrow_right_s_line)
+                              ],
                             ),
-                            Icon(Remix.arrow_right_s_line)
-                          ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 1.h,
+                        ),
+                        Divider(
+                          thickness: 2,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => PengumumanScreen());
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Tentang Aplikasi',
+                                style: defaultTextStyle,
+                              ),
+                              Icon(Remix.arrow_right_s_line)
+                            ],
+                          ),
                         ),
                         SizedBox(
                           height: 1.h,

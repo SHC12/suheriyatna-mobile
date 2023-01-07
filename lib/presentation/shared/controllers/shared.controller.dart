@@ -9,11 +9,18 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:suheriyatna_mobile/presentation/shared/widget/confirm_dialog.widget.dart';
 
+import '../../../infrastructure/dal/services/network_service.dart';
+import '../../../infrastructure/dal/services/url_list_service.dart';
 import '../../../infrastructure/theme/colors.dart';
 import '../widget/loading.widget.dart';
 
 class SharedController extends GetxController {
+  NetworkService networkService = Get.put(NetworkService());
   UploadTask? uploadTask;
+
+  var kabupatenList = [].obs;
+  var kecamatanList = [].obs;
+  var kelurahanList = [].obs;
 
   // sendOTP() async {
   //   await FirebaseAuth.instance.verifyPhoneNumber(
@@ -59,6 +66,45 @@ class SharedController extends GetxController {
     var digest = hmacSha256.convert(bytes);
 
     return digest.toString();
+  }
+
+  fetchKabupaten() async {
+    kabupatenList.clear();
+    return networkService.get(
+        path: UrlListService.urlKabupaten,
+        onSuccess: (content) {
+          kabupatenList.assignAll(content);
+          print(content);
+        },
+        onError: (content) {
+          print(content);
+        });
+  }
+
+  fetchKecamatan(var idKabupaten) async {
+    kecamatanList.clear();
+    return networkService.get(
+        path: '${UrlListService.urlKecamatan + idKabupaten}.json',
+        onSuccess: (content) {
+          kecamatanList.assignAll(content);
+          print('kecamatan : $content');
+        },
+        onError: (content) {
+          print('kecamatan : $content');
+        });
+  }
+
+  fetchKelurahan(var idKecamatan) async {
+    kelurahanList.clear();
+    return networkService.get(
+        path: '${UrlListService.urlKelurahan + idKecamatan}.json',
+        onSuccess: (content) {
+          kelurahanList.assignAll(content);
+          print('kelurahan : $content');
+        },
+        onError: (content) {
+          print('kelurahan : $content');
+        });
   }
 
   popUpMessage(var titleMessage, var message, var titleButtonNo, var tittleButtonYes, Function() onTap, bool isButton,

@@ -6,10 +6,12 @@ export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controller
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/login.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/lupa_password.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/notifikasi.controller.binding.dart'; 
+export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/pengumuman.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/profil.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/registration.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/relawan.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/role.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/shared.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/splashscreen.controller.binding.dart'; 
+export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/summary_data.controller.binding.dart'; 
 export 'package:suheriyatna_mobile/infrastructure/navigation/bindings/controllers/timses.controller.binding.dart'; 

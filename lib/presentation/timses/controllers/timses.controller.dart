@@ -9,6 +9,7 @@ class TimsesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    sharedController.fetchKabupaten();
     getTimses();
   }
 
@@ -73,6 +74,51 @@ class TimsesController extends GetxController {
         Get.back();
         print('error : $e');
       });
+    });
+  }
+
+  getDataTimsesByKabupaten(var kabupaten) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where('is_deleted', isEqualTo: false)
+        .where('is_verified', isEqualTo: true)
+        .where('kabupaten', isEqualTo: kabupaten)
+        .get()
+        .then((QuerySnapshot query) async {
+      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      dataList.assignAll(dataRelawanTemp);
+
+      print('data relawan : $dataRelawanTemp');
+    });
+  }
+
+  getDataTimsesByKecamatan(var kecamatan) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where('is_deleted', isEqualTo: false)
+        .where('is_verified', isEqualTo: true)
+        .where('kecamatan', isEqualTo: kecamatan)
+        .get()
+        .then((QuerySnapshot query) async {
+      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      dataList.assignAll(dataRelawanTemp);
+
+      print('data relawan : $dataRelawanTemp');
+    });
+  }
+
+  getDataTimsesByKelurahan(var kelurahan) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where('is_deleted', isEqualTo: false)
+        .where('is_verified', isEqualTo: true)
+        .where('kelurahan', isEqualTo: kelurahan)
+        .get()
+        .then((QuerySnapshot query) async {
+      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      dataList.assignAll(dataRelawanTemp);
+
+      print('data relawan : $dataRelawanTemp');
     });
   }
 }

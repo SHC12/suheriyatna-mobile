@@ -18,5 +18,7 @@ class Routes {
   static const ROLE = '/role';
   static const SHARED = '/shared';
   static const SPLASHSCREEN = '/splashscreen';
+  static const SUMMARY_DATA = '/summary-data';
   static const TIMSES = '/timses';
+  static const PENGUMUMAN = '/pengumuman';
 }

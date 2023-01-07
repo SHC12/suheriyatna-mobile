@@ -101,5 +101,15 @@ class Nav {
       page: () => TimsesScreen(),
       binding: TimsesControllerBinding(),
     ),
+    GetPage(
+      name: Routes.SUMMARY_DATA,
+      page: () => const SummaryDataScreen(),
+      binding: SummaryDataControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.PENGUMUMAN,
+      page: () => const PengumumanScreen(),
+      binding: PengumumanControllerBinding(),
+    ),
   ];
 }

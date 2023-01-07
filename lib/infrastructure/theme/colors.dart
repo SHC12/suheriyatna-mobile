@@ -7,3 +7,4 @@ Color whiteColor = Color(0xFFFFFFFF);
 Color greyColor = Color(0xFF9E9E9E);
 Color backgroundColor = Color.fromARGB(255, 204, 200, 200);
 Color greyTextColor = Color(0xFF757575);
+Color orangeColor = Color(0xFFFF9800);

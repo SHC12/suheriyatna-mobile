@@ -15,6 +15,7 @@ import 'package:suheriyatna_mobile/presentation/shared/widget/button_widget.dart
 
 import '../../infrastructure/theme/colors.dart';
 import '../../infrastructure/theme/fonts.dart';
+import '../approval/approval_relawan.screen.dart';
 import '../shared/widget/header_widget.dart';
 import 'controllers/home.controller.dart';
 
@@ -41,6 +42,133 @@ class HomeScreen extends GetView<HomeController> {
                     Get.to(() => ProfilScreen());
                   },
                 ),
+                // Obx(() => Container(
+                //       padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
+                //       decoration: BoxDecoration(
+                //         color: primaryColor,
+                //         borderRadius: const BorderRadius.only(
+                //           bottomLeft: Radius.circular(30),
+                //           bottomRight: Radius.circular(30),
+                //         ),
+                //       ),
+                //       child: Column(
+                //         children: [
+                //           SizedBox(
+                //             height: 3.h,
+                //           ),
+                //           Row(
+                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //             crossAxisAlignment: CrossAxisAlignment.end,
+                //             children: [
+                //               GestureDetector(
+                //                 onTap: () {
+                //                   Get.to(() => ProfilScreen());
+                //                 },
+                //                 child: Icon(Remix.user_line, color: whiteColor),
+                //               ),
+                //               Text('Suheriyatna Mobile', style: headTextStyle.copyWith(color: whiteColor)),
+                //               GestureDetector(
+                //                 onTap: () {
+                //                   prefs.erase();
+                //                   Get.offAll(LoginScreen());
+                //                 },
+                //                 child: Icon(
+                //                   Remix.logout_circle_r_line,
+                //                   color: whiteColor,
+                //                 ),
+                //               )
+                //             ],
+                //           ),
+                //           SizedBox(
+                //             height: 4.h,
+                //           ),
+                //           Row(
+                //             crossAxisAlignment: CrossAxisAlignment.start,
+                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //             children: [
+                //               Flexible(
+                //                 flex: 1,
+                //                 child: Container(
+                //                   width: double.infinity,
+                //                   padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+                //                   decoration: BoxDecoration(
+                //                     color: orangeColor,
+                //                     borderRadius: BorderRadius.circular(10),
+                //                   ),
+                //                   child: Column(
+                //                     crossAxisAlignment: CrossAxisAlignment.start,
+                //                     children: [
+                //                       Text('Total Timses',
+                //                           style: defaultPrimaryTextStyle.copyWith(color: whiteColor, fontSize: 10.sp)),
+                //                       SizedBox(
+                //                         height: 1.h,
+                //                       ),
+                //                       Text(homeController.totalDataTimses.value.toString(),
+                //                           style: headTextStyle.copyWith(
+                //                               color: whiteColor, fontWeight: FontWeight.bold, fontSize: 19.sp)),
+                //                     ],
+                //                   ),
+                //                 ),
+                //               ),
+                //               SizedBox(
+                //                 width: 4.w,
+                //               ),
+                //               Flexible(
+                //                 flex: 1,
+                //                 child: Container(
+                //                   width: double.infinity,
+                //                   padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+                //                   decoration: BoxDecoration(
+                //                     color: secondaryColor,
+                //                     borderRadius: BorderRadius.circular(10),
+                //                   ),
+                //                   child: Column(
+                //                     crossAxisAlignment: CrossAxisAlignment.start,
+                //                     children: [
+                //                       Text('Total Relawan',
+                //                           style: defaultPrimaryTextStyle.copyWith(color: whiteColor, fontSize: 10.sp)),
+                //                       SizedBox(
+                //                         height: 1.h,
+                //                       ),
+                //                       Text(homeController.totalDataRelawan.value.toString(),
+                //                           style: headTextStyle.copyWith(
+                //                               color: whiteColor, fontWeight: FontWeight.bold, fontSize: 19.sp)),
+                //                     ],
+                //                   ),
+                //                 ),
+                //               ),
+                //               SizedBox(
+                //                 width: 4.w,
+                //               ),
+                //               Flexible(
+                //                 flex: 1,
+                //                 child: Container(
+                //                   width: double.infinity,
+                //                   padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+                //                   decoration: BoxDecoration(
+                //                     color: Colors.red,
+                //                     borderRadius: BorderRadius.circular(10),
+                //                   ),
+                //                   child: Column(
+                //                     crossAxisAlignment: CrossAxisAlignment.start,
+                //                     children: [
+                //                       Text('Total Kuisioner',
+                //                           style: defaultPrimaryTextStyle.copyWith(color: whiteColor, fontSize: 10.sp)),
+                //                       SizedBox(
+                //                         height: 1.h,
+                //                       ),
+                //                       Text(homeController.totalDataKuisioner.value.toString(),
+                //                           style: headTextStyle.copyWith(
+                //                               color: whiteColor, fontWeight: FontWeight.bold, fontSize: 19.sp)),
+                //                     ],
+                //                   ),
+                //                 ),
+                //               )
+                //             ],
+                //           ),
+                //         ],
+                //       ),
+                //     )),
                 SizedBox(
                   height: 2.h,
                 ),
@@ -58,11 +186,26 @@ class HomeScreen extends GetView<HomeController> {
                                 children: [
                                   MainIconWidget(
                                     icon: Remix.check_double_line,
-                                    title: 'Approval',
+                                    title: 'Approval Timses',
                                     onTap: () {
                                       Get.to(() => ApprovalScreen());
                                     },
                                   ),
+                                  MainIconWidget(
+                                    icon: Remix.check_line,
+                                    title: 'Approval Relawan',
+                                    onTap: () {
+                                      Get.to(() => ApprovalRelawanScreen());
+                                    },
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2.h,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
                                   MainIconWidget(
                                     icon: Remix.user_star_line,
                                     title: 'Timses',
@@ -70,14 +213,6 @@ class HomeScreen extends GetView<HomeController> {
                                       Get.to(() => TimsesScreen());
                                     },
                                   ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
                                   MainIconWidget(
                                     icon: Remix.group_line,
                                     title: 'Relawan',
@@ -85,13 +220,6 @@ class HomeScreen extends GetView<HomeController> {
                                       Get.to(() => CekDataScreen());
                                     },
                                   ),
-                                  MainIconWidget(
-                                    icon: Remix.survey_line,
-                                    title: 'Kuisioner',
-                                    onTap: () {
-                                      Get.to(() => KuisionerListScreen());
-                                    },
-                                  ),
                                 ],
                               ),
                               SizedBox(
@@ -101,10 +229,24 @@ class HomeScreen extends GetView<HomeController> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   MainIconWidget(
-                                    icon: Remix.chat_poll_line,
-                                    title: 'Quick Count',
+                                    icon: Remix.survey_line,
+                                    title: 'Kuisioner',
                                     onTap: () {
-                                      FToast.toast(context, msg: "Segera Hadir");
+                                      Get.to(() => KuisionerListScreen());
+                                    },
+                                  ),
+                                  // MainIconWidget(
+                                  //   icon: Remix.chat_poll_line,
+                                  //   title: 'Quick Count',
+                                  //   onTap: () {
+                                  //     FToast.toast(context, msg: "Segera Hadir");
+                                  //   },
+                                  // ),
+                                  MainIconWidget(
+                                    icon: Remix.line_chart_line,
+                                    title: 'Summary Data',
+                                    onTap: () {
+                                      Get.to(() => SummaryDataScreen());
                                     },
                                   ),
                                 ],
@@ -226,90 +368,52 @@ class HomeScreen extends GetView<HomeController> {
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
                                   children: [
-                                    Container(
-                                      margin: EdgeInsets.only(right: 3.w),
-                                      width: 60.w,
-                                      decoration: BoxDecoration(
-                                        borderRadius: new BorderRadius.circular(20),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(8),
-                                                child: Image.asset('assets/images/banner2.jpg', fit: BoxFit.cover)),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.symmetric(horizontal: 3.w),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  height: 1.h,
-                                                ),
-                                                Text(
-                                                  'Contoh judul artikel 1',
-                                                  style: defaultTextStyle.copyWith(
-                                                      fontSize: 10.sp, fontWeight: FontWeight.bold),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.symmetric(vertical: 1.h),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: [],
-                                                  ),
-                                                ),
-                                              ],
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.to(() => PengumumanScreen());
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(right: 2.w),
+                                        width: 60.w,
+                                        decoration: BoxDecoration(
+                                          borderRadius: new BorderRadius.circular(20),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  child: Image.asset('assets/images/banner1.jpg', fit: BoxFit.cover)),
                                             ),
-                                          ),
-                                          Container()
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(right: 2.w),
-                                      width: 60.w,
-                                      decoration: BoxDecoration(
-                                        borderRadius: new BorderRadius.circular(20),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(8),
-                                                child: Image.asset('assets/images/banner1.jpg', fit: BoxFit.cover)),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.symmetric(horizontal: 3.w),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  height: 1.h,
-                                                ),
-                                                Text(
-                                                  'Contoh judul artikel 2',
-                                                  style: defaultTextStyle.copyWith(
-                                                      fontSize: 10.sp, fontWeight: FontWeight.bold),
-                                                ),
-                                                Container(
-                                                  margin: EdgeInsets.symmetric(vertical: 1.h),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: [],
+                                            Container(
+                                              margin: EdgeInsets.symmetric(horizontal: 3.w),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                    height: 1.h,
                                                   ),
-                                                ),
-                                              ],
+                                                  Text(
+                                                    'Profil Dr. Ir. H, Suheriyatna, M.Si',
+                                                    style: defaultTextStyle.copyWith(
+                                                        fontSize: 10.sp, fontWeight: FontWeight.bold),
+                                                  ),
+                                                  Container(
+                                                    margin: EdgeInsets.symmetric(vertical: 1.h),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      children: [],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          Container()
-                                        ],
+                                            Container()
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],

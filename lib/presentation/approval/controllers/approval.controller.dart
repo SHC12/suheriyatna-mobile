@@ -8,9 +8,11 @@ import '../../../main.dart';
 class ApprovalController extends GetxController {
   SharedController sharedController = Get.put(SharedController());
   final CollectionReference user = FirebaseFirestore.instance.collection('users');
+  final CollectionReference relawan = FirebaseFirestore.instance.collection('relawan');
 
   var userUnverifiedList = [].obs;
   var docIDUserUnverifiedList = [].obs;
+  var dataList = [].obs;
 
   @override
   void onInit() {
@@ -52,6 +54,18 @@ class ApprovalController extends GetxController {
     getUnVerified();
   }
 
+  approveRelawan(var docID, var kabupaten) async {
+    if (kabupaten == null) {
+      await relawan.doc(docID).update({'is_verified': true});
+      await getDataRelawan();
+      sharedController.showSnackbar('Berhasil', 'Relawan berhasil di approve');
+    } else {
+      await relawan.doc(docID).update({'is_verified': true});
+      await getDataRelawanByKabupaten(kabupaten);
+      sharedController.showSnackbar('Berhasil', 'Relawan berhasil di approve');
+    }
+  }
+
   approveAllUser(BuildContext context) async {
     sharedController.loading(context);
     await Future.forEach(docIDUserUnverifiedList, (element) {
@@ -60,6 +74,55 @@ class ApprovalController extends GetxController {
       Get.back();
       sharedController.showSnackbar('Berhasil', 'Semua user berhasil diverifikasi');
       getUnVerified();
+    });
+  }
+
+  approveAllRelawan(BuildContext context, var kabupaten) async {
+    sharedController.loading(context);
+    var docIDList = dataList.map((e) => e['id']).toList();
+
+    await Future.forEach(docIDList, (element) {
+      relawan.doc(element.toString()).update({'is_verified': true});
+    }).then((value) async {
+      print('kabupaten : $kabupaten');
+      if (kabupaten == null) {
+        await getDataRelawan();
+        Get.back();
+        sharedController.showSnackbar('Berhasil', 'Semua relawan berhasil diverifikasi');
+      } else {
+        await getDataRelawanByKabupaten(kabupaten);
+        Get.back();
+        sharedController.showSnackbar('Berhasil', 'Semua relawan berhasil diverifikasi');
+      }
+    });
+  }
+
+  getDataRelawan() async {
+    await FirebaseFirestore.instance
+        .collection('relawan')
+        .where('is_verified', isEqualTo: false)
+        .get()
+        .then((QuerySnapshot query) async {
+      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      dataRelawanTemp.forEach((element) {
+        element['id'] = query.docs[dataRelawanTemp.indexOf(element)].id;
+      });
+      dataList.assignAll(dataRelawanTemp);
+    });
+  }
+
+  getDataRelawanByKabupaten(var kabupaten) async {
+    await FirebaseFirestore.instance
+        .collection('relawan')
+        .where('kabupaten', isEqualTo: kabupaten)
+        .where('is_verified', isEqualTo: false)
+        .get()
+        .then((QuerySnapshot query) async {
+      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      dataRelawanTemp.forEach((element) {
+        element['id'] = query.docs[dataRelawanTemp.indexOf(element)].id;
+      });
+      dataList.assignAll(dataRelawanTemp);
     });
   }
 }

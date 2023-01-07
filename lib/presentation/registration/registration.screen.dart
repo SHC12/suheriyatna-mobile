@@ -58,7 +58,7 @@ class RegistrationScreen extends GetView<RegistrationController> {
     {'nama': 'Perempuan', 'status': 'perempuan'},
   ];
   var roleList = [
-    {'name': 'Relawan', 'id': '1'},
+    {'name': 'Timses', 'id': '1'},
     {'name': 'DTDC', 'id': '2'},
     {'name': 'Quick Count', 'id': '3'},
   ];

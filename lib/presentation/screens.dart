@@ -6,10 +6,12 @@ export 'package:suheriyatna_mobile/presentation/kuisioner/kuisioner.screen.dart'
 export 'package:suheriyatna_mobile/presentation/login/login.screen.dart';
 export 'package:suheriyatna_mobile/presentation/lupa_password/lupa_password.screen.dart';
 export 'package:suheriyatna_mobile/presentation/notifikasi/notifikasi.screen.dart';
+export 'package:suheriyatna_mobile/presentation/pengumuman/pengumuman.screen.dart';
 export 'package:suheriyatna_mobile/presentation/profil/profil.screen.dart';
 export 'package:suheriyatna_mobile/presentation/registration/registration.screen.dart';
 export 'package:suheriyatna_mobile/presentation/relawan/relawan.screen.dart';
 export 'package:suheriyatna_mobile/presentation/role/role.screen.dart';
 export 'package:suheriyatna_mobile/presentation/shared/shared.screen.dart';
 export 'package:suheriyatna_mobile/presentation/splashscreen/splashscreen.screen.dart';
+export 'package:suheriyatna_mobile/presentation/summary_data/summary_data.screen.dart';
 export 'package:suheriyatna_mobile/presentation/timses/timses.screen.dart';

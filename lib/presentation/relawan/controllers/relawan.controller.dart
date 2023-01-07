@@ -131,6 +131,7 @@ class RelawanController extends GetxController {
           'rw': rw,
           'wilayah_kerja': wilayahKerja,
           'file_pendukung': urlFile,
+          'is_verified': false,
           'is_deleted': false,
           'kode_referral': prefs.read('my_referral_code'),
           'created_at': DateTime.now()
