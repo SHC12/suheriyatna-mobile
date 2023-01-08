@@ -1,9 +1,14 @@
 // ignore_for_file: sized_box_for_whitespace, prefer_typing_uninitialized_variables
 
+import 'dart:io';
+
+import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:sizer/sizer.dart';
@@ -20,7 +25,14 @@ import '../shared/widget/dropdown_field_widget.dart';
 import '../shared/widget/input_field_widget.dart';
 import 'controllers/registration.controller.dart';
 
-class RegistrationScreen extends GetView<RegistrationController> {
+class RegistrationScreen extends StatefulWidget {
+  const RegistrationScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
   RegistrationController registrationController = Get.put(RegistrationController());
   SharedController sharedController = Get.put(SharedController());
 
@@ -92,6 +104,60 @@ class RegistrationScreen extends GetView<RegistrationController> {
   var kecamatanList = [];
   var kelurahanList = [];
   var kabupatenList = [];
+
+  final ImagePicker _picker = ImagePicker();
+
+  XFile? opsionalImage;
+
+  void _onAlertPress() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            actions: [
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Column(
+                  children: <Widget>[
+                    Text('Gallery'),
+                  ],
+                ),
+                onPressed: () {
+                  getImage(ImageSource.gallery);
+                },
+              ),
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Column(
+                  children: <Widget>[
+                    Text('Ambil Photo'),
+                  ],
+                ),
+                onPressed: () {
+                  getImage(ImageSource.camera);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  getImage(ImageSource source) async {
+    XFile? image = await _picker.pickImage(source: source);
+    if (image != null) {
+      // File fileImage = File(image.path);
+      setState(() {
+        opsionalImage = image;
+        Get.back(closeOverlays: true);
+        print('sukses');
+      });
+    } else {
+      setState(() {
+        Get.back(closeOverlays: true);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -351,6 +417,69 @@ class RegistrationScreen extends GetView<RegistrationController> {
                       SizedBox(
                         height: 2.h,
                       ),
+                      GestureDetector(
+                        onTap: () {
+                          _onAlertPress();
+                        },
+                        child: Container(
+                          height: 20.h,
+                          width: 100.w,
+                          decoration: BoxDecoration(
+                            color: whiteColor,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Upload Foto Profil',
+                                    style: headTextStyle.copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(width: 1.w),
+                                  Text(
+                                    '*',
+                                    style: defaultTextStyle.copyWith(
+                                        fontSize: 12.0.sp, fontWeight: FontWeight.bold, color: Colors.red),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2.h,
+                              ),
+                              Icon(
+                                Remix.image_add_line,
+                                color: primaryColor,
+                                size: 40.sp,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      Center(
+                        child: DottedBorder(
+                          borderType: BorderType.RRect,
+                          radius: Radius.circular(12),
+                          padding: EdgeInsets.all(6),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                            child: Container(
+                              height: 15.h,
+                              width: 30.w,
+                              child: opsionalImage == null ? null : Image.file(File(opsionalImage!.path)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
                       ButtonWidget(
                         color: secondaryColor,
                         title: 'Daftar',
@@ -383,7 +512,8 @@ class RegistrationScreen extends GetView<RegistrationController> {
                                 rt == '' ||
                                 rw == '' ||
                                 noTelp == '' ||
-                                wilayahKerjaStringValue == null) {
+                                wilayahKerjaStringValue == null ||
+                                opsionalImage == null) {
                               sharedController.showSnackbar('Gagal', 'Silahkan isi data yang memiliki simbol (*)');
                             } else {
                               if (nik.length == 16) {
@@ -404,6 +534,7 @@ class RegistrationScreen extends GetView<RegistrationController> {
                                     noTelp,
                                     wilayahKerjaStringValue,
                                     tKataSandi.text,
+                                    opsionalImage!,
                                     context);
                               } else {
                                 sharedController.showSnackbar('Gagal', 'NIK harus terdiri dari 16 digit');

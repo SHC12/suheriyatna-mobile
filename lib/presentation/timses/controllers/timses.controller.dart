@@ -6,6 +6,8 @@ class TimsesController extends GetxController {
   SharedController sharedController = Get.put(SharedController());
   var dataList = [].obs;
   var listRelawanDeleted = [].obs;
+
+  var totalTimsesSelected = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -31,7 +33,7 @@ class TimsesController extends GetxController {
         .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
       dataList.assignAll(dataRelawanTemp);
-
+      totalTimsesSelected.value = dataList.length;
       print('data relawan : $dataRelawanTemp');
     });
   }
@@ -88,6 +90,8 @@ class TimsesController extends GetxController {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
       dataList.assignAll(dataRelawanTemp);
 
+      totalTimsesSelected.value = dataList.length;
+
       print('data relawan : $dataRelawanTemp');
     });
   }
@@ -102,7 +106,7 @@ class TimsesController extends GetxController {
         .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
       dataList.assignAll(dataRelawanTemp);
-
+      totalTimsesSelected.value = dataList.length;
       print('data relawan : $dataRelawanTemp');
     });
   }
@@ -117,7 +121,7 @@ class TimsesController extends GetxController {
         .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
       dataList.assignAll(dataRelawanTemp);
-
+      totalTimsesSelected.value = dataList.length;
       print('data relawan : $dataRelawanTemp');
     });
   }

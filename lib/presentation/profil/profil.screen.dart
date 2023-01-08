@@ -112,7 +112,9 @@ class ProfilScreen extends GetView<ProfilController> {
                     child: Column(
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            profilController.lihatData();
+                          },
                           child: Container(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

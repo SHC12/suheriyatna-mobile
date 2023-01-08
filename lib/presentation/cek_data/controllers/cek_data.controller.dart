@@ -9,11 +9,12 @@ class CekDataController extends GetxController {
   final CollectionReference relawan = FirebaseFirestore.instance.collection('relawan');
   final CollectionReference dtdc = FirebaseFirestore.instance.collection('DTDC');
   final CollectionReference quickCount = FirebaseFirestore.instance.collection('quick_count');
+  var totalTimsesSelected = 0.obs;
 
   var dataList = [].obs;
   @override
   void onInit() {
-    sharedController.fetchKabupaten();
+    // sharedController.fetchKabupaten();
     getCheckData();
     super.onInit();
   }
@@ -49,6 +50,7 @@ class CekDataController extends GetxController {
         .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
       dataList.assignAll(dataRelawanTemp);
+      totalTimsesSelected.value = dataList.length;
 
       print('data relawan : $dataRelawanTemp');
     });
@@ -64,7 +66,7 @@ class CekDataController extends GetxController {
         .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
       dataList.assignAll(dataRelawanTemp);
-
+      totalTimsesSelected.value = dataList.length;
       print('data relawan : $dataRelawanTemp');
     });
   }
@@ -79,7 +81,7 @@ class CekDataController extends GetxController {
         .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
       dataList.assignAll(dataRelawanTemp);
-
+      totalTimsesSelected.value = dataList.length;
       print('data relawan : $dataRelawanTemp');
     });
   }
@@ -94,7 +96,7 @@ class CekDataController extends GetxController {
         .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
       dataList.assignAll(dataRelawanTemp);
-
+      totalTimsesSelected.value = dataList.length;
       print('data relawan : $dataRelawanTemp');
     });
   }
@@ -107,7 +109,7 @@ class CekDataController extends GetxController {
         .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
       dataList.assignAll(dataRelawanTemp);
-
+      totalTimsesSelected.value = dataList.length;
       print('data relawan : $dataRelawanTemp');
     });
   }

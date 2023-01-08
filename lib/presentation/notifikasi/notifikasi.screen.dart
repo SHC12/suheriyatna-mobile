@@ -24,17 +24,17 @@ class NotifikasiScreen extends GetView<NotifikasiController> {
                 SizedBox(
                   height: 2.h,
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
-                  child: Column(
-                    children: [
-                      NotifikasiCardWidget(
-                          title: 'Informasi',
-                          subtitle: 'Terdapat relawan baru dengan referal Anda',
-                          date: '18 Okt 2022 16.00'),
-                    ],
-                  ),
-                )
+                // Container(
+                //   margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
+                //   child: Column(
+                //     children: [
+                //       NotifikasiCardWidget(
+                //           title: 'Informasi',
+                //           subtitle: 'Terdapat relawan baru dengan referal Anda',
+                //           date: '18 Okt 2022 16.00'),
+                //     ],
+                //   ),
+                // )
               ],
             )),
       ),

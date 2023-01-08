@@ -19,6 +19,8 @@ class RelawanController extends GetxController {
   var docID = ''.obs;
   final CollectionReference relawan = FirebaseFirestore.instance.collection('relawan');
 
+  var totalTimsesSelected = 0.obs;
+
   var dataRelawan = [].obs;
 
   var isLoading = false.obs;
@@ -58,6 +60,7 @@ class RelawanController extends GetxController {
         .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
       dataRelawan.assignAll(dataRelawanTemp);
+      totalTimsesSelected.value = dataRelawan.length;
       isLoading(false);
       print('data sub relawan : $dataRelawanTemp');
     });

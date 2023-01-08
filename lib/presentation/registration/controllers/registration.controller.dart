@@ -66,6 +66,7 @@ class RegistrationController extends GetxController {
       var noTelp,
       var wilayahKerja,
       var password,
+      XFile image,
       BuildContext context) async {
     sharedController.loading(context);
     var isCheckNik = await checkNIK(nik);
@@ -74,6 +75,7 @@ class RegistrationController extends GetxController {
     if (isCheckNik == false || isCheckTelepon == false) {
       return;
     } else {
+      var urlFile = await sharedController.uploadImage(image);
       var referralCode = randomAlpha(6);
       var key = utf8.encode(password);
       var bytes = utf8.encode("foobar");
@@ -101,6 +103,7 @@ class RegistrationController extends GetxController {
         'is_verified': false,
         'is_deleted': false,
         'password': digest.toString(),
+        'file_pendukung': urlFile,
         'created_at': DateTime.now()
       });
 
@@ -115,7 +118,7 @@ class RegistrationController extends GetxController {
 
   checkNIK(var nik) async {
     bool isAvailable = false;
-    await relawan.where('nik', isEqualTo: nik).get().then((QuerySnapshot query) {
+    await users.where('nik', isEqualTo: nik).get().then((QuerySnapshot query) {
       if (query.docs.length > 0) {
         Get.back();
         Get.snackbar(
@@ -135,7 +138,7 @@ class RegistrationController extends GetxController {
 
   checkTelepon(var noTelp) async {
     bool isAvailable = false;
-    await relawan.where('no_telp', isEqualTo: noTelp).get().then((QuerySnapshot query) {
+    await users.where('no_telp', isEqualTo: noTelp).get().then((QuerySnapshot query) {
       if (query.docs.length > 0) {
         Get.back();
         Get.snackbar(
