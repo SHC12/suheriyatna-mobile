@@ -44,6 +44,43 @@ class SummaryDataController extends GetxController {
     ]);
   }
 
+  dataChartKecamatan(var kabupaten) async {
+    //  await FirebaseFirestore.instance
+    //     .collection('users')
+    //     .where('is_deleted', isEqualTo: false)
+    //     .where('is_verified', isEqualTo: true)
+    //     .where('kabupaten', isEqualTo: kabupaten)
+    //     .get()
+    //     .then((QuerySnapshot query) async {
+    //   List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+    //   dataList.assignAll(dataRelawanTemp);
+
+    //   totalTimsesSelected.value = dataList.length;
+
+    //   print('data relawan : $dataRelawanTemp');
+    // });
+    int kotaTarakanTemp = timsesKabupaten.where((p0) => p0['kabupaten'] == 'KOTA TARAKAN').toList().length;
+    int kabupatenMalinauTemp = timsesKabupaten.where((p0) => p0['kabupaten'] == 'KABUPATEN MALINAU').toList().length;
+    int kabupatenBulunganTemp = timsesKabupaten.where((p0) => p0['kabupaten'] == 'KABUPATEN BULUNGAN').toList().length;
+    int kabupatenTanaTidungTemp =
+        timsesKabupaten.where((p0) => p0['kabupaten'] == 'KABUPATEN TANA TIDUNG').toList().length;
+    int kabupatenNunukanTemp = timsesKabupaten.where((p0) => p0['kabupaten'] == 'KABUPATEN NUNUKAN').toList().length;
+
+    double kotaTarakan = kotaTarakanTemp / timsesKabupaten.length * 100;
+    double kabupatenMalinau = kabupatenMalinauTemp / timsesKabupaten.length * 100;
+    double kabupatenBulungan = kabupatenBulunganTemp / timsesKabupaten.length * 100;
+    double kabupatenTanaTidung = kabupatenTanaTidungTemp / timsesKabupaten.length * 100;
+    double kabupatenNunukan = kabupatenNunukanTemp / timsesKabupaten.length * 100;
+
+    chartDataKabupaten.assignAll([
+      {'name': 'KOTA TARAKAN', 'value': kotaTarakan},
+      {'name': 'KABUPATEN MALINAU', 'value': kabupatenMalinau},
+      {'name': 'KABUPATEN BULUNGAN', 'value': kabupatenBulungan},
+      {'name': 'KABUPATEN TANA TIDUNG', 'value': kabupatenTanaTidung},
+      {'name': 'KABUPATEN NUNUKAN', 'value': kabupatenNunukan},
+    ]);
+  }
+
   dataChartKabupatenRelawan() {
     int kotaTarakanTemp = relawanKabupaten.where((p0) => p0['kabupaten'] == 'KOTA TARAKAN').toList().length;
     int kabupatenMalinauTemp = relawanKabupaten.where((p0) => p0['kabupaten'] == 'KABUPATEN MALINAU').toList().length;

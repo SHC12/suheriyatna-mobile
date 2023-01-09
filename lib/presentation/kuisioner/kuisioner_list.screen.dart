@@ -25,7 +25,6 @@ class KuisionerListScreen extends GetView<KuisionerController> {
         children: [
           HeaderWidget(
             isBack: true,
-            isHome: false,
             title: 'Cek Data',
             onTap: () {},
           ),

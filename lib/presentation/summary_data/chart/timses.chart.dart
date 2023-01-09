@@ -1,5 +1,5 @@
+import 'dart:math' as math;
 import 'dart:math';
-
 import 'package:d_chart/d_chart.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -42,20 +42,7 @@ class _TimsesChartState extends State<TimsesChart> {
                     };
                   }).toList(),
                   fillColor: (pieData, index) {
-                    switch (pieData['domain']) {
-                      case 'KOTA TARAKAN':
-                        return Colors.blue;
-                      case 'TANA TIDUNG':
-                        return Color.fromARGB(255, 64, 105, 177);
-                      case 'MALINAU':
-                        return Color.fromARGB(255, 18, 235, 145);
-                      case 'BULUNGAN':
-                        return Color.fromARGB(255, 195, 213, 56);
-                      case 'NUNUKAN':
-                        return Color.fromARGB(255, 222, 51, 231);
-                      default:
-                        return Colors.orange;
-                    }
+                    return Color(Random().nextInt(0xffffffff)).withAlpha(0xff);
                   },
                   pieLabel: (pieData, index) {
                     return "${pieData['domain']}:\n${pieData['measure'].toStringAsFixed(2)}%";
@@ -64,6 +51,33 @@ class _TimsesChartState extends State<TimsesChart> {
                 ),
               ),
             )),
+        SizedBox(
+          height: 2.h,
+        ),
+        // Text('Chart Kecamatan', style: defaultTextStyle),
+        // SizedBox(
+        //   height: 1.h,
+        // ),
+        // Obx(() => Container(
+        //       child: AspectRatio(
+        //         aspectRatio: 16 / 6,
+        //         child: DChartPie(
+        //           data: summaryDataController.chartDataKabupaten.value.map((element) {
+        //             return {
+        //               'domain': element['name'].toString().replaceAll('KABUPATEN ', ''),
+        //               'measure': element['value']
+        //             };
+        //           }).toList(),
+        //           fillColor: (pieData, index) {
+        //             return Color(Random().nextInt(0xffffffff)).withAlpha(0xff);
+        //           },
+        //           pieLabel: (pieData, index) {
+        //             return "${pieData['domain']}:\n${pieData['measure'].toStringAsFixed(2)}%";
+        //           },
+        //           labelPosition: PieLabelPosition.outside,
+        //         ),
+        //       ),
+        //     )),
       ],
     );
     // return AspectRatio(

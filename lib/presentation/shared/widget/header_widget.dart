@@ -48,6 +48,7 @@ class HeaderWidget extends StatelessWidget {
               Text(title!, style: headTextStyle.copyWith(color: whiteColor)),
               GestureDetector(
                 onTap: () {
+                  print(isHome);
                   if (isHome != null || isHome == true) {
                     prefs.erase();
                     Get.offAll(LoginScreen());

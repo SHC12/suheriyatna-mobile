@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:suheriyatna_mobile/main.dart';
 import 'package:suheriyatna_mobile/presentation/home/home.screen.dart';
@@ -11,6 +13,7 @@ class SplashscreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
     splashscreenStart();
   }
 

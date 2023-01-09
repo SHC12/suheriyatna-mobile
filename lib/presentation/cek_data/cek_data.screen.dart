@@ -16,10 +16,16 @@ import '../shared/widget/dropdown_field_widget.dart';
 import '../shared/widget/header_widget.dart';
 import 'controllers/cek_data.controller.dart';
 
-class CekDataScreen extends GetView<CekDataController> {
+class CekDataScreen extends StatefulWidget {
+  const CekDataScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CekDataScreen> createState() => _CekDataScreenState();
+}
+
+class _CekDataScreenState extends State<CekDataScreen> {
   CekDataController cekDataController = Get.put(CekDataController());
   SharedController sharedController = Get.put(SharedController());
-  CekDataScreen({Key? key}) : super(key: key);
 
   String? kabupatenValue;
   String? kabupatenString;
@@ -27,6 +33,15 @@ class CekDataScreen extends GetView<CekDataController> {
   var kecamatanStringValue;
   var kelurahanStringValue;
   var kelurahanValue;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    cekDataController.getCheckData();
+    sharedController.fetchKabupaten();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +50,6 @@ class CekDataScreen extends GetView<CekDataController> {
         children: [
           HeaderWidget(
             isBack: true,
-            isHome: false,
             title: 'Cek Data',
             onTap: () {},
           ),

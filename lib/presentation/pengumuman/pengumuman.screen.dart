@@ -24,7 +24,7 @@ class _PengumumanScreenState extends State<PengumumanScreen> {
   }
 
   loadDocument() async {
-    document = await PDFDocument.fromAsset('assets/images/cv1.pdf');
+    document = await PDFDocument.fromAsset('assets/images/cv3.pdf');
 
     setState(() => _isLoading = false);
   }

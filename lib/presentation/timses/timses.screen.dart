@@ -37,7 +37,6 @@ class TimsesScreen extends GetView<TimsesController> {
         children: [
           HeaderWidget(
             isBack: true,
-            isHome: false,
             title: 'Data Timses',
             onTap: () {},
           ),

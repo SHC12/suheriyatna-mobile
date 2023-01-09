@@ -275,7 +275,7 @@ class ProfilScreen extends GetView<ProfilController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Tentang Aplikasi',
+                                'Tentang Dr. Suheriyatna',
                                 style: defaultTextStyle,
                               ),
                               Icon(Remix.arrow_right_s_line)
