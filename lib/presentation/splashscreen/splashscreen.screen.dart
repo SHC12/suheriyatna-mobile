@@ -43,7 +43,7 @@ class _SplashscreenScreenState extends State<SplashscreenScreen> {
           // padding: EdgeInsets.symmetric(horizontal: 2.w),
           child: Image.asset(
             "assets/images/splash_image_new.png",
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
         ));
   }

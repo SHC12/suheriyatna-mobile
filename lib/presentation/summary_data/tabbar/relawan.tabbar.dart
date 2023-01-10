@@ -103,15 +103,16 @@ class _RelawanTabbarState extends State<RelawanTabbar> {
                         value: kabupatenValue,
                         listName: 'name',
                         valueName: 'id',
-                        itemCallback: (String value) {
+                        itemCallback: (String value) async {
                           kabupatenValue = value;
-                          sharedController.fetchKecamatan(value);
+                          await sharedController.fetchKecamatan(value);
                           var wilayahKerjaempValue =
                               sharedController.kabupatenList.value.where((element) => element['id'] == value).toList();
 
                           kabupatenString = wilayahKerjaempValue[0]['name'];
 
-                          cekDataController.getDataRelawanByKabupaten(kabupatenString);
+                          await cekDataController.getDataRelawanByKabupaten(kabupatenString);
+                          await summaryDataController.dataChartKecamatanRelawan(kabupatenString);
                           kecamatanValue = null;
                           kelurahanValue = null;
                         },
@@ -128,16 +129,17 @@ class _RelawanTabbarState extends State<RelawanTabbar> {
                               value: kecamatanValue,
                               listName: 'name',
                               valueName: 'id',
-                              itemCallback: (String value) {
+                              itemCallback: (String value) async {
                                 kecamatanValue = value;
-                                sharedController.fetchKelurahan(value);
+                                await sharedController.fetchKelurahan(value);
 
                                 var kecamatanTempValue = sharedController.kecamatanList.value
                                     .where((element) => element['id'] == value)
                                     .toList();
 
                                 kecamatanStringValue = kecamatanTempValue[0]['name'];
-                                cekDataController.getDataRelawanByKecamatan(kecamatanStringValue);
+                                await cekDataController.getDataRelawanByKecamatan(kecamatanStringValue);
+                                await summaryDataController.dataChartKelurahanRelawan(kecamatanStringValue);
                                 kelurahanValue = null;
                               },
                             ),
