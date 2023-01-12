@@ -10,6 +10,7 @@ import 'package:suheriyatna_mobile/presentation/shared/widget/input_field_widget
 
 import '../../infrastructure/theme/colors.dart';
 import '../../infrastructure/theme/fonts.dart';
+import '../login/login.screen.dart';
 import '../pengumuman/pengumuman.screen.dart';
 import '../shared/widget/header_widget.dart';
 import 'controllers/profil.controller.dart';
@@ -288,15 +289,21 @@ class ProfilScreen extends GetView<ProfilController> {
                         Divider(
                           thickness: 2,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Keluar',
-                              style: defaultTextStyle.copyWith(color: Colors.red),
-                            ),
-                            Icon(Remix.arrow_right_s_line)
-                          ],
+                        GestureDetector(
+                          onTap: () {
+                            prefs.erase();
+                            Get.offAll(() => LoginScreen());
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Keluar',
+                                style: defaultTextStyle.copyWith(color: Colors.red),
+                              ),
+                              Icon(Remix.arrow_right_s_line)
+                            ],
+                          ),
                         ),
                       ],
                     ),

@@ -14,6 +14,7 @@ class InputFieldWidget extends StatefulWidget {
   final bool? currency;
   final bool? isRequired;
   final bool? isObscure;
+  final bool? isReadOnly;
 
   const InputFieldWidget(
       {Key? key,
@@ -24,7 +25,8 @@ class InputFieldWidget extends StatefulWidget {
       this.inputType,
       this.currency,
       this.isRequired,
-      this.isObscure})
+      this.isObscure,
+      this.isReadOnly})
       : super(key: key);
 
   @override
@@ -57,6 +59,7 @@ class _InputFieldWidgetState extends State<InputFieldWidget> {
         ),
         SizedBox(height: 0.5.h),
         TextField(
+          readOnly: widget.isReadOnly ?? false,
           obscureText: widget.isObscure ?? false,
           onTap: widget.onTap,
           keyboardType: widget.inputType != null ? widget.inputType : null,

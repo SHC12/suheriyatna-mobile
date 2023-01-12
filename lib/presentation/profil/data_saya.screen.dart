@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
+import 'package:suheriyatna_mobile/presentation/profil/controllers/profil.controller.dart';
 import 'package:suheriyatna_mobile/presentation/profil/profil.screen.dart';
+import 'package:suheriyatna_mobile/presentation/profil/update_data.screen.dart';
 
 import '../../infrastructure/theme/colors.dart';
 import '../../infrastructure/theme/fonts.dart';
@@ -20,6 +22,7 @@ class DataSayaScreen extends StatefulWidget {
 }
 
 class _DataSayaScreenState extends State<DataSayaScreen> {
+  ProfilController profilController = Get.put(ProfilController());
   SharedController sharedController = Get.put(SharedController());
   static const rowSpacer = TableRow(children: [
     SizedBox(
@@ -305,17 +308,13 @@ class _DataSayaScreenState extends State<DataSayaScreen> {
                     ],
                   ),
                 ),
-                // ButtonWidget(
-                //   color: Colors.red,
-                //   title: 'Nonaktifkan Timses',
-                //   onTap: () {
-                //     // sharedController
-                //     //     .popUpMessage('Konfirmasi', 'Apakah Anda yakin ingin nonaktifkan timses?', 'Batal', 'Ya', () {
-                //     //   Get.back();
-                //     //   sharedController.loading(context);
-                //     // }, true, context);
-                //   },
-                // ),
+                ButtonWidget(
+                  color: secondaryColor,
+                  title: 'Ubah Data',
+                  onTap: () {
+                    profilController.toUpdateScreen();
+                  },
+                ),
               ],
             ),
           )
