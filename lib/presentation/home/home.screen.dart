@@ -9,6 +9,9 @@ import 'package:suheriyatna_mobile/presentation/approval/controllers/approval.co
 import 'package:suheriyatna_mobile/presentation/home/widget/main_icon_widget.dart';
 import 'package:suheriyatna_mobile/presentation/kuisioner/kuisioner_add.screen.dart';
 import 'package:suheriyatna_mobile/presentation/kuisioner/kuisioner_list.screen.dart';
+import 'package:suheriyatna_mobile/presentation/pengumuman/controllers/pengumuman.controller.dart';
+import 'package:suheriyatna_mobile/presentation/pengumuman/pengumuman_list.screen.dart';
+import 'package:suheriyatna_mobile/presentation/pengumuman/widget/card_pengumuman.widget.dart';
 import 'package:suheriyatna_mobile/presentation/relawan/relawan_list.screen.dart';
 import 'package:suheriyatna_mobile/presentation/screens.dart';
 import 'package:suheriyatna_mobile/presentation/shared/widget/button_widget.dart';
@@ -16,12 +19,14 @@ import 'package:suheriyatna_mobile/presentation/shared/widget/button_widget.dart
 import '../../infrastructure/theme/colors.dart';
 import '../../infrastructure/theme/fonts.dart';
 import '../approval/approval_relawan.screen.dart';
+import '../pengumuman/pengumuman_detail.screen.dart';
 import '../shared/widget/header_widget.dart';
 import 'controllers/home.controller.dart';
 
 class HomeScreen extends GetView<HomeController> {
   HomeController homeController = Get.put(HomeController());
   ApprovalController approvalController = Get.put(ApprovalController());
+  PengumumanController pengumumanController = Get.put(PengumumanController());
   HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -108,18 +113,33 @@ class HomeScreen extends GetView<HomeController> {
                                       Get.to(() => KuisionerListScreen());
                                     },
                                   ),
-                                  // MainIconWidget(
-                                  //   icon: Remix.chat_poll_line,
-                                  //   title: 'Quick Count',
-                                  //   onTap: () {
-                                  //     FToast.toast(context, msg: "Segera Hadir");
-                                  //   },
-                                  // ),
                                   MainIconWidget(
                                     icon: Remix.line_chart_line,
                                     title: 'Summary Data',
                                     onTap: () {
                                       Get.to(() => SummaryDataScreen());
+                                    },
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2.h,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  MainIconWidget(
+                                    icon: Remix.information_line,
+                                    title: 'Pengumuman',
+                                    onTap: () {
+                                      Get.to(() => PengumumanListScreen());
+                                    },
+                                  ),
+                                  MainIconWidget(
+                                    icon: Remix.chat_poll_line,
+                                    title: 'Quick Count',
+                                    onTap: () {
+                                      FToast.toast(context, msg: "Segera Hadir");
                                     },
                                   ),
                                 ],
@@ -237,59 +257,30 @@ class HomeScreen extends GetView<HomeController> {
                               SizedBox(
                                 height: 1.h,
                               ),
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        Get.to(() => PengumumanScreen());
-                                      },
-                                      child: Container(
-                                        margin: EdgeInsets.only(right: 2.w),
-                                        width: 60.w,
-                                        decoration: BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(20),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              child: ClipRRect(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  child: Image.asset('assets/images/banner1.jpg', fit: BoxFit.cover)),
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.symmetric(horizontal: 3.w),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  SizedBox(
-                                                    height: 1.h,
-                                                  ),
-                                                  Text(
-                                                    'Profil Dr. Ir. H, Suheriyatna, M.Si',
-                                                    style: defaultTextStyle.copyWith(
-                                                        fontSize: 10.sp, fontWeight: FontWeight.bold),
-                                                  ),
-                                                  Container(
-                                                    margin: EdgeInsets.symmetric(vertical: 1.h),
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                      children: [],
-                                                    ),
-                                                  ),
-                                                ],
+                              Container(
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Obx(() => Container(
+                                        child: Row(
+                                          children: pengumumanController.pengumumanList.map((element) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                Get.to(() => PengumumanDetailScreen(
+                                                      dataPengumuman: element,
+                                                    ));
+                                              },
+                                              child: Container(
+                                                margin: EdgeInsets.only(right: 4.w),
+                                                height: 25.h,
+                                                width: 80.w,
+                                                child: CardPengumumanWidget(
+                                                  title: element['judul'],
+                                                ),
                                               ),
-                                            ),
-                                            Container()
-                                          ],
+                                            );
+                                          }).toList(),
                                         ),
-                                      ),
-                                    ),
-                                  ],
+                                      )),
                                 ),
                               ),
                             ],

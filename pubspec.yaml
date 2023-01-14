@@ -42,6 +42,8 @@ dependencies:
   path_provider: 2.0.11
   lecle_downloads_path_provider: 0.0.2+8
   d_chart: 1.0.0
+  file_picker: 4.6.1
+  easy_image_viewer: 1.2.0
   flutter: 
     sdk: flutter
 

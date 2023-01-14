@@ -65,6 +65,21 @@ class SharedController extends GetxController {
     return url;
   }
 
+  uploadFile(File file) async {
+    var fileName = basename(file.path);
+    final path = 'files/${fileName}';
+
+    final fileTemp = file;
+    final ref = FirebaseStorage.instance.ref().child(path);
+
+    uploadTask = ref.putFile(fileTemp);
+
+    final snapshot = await uploadTask!.whenComplete(() => {});
+    final url = await snapshot.ref.getDownloadURL();
+
+    return url;
+  }
+
   hash(var text) {
     var key = utf8.encode(text);
     var bytes = utf8.encode("foobar");

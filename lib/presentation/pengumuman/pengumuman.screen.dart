@@ -7,7 +7,9 @@ import 'package:suheriyatna_mobile/infrastructure/theme/colors.dart';
 import 'controllers/pengumuman.controller.dart';
 
 class PengumumanScreen extends StatefulWidget {
-  const PengumumanScreen({Key? key}) : super(key: key);
+  final bool? isLocalFile;
+  final String? url;
+  const PengumumanScreen(@required this.isLocalFile, {Key? key, this.url}) : super(key: key);
 
   @override
   State<PengumumanScreen> createState() => _PengumumanScreenState();
@@ -24,7 +26,11 @@ class _PengumumanScreenState extends State<PengumumanScreen> {
   }
 
   loadDocument() async {
-    document = await PDFDocument.fromAsset('assets/images/cv3.pdf');
+    if (widget.isLocalFile == true) {
+      document = await PDFDocument.fromAsset('assets/images/cv3.pdf');
+    } else {
+      document = await PDFDocument.fromURL(widget.url!);
+    }
 
     setState(() => _isLoading = false);
   }

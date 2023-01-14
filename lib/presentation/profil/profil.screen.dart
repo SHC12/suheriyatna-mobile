@@ -270,7 +270,7 @@ class ProfilScreen extends GetView<ProfilController> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Get.to(() => PengumumanScreen());
+                            Get.to(() => PengumumanScreen(true));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
