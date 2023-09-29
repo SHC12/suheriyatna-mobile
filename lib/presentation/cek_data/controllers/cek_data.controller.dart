@@ -38,6 +38,8 @@ class CekDataController extends GetxController {
       getDataKuisioner();
     } else if (prefs.read('role') == '0') {
       getDataRelawanAll();
+    } else if (prefs.read('role') == '00') {
+      getDataRelawanKordinator();
     }
   }
 
@@ -61,7 +63,7 @@ class CekDataController extends GetxController {
         .collection('relawan')
         .where('is_deleted', isEqualTo: false)
         .where('is_verified', isEqualTo: true)
-        .where('kabupaten', isEqualTo: kabupaten)
+        .where('kabupaten', isEqualTo: kabupaten.toString().toUpperCase())
         .get()
         .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
@@ -113,6 +115,35 @@ class CekDataController extends GetxController {
       print('data relawan : $dataRelawanTemp');
     });
   }
+
+  getDataRelawanKordinator() async {
+    await FirebaseFirestore.instance
+        .collection('relawan')
+        .where('is_deleted', isEqualTo: false)
+        .where('wilayah_kerja', isEqualTo: prefs.read('wilayahKerja'))
+        .get()
+        .then((QuerySnapshot query) async {
+      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      dataList.assignAll(dataRelawanTemp);
+      totalTimsesSelected.value = dataList.length;
+      print('data relawan : $dataRelawanTemp');
+    });
+  }
+
+  // getDataRelawanDummy() async {
+  //   await FirebaseFirestore.instance
+  //       .collection('relawan')
+  //       .where('file_pendukung',
+  //           isEqualTo:
+  //               'https://firebasestorage.googleapis.com/v0/b/suheriyatna-mobile.appspot.com/o/files%2FDefault_pfp.jpg?alt=media&token=c4f3ad6c-c673-40f3-b862-7726f2ccfcda')
+  //       .get()
+  //       .then((QuerySnapshot query) async {
+  //     List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+  //     dataList.assignAll(dataRelawanTemp);
+  //     totalTimsesSelected.value = dataList.length;
+  //     print('data relawan dummy : ${dataRelawanTemp.length}');
+  //   });
+  // }
 
   getDataKuisioner() async {
     await dtdc.where('nik_relawan', isEqualTo: prefs.read('nik')).get().then((QuerySnapshot query) async {

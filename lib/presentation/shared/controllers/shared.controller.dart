@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:suheriyatna_mobile/main.dart';
 import 'package:suheriyatna_mobile/presentation/shared/widget/confirm_dialog.widget.dart';
 
 import '../../../infrastructure/dal/services/network_service.dart';
@@ -96,10 +97,16 @@ class SharedController extends GetxController {
         path: UrlListService.urlKabupaten,
         onSuccess: (content) {
           kabupatenList.assignAll(content);
-          print(content);
+
+          if (prefs.read('role') == '00') {
+            var kabupatenIDbyName =
+                kabupatenList.where((element) => element['name'] == prefs.read('wilayahKerja')).toList();
+            print('value b : $kabupatenIDbyName');
+            kabupatenList.assignAll(kabupatenIDbyName);
+          }
         },
         onError: (content) {
-          print(content);
+          // print(content);
         });
   }
 
@@ -109,10 +116,10 @@ class SharedController extends GetxController {
         path: '${UrlListService.urlKecamatan + idKabupaten}.json',
         onSuccess: (content) {
           kecamatanList.assignAll(content);
-          print('kecamatan : $content');
+          // print('kecamatan : $content');
         },
         onError: (content) {
-          print('kecamatan : $content');
+          // print('kecamatan : $content');
         });
   }
 
@@ -122,10 +129,10 @@ class SharedController extends GetxController {
         path: '${UrlListService.urlKelurahan + idKecamatan}.json',
         onSuccess: (content) {
           kelurahanList.assignAll(content);
-          print('kelurahan : $content');
+          // print('kelurahan : $content');
         },
         onError: (content) {
-          print('kelurahan : $content');
+          // print('kelurahan : $content');
         });
   }
 

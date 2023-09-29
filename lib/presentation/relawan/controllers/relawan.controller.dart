@@ -25,6 +25,8 @@ class RelawanController extends GetxController {
 
   var isLoading = false.obs;
 
+  var nameReferral = ''.obs;
+
   @override
   void onInit() async {
     await getDocID();
@@ -43,6 +45,10 @@ class RelawanController extends GetxController {
   }
 
   getDocID() async {
+    if (prefs.read('role') != '00' || prefs.read('role') != '0') {
+      docID.value = prefs.read('nik');
+      return;
+    }
     await relawan.where('nik', isEqualTo: prefs.read('nik')).get().then((QuerySnapshot query) {
       docID.value = query.docs.first.id;
 
@@ -52,18 +58,34 @@ class RelawanController extends GetxController {
 
   getRelawanList() async {
     isLoading(true);
-    await FirebaseFirestore.instance
-        .collection('relawan')
-        .doc(docID.value)
-        .collection('sub_relawan')
-        .get()
-        .then((QuerySnapshot query) async {
-      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
-      dataRelawan.assignAll(dataRelawanTemp);
-      totalTimsesSelected.value = dataRelawan.length;
-      isLoading(false);
-      print('data sub relawan : $dataRelawanTemp');
-    });
+    if (prefs.read('role') == '00') {
+      await FirebaseFirestore.instance
+          .collection('relawan')
+          .where('wilayah_kerja', isEqualTo: prefs.read('wilayahKerja'))
+          // .doc(docID.value)
+          // .collection('sub_relawan')
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataRelawan.assignAll(dataRelawanTemp);
+        totalTimsesSelected.value = dataRelawan.length;
+        isLoading(false);
+        // print('data sub relawan : $dataRelawanTemp');
+      });
+    } else {
+      await FirebaseFirestore.instance
+          .collection('relawan')
+          .doc(docID.value)
+          .collection('sub_relawan')
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataRelawan.assignAll(dataRelawanTemp);
+        totalTimsesSelected.value = dataRelawan.length;
+        isLoading(false);
+        // print('data sub relawan : $dataRelawanTemp');
+      });
+    }
   }
 
   addRelawan(
@@ -255,6 +277,21 @@ class RelawanController extends GetxController {
         Get.back();
         sharedController.showSnackbar('Berhasil', 'Relawan berhasil dihapus');
       });
+    });
+  }
+
+  getReferral(var nikRefferal) async {
+    await FirebaseFirestore.instance
+        .collection('relawan')
+        .where('nik', isEqualTo: nikRefferal)
+        .get()
+        .then((QuerySnapshot query) async {
+      if (query.docs.length > 0) {
+        var docIDTemp = query.docs.first.id;
+        var dataRelawanTemp = query.docs.first.data();
+
+        nameReferral.value = query.docs[0]['nama_lengkap'];
+      } else {}
     });
   }
 }

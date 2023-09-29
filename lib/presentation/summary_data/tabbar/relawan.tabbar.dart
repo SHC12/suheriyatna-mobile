@@ -6,6 +6,7 @@ import 'package:remixicon/remixicon.dart';
 import 'package:sizer/sizer.dart';
 import 'package:suheriyatna_mobile/presentation/cek_data/controllers/cek_data.controller.dart';
 import 'package:suheriyatna_mobile/presentation/relawan/controllers/relawan.controller.dart';
+import 'package:suheriyatna_mobile/presentation/relawan/relawan_detail.screen.dart';
 import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
 import 'package:suheriyatna_mobile/presentation/shared/widget/button_widget.dart';
 import 'package:suheriyatna_mobile/presentation/summary_data/chart/relawan.chart.dart';
@@ -236,8 +237,8 @@ class _RelawanTabbarState extends State<RelawanTabbar> {
                           return DataRow(cells: [
                             DataCell(GestureDetector(
                               onTap: () async {
-                                Get.to(() => TimsesDetailScreen(
-                                      dataTimses: e,
+                                Get.to(() => RelawanDetailScreen(
+                                      dataRelawan: e,
                                     ));
                               },
                               child: Container(

@@ -100,6 +100,7 @@ class _TimsesTabbarState extends State<TimsesTabbar> {
                         listName: 'name',
                         valueName: 'id',
                         itemCallback: (String value) async {
+                          print('value a : $value');
                           kabupatenValue = value;
                           await sharedController.fetchKecamatan(value);
                           var wilayahKerjaempValue =

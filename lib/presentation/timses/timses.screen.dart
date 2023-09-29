@@ -175,7 +175,7 @@ class TimsesScreen extends GetView<TimsesController> {
                           ),
                         )),
                         DataCell(Text(
-                          e['nik'] ?? '',
+                          e['nik'].toString(),
                           style: greyTextStyle,
                         )),
                         DataCell(Text(

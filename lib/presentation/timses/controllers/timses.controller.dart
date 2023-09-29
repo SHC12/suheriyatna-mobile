@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:suheriyatna_mobile/main.dart';
 import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
 
 class TimsesController extends GetxController {
@@ -8,6 +9,7 @@ class TimsesController extends GetxController {
   var listRelawanDeleted = [].obs;
 
   var totalTimsesSelected = 0.obs;
+  var totalRelawan = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -26,16 +28,32 @@ class TimsesController extends GetxController {
   }
 
   getTimses() async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .where('is_verified', isEqualTo: true)
-        .get()
-        .then((QuerySnapshot query) async {
-      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
-      dataList.assignAll(dataRelawanTemp);
-      totalTimsesSelected.value = dataList.length;
-      print('data relawan : $dataRelawanTemp');
-    });
+    if (prefs.read('role') == '00') {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .where('is_verified', isEqualTo: true)
+          .where('role', isEqualTo: '1')
+          .where('wilayah_kerja', isEqualTo: prefs.read('wilayahKerja'))
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataList.assignAll(dataRelawanTemp);
+        totalTimsesSelected.value = dataList.length;
+        print('data relawan : $dataRelawanTemp');
+      });
+    } else {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .where('is_verified', isEqualTo: true)
+          .where('role', isEqualTo: '1')
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataList.assignAll(dataRelawanTemp);
+        totalTimsesSelected.value = dataList.length;
+        print('data relawan : $dataRelawanTemp');
+      });
+    }
   }
 
   nonAktifkanTimses(var nik) async {
@@ -80,49 +98,109 @@ class TimsesController extends GetxController {
   }
 
   getDataTimsesByKabupaten(var kabupaten) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .where('is_deleted', isEqualTo: false)
-        .where('is_verified', isEqualTo: true)
-        .where('kabupaten', isEqualTo: kabupaten)
-        .get()
-        .then((QuerySnapshot query) async {
-      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
-      dataList.assignAll(dataRelawanTemp);
+    if (prefs.read('role') == '00') {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .where('is_deleted', isEqualTo: false)
+          .where('is_verified', isEqualTo: true)
+          .where('wilayah_kerja', isEqualTo: prefs.read('wilayahKerja'))
+          .where('role', isEqualTo: '1')
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataList.assignAll(dataRelawanTemp);
 
-      totalTimsesSelected.value = dataList.length;
+        totalTimsesSelected.value = dataList.length;
 
-      print('data relawan : $dataRelawanTemp');
-    });
+        print('data relawan : $dataRelawanTemp');
+      });
+    } else {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .where('is_deleted', isEqualTo: false)
+          .where('is_verified', isEqualTo: true)
+          .where('kabupaten', isEqualTo: kabupaten)
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataList.assignAll(dataRelawanTemp);
+
+        totalTimsesSelected.value = dataList.length;
+
+        print('data relawan : $dataRelawanTemp');
+      });
+    }
   }
 
   getDataTimsesByKecamatan(var kecamatan) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .where('is_deleted', isEqualTo: false)
-        .where('is_verified', isEqualTo: true)
-        .where('kecamatan', isEqualTo: kecamatan)
-        .get()
-        .then((QuerySnapshot query) async {
-      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
-      dataList.assignAll(dataRelawanTemp);
-      totalTimsesSelected.value = dataList.length;
-      print('data relawan : $dataRelawanTemp');
-    });
+    if (prefs.read('role') == '00') {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .where('is_deleted', isEqualTo: false)
+          .where('is_verified', isEqualTo: true)
+          .where('kecamatan', isEqualTo: kecamatan)
+          .where('role', isEqualTo: '1')
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataList.assignAll(dataRelawanTemp);
+        totalTimsesSelected.value = dataList.length;
+        print('data relawan : $dataRelawanTemp');
+      });
+    } else {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .where('is_deleted', isEqualTo: false)
+          .where('is_verified', isEqualTo: true)
+          .where('kecamatan', isEqualTo: kecamatan)
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataList.assignAll(dataRelawanTemp);
+        totalTimsesSelected.value = dataList.length;
+        print('data relawan : $dataRelawanTemp');
+      });
+    }
   }
 
   getDataTimsesByKelurahan(var kelurahan) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .where('is_deleted', isEqualTo: false)
-        .where('is_verified', isEqualTo: true)
-        .where('kelurahan', isEqualTo: kelurahan)
+    if (prefs.read('role') == '00') {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .where('is_deleted', isEqualTo: false)
+          .where('is_verified', isEqualTo: true)
+          .where('kelurahan', isEqualTo: kelurahan)
+          .where('role', isEqualTo: '1')
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataList.assignAll(dataRelawanTemp);
+        totalTimsesSelected.value = dataList.length;
+        print('data relawan : $dataRelawanTemp');
+      });
+    } else {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .where('is_deleted', isEqualTo: false)
+          .where('is_verified', isEqualTo: true)
+          .where('kelurahan', isEqualTo: kelurahan)
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataList.assignAll(dataRelawanTemp);
+        totalTimsesSelected.value = dataList.length;
+        print('data relawan : $dataRelawanTemp');
+      });
+    }
+  }
+
+  getTotalRelawanByTimses(var nikTimses) {
+    FirebaseFirestore.instance
+        .collection('relawan')
+        .where('nik_referral', isEqualTo: nikTimses)
         .get()
-        .then((QuerySnapshot query) async {
-      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
-      dataList.assignAll(dataRelawanTemp);
-      totalTimsesSelected.value = dataList.length;
-      print('data relawan : $dataRelawanTemp');
+        .then((QuerySnapshot query) {
+      totalRelawan.value = query.docs.length;
     });
   }
 }

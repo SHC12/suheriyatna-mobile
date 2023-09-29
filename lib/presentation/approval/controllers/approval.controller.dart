@@ -17,8 +17,9 @@ class ApprovalController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (prefs.read('role') == '0') {
+    if (prefs.read('role') == '0' || prefs.read('role') == '00') {
       getUnVerified();
+      // getDataTimsesDummy();
     }
   }
 
@@ -33,19 +34,32 @@ class ApprovalController extends GetxController {
   }
 
   getUnVerified() async {
-    await user.where('is_verified', isEqualTo: false).get().then((QuerySnapshot query) async {
-      List userUnverifiedListTemp = query.docs.map((e) => e.data()).toList();
-
-      userUnverifiedListTemp.forEach((element) {
-        element['id'] = query.docs[userUnverifiedListTemp.indexOf(element)].id;
+    if (prefs.read('role') == '00') {
+      await user
+          .where(
+            'is_verified',
+            isEqualTo: false,
+          )
+          .where('wilayah_kerja', isEqualTo: prefs.read('wilayahKerja'))
+          .get()
+          .then((QuerySnapshot query) async {
+        List userUnverifiedListTemp = query.docs.map((e) => e.data()).toList();
+        userUnverifiedListTemp.forEach((element) {
+          element['id'] = query.docs[userUnverifiedListTemp.indexOf(element)].id;
+        });
+        userUnverifiedList.assignAll(userUnverifiedListTemp);
+        docIDUserUnverifiedList.assignAll(query.docs.map((e) => e.id).toList());
       });
-      userUnverifiedList.assignAll(userUnverifiedListTemp);
-
-      docIDUserUnverifiedList.assignAll(query.docs.map((e) => e.id).toList());
-
-      // print('list user unverified : $userUnverifiedList');
-      print('list doc id unverified : $docIDUserUnverifiedList');
-    });
+    } else {
+      await user.where('is_verified', isEqualTo: false).get().then((QuerySnapshot query) async {
+        List userUnverifiedListTemp = query.docs.map((e) => e.data()).toList();
+        userUnverifiedListTemp.forEach((element) {
+          element['id'] = query.docs[userUnverifiedListTemp.indexOf(element)].id;
+        });
+        userUnverifiedList.assignAll(userUnverifiedListTemp);
+        docIDUserUnverifiedList.assignAll(query.docs.map((e) => e.id).toList());
+      });
+    }
   }
 
   approveUser(var docID) async {
@@ -98,9 +112,50 @@ class ApprovalController extends GetxController {
   }
 
   getDataRelawan() async {
+    if (prefs.read('role') == '00') {
+      await FirebaseFirestore.instance
+          .collection('relawan')
+          .where('is_verified', isEqualTo: false)
+          .where('wilayah_kerja', isEqualTo: prefs.read('wilayahKerja'))
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataRelawanTemp.forEach((element) {
+          element['id'] = query.docs[dataRelawanTemp.indexOf(element)].id;
+        });
+        dataList.assignAll(dataRelawanTemp);
+      });
+    } else {
+      await FirebaseFirestore.instance
+          .collection('relawan')
+          .where('is_verified', isEqualTo: false)
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataRelawanTemp.forEach((element) {
+          element['id'] = query.docs[dataRelawanTemp.indexOf(element)].id;
+        });
+        dataList.assignAll(dataRelawanTemp);
+      });
+    }
+  }
+
+  deleteAllRelawanDummy(BuildContext context, var kabupaten) async {
+    sharedController.loading(context);
+    var docIDList = dataList.map((e) => e['id']).toList();
+
+    await Future.forEach(docIDList, (element) {
+      relawan.doc(element.toString()).delete();
+    }).then((value) async {
+      print('done');
+      Get.back();
+    });
+  }
+
+  getDataRelawanDummy() async {
     await FirebaseFirestore.instance
         .collection('relawan')
-        .where('is_verified', isEqualTo: false)
+        .where('my_referral_code', isEqualTo: '')
         .get()
         .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
@@ -108,21 +163,66 @@ class ApprovalController extends GetxController {
         element['id'] = query.docs[dataRelawanTemp.indexOf(element)].id;
       });
       dataList.assignAll(dataRelawanTemp);
+
+      print('length relawan : ${dataList.length}');
+    });
+  }
+
+  deleteAllTimsesDummy() async {
+    sharedController.loading(Get.context!);
+    var docIDList = docIDUserUnverifiedList.map((e) => e['id']).toList();
+
+    await Future.forEach(docIDList, (element) {
+      user.doc(element.toString()).delete();
+    }).then((value) async {
+      print('done');
+      Get.back();
+    });
+  }
+
+  getDataTimsesDummy() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .where('isDummy', isEqualTo: true)
+        .get()
+        .then((QuerySnapshot query) async {
+      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      dataRelawanTemp.forEach((element) {
+        element['id'] = query.docs[dataRelawanTemp.indexOf(element)].id;
+      });
+      docIDUserUnverifiedList.assignAll(dataRelawanTemp);
+
+      print('length timses dummy : ${docIDUserUnverifiedList.length}');
     });
   }
 
   getDataRelawanByKabupaten(var kabupaten) async {
-    await FirebaseFirestore.instance
-        .collection('relawan')
-        .where('kabupaten', isEqualTo: kabupaten)
-        .where('is_verified', isEqualTo: false)
-        .get()
-        .then((QuerySnapshot query) async {
-      List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
-      dataRelawanTemp.forEach((element) {
-        element['id'] = query.docs[dataRelawanTemp.indexOf(element)].id;
+    if (prefs.read('role') == '00') {
+      await FirebaseFirestore.instance
+          .collection('relawan')
+          .where('wilayah_kerja', isEqualTo: prefs.read('wilayahKerja'))
+          .where('is_verified', isEqualTo: false)
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataRelawanTemp.forEach((element) {
+          element['id'] = query.docs[dataRelawanTemp.indexOf(element)].id;
+        });
+        dataList.assignAll(dataRelawanTemp);
       });
-      dataList.assignAll(dataRelawanTemp);
-    });
+    } else {
+      await FirebaseFirestore.instance
+          .collection('relawan')
+          .where('kabupaten', isEqualTo: kabupaten)
+          .where('is_verified', isEqualTo: false)
+          .get()
+          .then((QuerySnapshot query) async {
+        List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        dataRelawanTemp.forEach((element) {
+          element['id'] = query.docs[dataRelawanTemp.indexOf(element)].id;
+        });
+        dataList.assignAll(dataRelawanTemp);
+      });
+    }
   }
 }

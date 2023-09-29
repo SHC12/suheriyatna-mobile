@@ -30,26 +30,39 @@ class LoginController extends GetxController {
           .get()
           .then((QuerySnapshot query) {
         if (query.docs.length > 0) {
-          if (query.docs[0]['is_verified'] == true) {
-            prefs.write('nik', query.docs[0]['nik']);
-            prefs.write('noTelp', noTelp);
-            prefs.write('namaLengkap', query.docs[0]['nama_lengkap']);
-            prefs.write('tempatLahir', query.docs[0]['tempat_lahir']);
-            prefs.write('tanggalLahir', query.docs[0]['tanggal_lahir']);
-            prefs.write('role', query.docs[0]['role']);
+          if (query.docs[0]['is_verified'] == true && query.docs[0]['is_deleted'] == false) {
+            if (query.docs[0]['role'] == '00') {
+              prefs.write('nik', query.docs[0]['nik']);
+              prefs.write('noTelp', noTelp);
+              prefs.write('namaLengkap', query.docs[0]['nama_lengkap']);
 
-            prefs.write('kabupaten', query.docs[0]['kabupaten']);
-            prefs.write('kecamatan', query.docs[0]['kecamatan']);
-            prefs.write('kelurahan', query.docs[0]['kelurahan']);
-            prefs.write('alamat', query.docs[0]['alamat']);
-            prefs.write('rt', query.docs[0]['rt']);
-            prefs.write('rw', query.docs[0]['rw']);
+              prefs.write('role', query.docs[0]['role']);
 
-            prefs.write('kodeReferral', query.docs[0]['kode_referral']);
-            prefs.write('wilayahKerja', query.docs[0]['wilayah_kerja']);
-            prefs.write('my_referral_code', query.docs[0]['my_referral_code']);
-            Get.back();
-            Get.offAll(HomeScreen());
+              prefs.write('wilayahKerja', query.docs[0]['wilayah_kerja']);
+
+              Get.back();
+              Get.offAll(HomeScreen());
+            } else {
+              prefs.write('nik', query.docs[0]['nik']);
+              prefs.write('noTelp', noTelp);
+              prefs.write('namaLengkap', query.docs[0]['nama_lengkap']);
+              prefs.write('tempatLahir', query.docs[0]['tempat_lahir']);
+              prefs.write('tanggalLahir', query.docs[0]['tanggal_lahir']);
+              prefs.write('role', query.docs[0]['role']);
+
+              prefs.write('kabupaten', query.docs[0]['kabupaten']);
+              prefs.write('kecamatan', query.docs[0]['kecamatan']);
+              prefs.write('kelurahan', query.docs[0]['kelurahan']);
+              prefs.write('alamat', query.docs[0]['alamat']);
+              prefs.write('rt', query.docs[0]['rt']);
+              prefs.write('rw', query.docs[0]['rw']);
+
+              prefs.write('kodeReferral', query.docs[0]['kode_referral']);
+              prefs.write('wilayahKerja', query.docs[0]['wilayah_kerja']);
+              prefs.write('my_referral_code', query.docs[0]['my_referral_code']);
+              Get.back();
+              Get.offAll(HomeScreen());
+            }
           } else {
             Get.back();
             Get.snackbar(

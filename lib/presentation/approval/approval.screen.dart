@@ -62,6 +62,7 @@ class ApprovalScreen extends GetView<ApprovalController> {
                         title: 'Approve Semua User',
                         onTap: () {
                           approvalController.approveAllUser(context);
+                          // approvalController.deleteAllTimsesDummy();
                         }),
                   ),
                   SizedBox(
@@ -106,7 +107,7 @@ class ApprovalScreen extends GetView<ApprovalController> {
                                 ),
                               )),
                               DataCell(Text(
-                                e['nik'],
+                                e['nik'].toString(),
                                 style: greyTextStyle,
                               )),
                               DataCell(Text(

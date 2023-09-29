@@ -63,7 +63,7 @@ class _CekDataScreenState extends State<CekDataScreen> {
               child: Column(
                 children: [
                   Column(
-                      children: prefs.read('role') == '0'
+                      children: prefs.read('role') == '0' || prefs.read('role') == '00'
                           ? [
                               Obx(() => Column(
                                     children: [
@@ -150,7 +150,7 @@ class _CekDataScreenState extends State<CekDataScreen> {
                     height: 1.h,
                   ),
                   FittedBox(
-                    child: prefs.read('role') == '0'
+                    child: prefs.read('role') == '0' || prefs.read('role') == '00'
                         ? Column(
                             children: [
                               DataTable(
@@ -176,7 +176,7 @@ class _CekDataScreenState extends State<CekDataScreen> {
                                   return DataRow(cells: [
                                     DataCell(GestureDetector(
                                       onTap: () async {
-                                        if (prefs.read('role') == '0') {
+                                        if (prefs.read('role') == '0' || prefs.read('role') == '00') {
                                           Get.to(() => RelawanDetailScreen(
                                                 dataRelawan: e,
                                               ));

@@ -15,10 +15,15 @@ import '../../infrastructure/theme/colors.dart';
 import '../../infrastructure/theme/fonts.dart';
 import '../notifikasi/notifikasi.screen.dart';
 
-class TimsesDetailScreen extends GetView<TimsesController> {
+class TimsesDetailScreen extends StatefulWidget {
   final Map? dataTimses;
-  TimsesDetailScreen({Key? key, this.dataTimses}) : super(key: key);
+  const TimsesDetailScreen({Key? key, this.dataTimses}) : super(key: key);
 
+  @override
+  State<TimsesDetailScreen> createState() => _TimsesDetailScreenState();
+}
+
+class _TimsesDetailScreenState extends State<TimsesDetailScreen> {
   SharedController sharedController = Get.put(SharedController());
   TimsesController timsesController = Get.put(TimsesController());
   static const rowSpacer = TableRow(children: [
@@ -34,8 +39,15 @@ class TimsesDetailScreen extends GetView<TimsesController> {
   ]);
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    timsesController.getTotalRelawanByTimses(widget.dataTimses!['nik']);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Timestamp t = dataTimses!['created_at'];
+    Timestamp t = widget.dataTimses!['created_at'];
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -78,276 +90,292 @@ class TimsesDetailScreen extends GetView<TimsesController> {
             SizedBox(
               height: 2.h,
             ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Data Timses',
-                    style: defaultPrimaryTextStyle,
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-                    margin: EdgeInsets.only(bottom: 2.h),
-                    decoration: BoxDecoration(boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 10,
-                        offset: Offset(0.0, 0.0),
-                      )
-                    ], color: whiteColor, borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Table(
-                                columnWidths: {
-                                  0: FlexColumnWidth(6.w),
-                                  1: FlexColumnWidth(1.w),
-                                  2: FlexColumnWidth(10.w),
-                                },
+            Obx(() => Container(
+                  padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Data Timses',
+                        style: defaultPrimaryTextStyle,
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                        margin: EdgeInsets.only(bottom: 2.h),
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 10,
+                            offset: Offset(0.0, 0.0),
+                          )
+                        ], color: whiteColor, borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'NIK',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataTimses!['nik'],
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'Nama Lengkap',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataTimses!['nama_lengkap'],
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'No. Telp',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataTimses!['no_telp'] ?? '',
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'Jenis Kelamin',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataTimses!['jenis_kelamin'] ?? '',
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'Tempat Lahir',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataTimses!['tempat_lahir'],
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'Tanggal Lahir',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataTimses!['tanggal_lahir'],
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'Kabupaten',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataTimses!['kabupaten'],
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'Kecamatan',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataTimses!['kecamatan'],
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'Kelurahan',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataTimses!['kelurahan'],
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'Alamat',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataTimses!['alamat'],
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'RT/RW',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataTimses!['rt'] + '/' + dataTimses!['rw'],
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'Tanggal Pendaftaran',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataTimses!['created_at'] == null
-                                          ? ''
-                                          : DateFormat('dd-MM-yyyy').format(DateTime.parse(t.toDate().toString())),
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
-                                  rowSpacer,
-                                  TableRow(children: [
-                                    Text(
-                                      'Wilayah Kerja',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      ':',
-                                      style: defaultPrimaryTextStyle,
-                                    ),
-                                    Text(
-                                      dataTimses!['wilayah_kerja'],
-                                      textAlign: TextAlign.left,
-                                      style: defaultTextStyle,
-                                    ),
-                                  ]),
+                                  Table(
+                                    columnWidths: {
+                                      0: FlexColumnWidth(6.w),
+                                      1: FlexColumnWidth(1.w),
+                                      2: FlexColumnWidth(10.w),
+                                    },
+                                    children: [
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'Total Relawan',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          timsesController.totalRelawan.value.toString(),
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'NIK',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['nik'],
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'Nama Lengkap',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['nama_lengkap'],
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'No. Telp',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['no_telp'] ?? '',
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'Jenis Kelamin',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['jenis_kelamin'] ?? '',
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'Tempat Lahir',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['tempat_lahir'],
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'Tanggal Lahir',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['tanggal_lahir'],
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'Kabupaten',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['kabupaten'],
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'Kecamatan',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['kecamatan'],
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'Kelurahan',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['kelurahan'],
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'Alamat',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['alamat'],
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'RT/RW',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['rt'] + '/' + widget.dataTimses!['rw'],
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'Tanggal Pendaftaran',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['created_at'] == null
+                                              ? ''
+                                              : DateFormat('dd-MM-yyyy').format(DateTime.parse(t.toDate().toString())),
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'Wilayah Kerja',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['wilayah_kerja'],
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                    ],
+                                  ),
                                 ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      ButtonWidget(
+                        color: Colors.red,
+                        title: 'Nonaktifkan Timses',
+                        onTap: () {
+                          sharedController.popUpMessage(
+                              'Konfirmasi', 'Apakah Anda yakin ingin nonaktifkan timses?', 'Batal', 'Ya', () {
+                            Get.back();
+                            sharedController.loading(context);
+                            timsesController.nonAktifkanTimses(widget.dataTimses!['nik']);
+                          }, true, context);
+                        },
+                      ),
+                    ],
                   ),
-                  ButtonWidget(
-                    color: Colors.red,
-                    title: 'Nonaktifkan Timses',
-                    onTap: () {
-                      sharedController
-                          .popUpMessage('Konfirmasi', 'Apakah Anda yakin ingin nonaktifkan timses?', 'Batal', 'Ya', () {
-                        Get.back();
-                        sharedController.loading(context);
-                        timsesController.nonAktifkanTimses(dataTimses!['nik']);
-                      }, true, context);
-                    },
-                  ),
-                ],
-              ),
-            )
+                ))
           ],
         ),
       ),
