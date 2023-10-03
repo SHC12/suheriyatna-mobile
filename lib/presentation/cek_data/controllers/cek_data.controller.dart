@@ -66,10 +66,27 @@ class CekDataController extends GetxController {
         .where('kabupaten', isEqualTo: kabupaten.toString().toUpperCase())
         .get()
         .then((QuerySnapshot query) async {
+      // List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      // dataList.assignAll(dataRelawanTemp);
+      // totalTimsesSelected.value = dataList.length;
+      // print('data relawan : $dataRelawanTemp');
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
-      dataList.assignAll(dataRelawanTemp);
+
+      var a = [];
+      dataRelawanTemp.forEach((element) {
+        if (a
+            .where((elementa) =>
+                element['nik'] == elementa['nik'] &&
+                element['nama_lengkap'] == elementa['nama_lengkap'] &&
+                element['no_telp'] == elementa['no_telp'])
+            .toList()
+            .isEmpty) {
+          a.add(element);
+        }
+      });
+
+      dataList.assignAll(a);
       totalTimsesSelected.value = dataList.length;
-      print('data relawan : $dataRelawanTemp');
     });
   }
 
@@ -81,10 +98,27 @@ class CekDataController extends GetxController {
         .where('kecamatan', isEqualTo: kecamatan)
         .get()
         .then((QuerySnapshot query) async {
+      // List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      // dataList.assignAll(dataRelawanTemp);
+      // totalTimsesSelected.value = dataList.length;
+      // print('data relawan : $dataRelawanTemp');
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
-      dataList.assignAll(dataRelawanTemp);
+
+      var a = [];
+      dataRelawanTemp.forEach((element) {
+        if (a
+            .where((elementa) =>
+                element['nik'] == elementa['nik'] &&
+                element['nama_lengkap'] == elementa['nama_lengkap'] &&
+                element['no_telp'] == elementa['no_telp'])
+            .toList()
+            .isEmpty) {
+          a.add(element);
+        }
+      });
+
+      dataList.assignAll(a);
       totalTimsesSelected.value = dataList.length;
-      print('data relawan : $dataRelawanTemp');
     });
   }
 
@@ -96,10 +130,27 @@ class CekDataController extends GetxController {
         .where('kelurahan', isEqualTo: kelurahan)
         .get()
         .then((QuerySnapshot query) async {
+      // List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      // dataList.assignAll(dataRelawanTemp);
+      // totalTimsesSelected.value = dataList.length;
+      // print('data relawan : $dataRelawanTemp');
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
-      dataList.assignAll(dataRelawanTemp);
+
+      var a = [];
+      dataRelawanTemp.forEach((element) {
+        if (a
+            .where((elementa) =>
+                element['nik'] == elementa['nik'] &&
+                element['nama_lengkap'] == elementa['nama_lengkap'] &&
+                element['no_telp'] == elementa['no_telp'])
+            .toList()
+            .isEmpty) {
+          a.add(element);
+        }
+      });
+
+      dataList.assignAll(a);
       totalTimsesSelected.value = dataList.length;
-      print('data relawan : $dataRelawanTemp');
     });
   }
 
@@ -109,10 +160,27 @@ class CekDataController extends GetxController {
         .where('is_deleted', isEqualTo: false)
         .get()
         .then((QuerySnapshot query) async {
+      // List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      // dataList.assignAll(dataRelawanTemp);
+      // totalTimsesSelected.value = dataList.length;
+      // print('data relawan : $dataRelawanTemp');
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
-      dataList.assignAll(dataRelawanTemp);
+
+      var a = [];
+      dataRelawanTemp.forEach((element) {
+        if (a
+            .where((elementa) =>
+                element['nik'] == elementa['nik'] &&
+                element['nama_lengkap'] == elementa['nama_lengkap'] &&
+                element['no_telp'] == elementa['no_telp'])
+            .toList()
+            .isEmpty) {
+          a.add(element);
+        }
+      });
+
+      dataList.assignAll(a);
       totalTimsesSelected.value = dataList.length;
-      print('data relawan : $dataRelawanTemp');
     });
   }
 
@@ -123,10 +191,27 @@ class CekDataController extends GetxController {
         .where('wilayah_kerja', isEqualTo: prefs.read('wilayahKerja'))
         .get()
         .then((QuerySnapshot query) async {
+      // List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+      // dataList.assignAll(dataRelawanTemp);
+      // totalTimsesSelected.value = dataList.length;
+      // print('data relawan : $dataRelawanTemp');
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
-      dataList.assignAll(dataRelawanTemp);
+
+      var a = [];
+      dataRelawanTemp.forEach((element) {
+        if (a
+            .where((elementa) =>
+                element['nik'] == elementa['nik'] &&
+                element['nama_lengkap'] == elementa['nama_lengkap'] &&
+                element['no_telp'] == elementa['no_telp'])
+            .toList()
+            .isEmpty) {
+          a.add(element);
+        }
+      });
+
+      dataList.assignAll(a);
       totalTimsesSelected.value = dataList.length;
-      print('data relawan : $dataRelawanTemp');
     });
   }
 
@@ -152,5 +237,16 @@ class CekDataController extends GetxController {
 
       print('data kuisioner : $dataRelawanTemp');
     });
+  }
+
+  searchRelawanByName(var name) {
+    if (name == '') {
+      getCheckData();
+    } else {
+      var data = dataList
+          .where((p0) => p0['nama_lengkap'].toString().toLowerCase().contains(name.toString().toLowerCase()))
+          .toList();
+      dataList.assignAll(data);
+    }
   }
 }

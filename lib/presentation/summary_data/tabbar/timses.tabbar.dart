@@ -6,6 +6,7 @@ import 'package:remixicon/remixicon.dart';
 import 'package:sizer/sizer.dart';
 import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
 import 'package:suheriyatna_mobile/presentation/shared/widget/button_widget.dart';
+import 'package:suheriyatna_mobile/presentation/shared/widget/input_field_widget.dart';
 import 'package:suheriyatna_mobile/presentation/summary_data/chart/timses.chart.dart';
 
 import '../../../infrastructure/theme/colors.dart';
@@ -26,6 +27,8 @@ class _TimsesTabbarState extends State<TimsesTabbar> {
   SummaryDataController summaryDataController = Get.put(SummaryDataController());
   SharedController sharedController = Get.put(SharedController());
   TimsesController timsesController = Get.put(TimsesController());
+
+  TextEditingController tSearch = TextEditingController();
 
   String? kabupatenValue;
   String? kabupatenString;
@@ -100,7 +103,6 @@ class _TimsesTabbarState extends State<TimsesTabbar> {
                         listName: 'name',
                         valueName: 'id',
                         itemCallback: (String value) async {
-                          print('value a : $value');
                           kabupatenValue = value;
                           await sharedController.fetchKecamatan(value);
                           var wilayahKerjaempValue =
@@ -202,6 +204,32 @@ class _TimsesTabbarState extends State<TimsesTabbar> {
                     },
                   ),
                 ),
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  width: 60.w,
+                  child: InputFieldWidget(
+                    tController: tSearch,
+                    title: 'Cari Timses',
+                    hint: 'Silahkan Masukkan Nama Lengkap',
+                  ),
+                ),
+                SizedBox(
+                  width: 2.w,
+                ),
+                Container(
+                  width: 30.w,
+                  child: ButtonWidget(
+                    color: primaryColor,
+                    title: 'Cari',
+                    onTap: () {
+                      timsesController.searchTimsesByName(tSearch.text);
+                    },
+                  ),
+                )
               ],
             ),
             SizedBox(

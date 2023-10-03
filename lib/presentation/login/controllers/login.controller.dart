@@ -15,7 +15,7 @@ class LoginController extends GetxController {
     var password = sharedController.hash(kataSandi);
     bool isAvailable = false;
 
-    if (noTelp == 'admin' && kataSandi == 'admin') {
+    if (noTelp == 'admin' && kataSandi == 'Admin_app_123') {
       prefs.write('nik', 'admin');
       prefs.write('noTelp', 'admin');
       prefs.write('namaLengkap', 'admin');

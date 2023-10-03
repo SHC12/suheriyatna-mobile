@@ -187,10 +187,10 @@ class KoordinatorDetailScreen extends GetView<TimsesController> {
                   ),
                   ButtonWidget(
                     color: Colors.red,
-                    title: 'Nonaktifkan Koordinator',
+                    title: 'Hapus Koordinator',
                     onTap: () {
-                      sharedController.popUpMessage(
-                          'Konfirmasi', 'Apakah Anda yakin ingin nonaktifkan koordinator?', 'Batal', 'Ya', () {
+                      sharedController
+                          .popUpMessage('Konfirmasi', 'Apakah Anda yakin ingin hapus koordinator?', 'Batal', 'Ya', () {
                         Get.back();
                         sharedController.loading(context);
                         koordinatorController.nonAktifkanKoordinator(dataKoordinator!['nik']);

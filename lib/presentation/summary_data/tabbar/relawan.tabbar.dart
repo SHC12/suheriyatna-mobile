@@ -9,6 +9,7 @@ import 'package:suheriyatna_mobile/presentation/relawan/controllers/relawan.cont
 import 'package:suheriyatna_mobile/presentation/relawan/relawan_detail.screen.dart';
 import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
 import 'package:suheriyatna_mobile/presentation/shared/widget/button_widget.dart';
+import 'package:suheriyatna_mobile/presentation/shared/widget/input_field_widget.dart';
 import 'package:suheriyatna_mobile/presentation/summary_data/chart/relawan.chart.dart';
 import 'package:suheriyatna_mobile/presentation/summary_data/chart/timses.chart.dart';
 
@@ -30,6 +31,8 @@ class _RelawanTabbarState extends State<RelawanTabbar> {
   SummaryDataController summaryDataController = Get.put(SummaryDataController());
   SharedController sharedController = Get.put(SharedController());
   CekDataController cekDataController = Get.put(CekDataController());
+
+  TextEditingController tSearch = TextEditingController();
 
   bool isChart = false;
 
@@ -203,6 +206,32 @@ class _RelawanTabbarState extends State<RelawanTabbar> {
                           isChart = true;
                         });
                       }
+                    },
+                  ),
+                )
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  width: 60.w,
+                  child: InputFieldWidget(
+                    tController: tSearch,
+                    title: 'Cari Relawan',
+                    hint: 'Silahkan Masukkan Nama Lengkap',
+                  ),
+                ),
+                SizedBox(
+                  width: 2.w,
+                ),
+                Container(
+                  width: 30.w,
+                  child: ButtonWidget(
+                    color: primaryColor,
+                    title: 'Cari',
+                    onTap: () {
+                      cekDataController.searchRelawanByName(tSearch.text);
                     },
                   ),
                 )

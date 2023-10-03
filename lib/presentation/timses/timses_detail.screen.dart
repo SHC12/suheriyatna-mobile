@@ -363,10 +363,10 @@ class _TimsesDetailScreenState extends State<TimsesDetailScreen> {
                       ),
                       ButtonWidget(
                         color: Colors.red,
-                        title: 'Nonaktifkan Timses',
+                        title: 'Hapus Timses',
                         onTap: () {
-                          sharedController.popUpMessage(
-                              'Konfirmasi', 'Apakah Anda yakin ingin nonaktifkan timses?', 'Batal', 'Ya', () {
+                          sharedController
+                              .popUpMessage('Konfirmasi', 'Apakah Anda yakin ingin hapus timses?', 'Batal', 'Ya', () {
                             Get.back();
                             sharedController.loading(context);
                             timsesController.nonAktifkanTimses(widget.dataTimses!['nik']);

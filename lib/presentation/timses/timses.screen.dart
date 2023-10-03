@@ -52,83 +52,83 @@ class TimsesScreen extends GetView<TimsesController> {
                   Column(
                       children: prefs.read('role') == '0'
                           ? [
-                              Obx(() => Column(
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        child: DropdownFieldWidget(
-                                          title: 'Kabupaten',
-                                          listValue: sharedController.kabupatenList.value,
-                                          value: kabupatenValue,
-                                          listName: 'name',
-                                          valueName: 'id',
-                                          itemCallback: (String value) {
-                                            kabupatenValue = value;
-                                            sharedController.fetchKecamatan(value);
-                                            var wilayahKerjaempValue = sharedController.kabupatenList.value
-                                                .where((element) => element['id'] == value)
-                                                .toList();
+                              Column(
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    child: DropdownFieldWidget(
+                                      title: 'Kabupaten',
+                                      listValue: sharedController.kabupatenList.value,
+                                      value: kabupatenValue,
+                                      listName: 'name',
+                                      valueName: 'id',
+                                      itemCallback: (String value) {
+                                        kabupatenValue = value;
+                                        sharedController.fetchKecamatan(value);
+                                        var wilayahKerjaempValue = sharedController.kabupatenList.value
+                                            .where((element) => element['id'] == value)
+                                            .toList();
 
-                                            kabupatenString = wilayahKerjaempValue[0]['name'];
+                                        kabupatenString = wilayahKerjaempValue[0]['name'];
 
-                                            timsesController.getDataTimsesByKabupaten(kabupatenString);
-                                            kecamatanValue = null;
-                                            kelurahanValue = null;
-                                          },
+                                        timsesController.getDataTimsesByKabupaten(kabupatenString);
+                                        kecamatanValue = null;
+                                        kelurahanValue = null;
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      children: [
+                                        Flexible(
+                                          flex: 1,
+                                          child: DropdownFieldWidget(
+                                            title: 'Kecamatan',
+                                            listValue: sharedController.kecamatanList.value,
+                                            value: kecamatanValue,
+                                            listName: 'name',
+                                            valueName: 'id',
+                                            itemCallback: (String value) {
+                                              kecamatanValue = value;
+                                              sharedController.fetchKelurahan(value);
+
+                                              var kecamatanTempValue = sharedController.kecamatanList.value
+                                                  .where((element) => element['id'] == value)
+                                                  .toList();
+
+                                              kecamatanStringValue = kecamatanTempValue[0]['name'];
+                                              timsesController.getDataTimsesByKecamatan(kecamatanStringValue);
+                                              kelurahanValue = null;
+                                            },
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        child: Row(
-                                          children: [
-                                            Flexible(
-                                              flex: 1,
-                                              child: DropdownFieldWidget(
-                                                title: 'Kecamatan',
-                                                listValue: sharedController.kecamatanList.value,
-                                                value: kecamatanValue,
-                                                listName: 'name',
-                                                valueName: 'id',
-                                                itemCallback: (String value) {
-                                                  kecamatanValue = value;
-                                                  sharedController.fetchKelurahan(value);
-
-                                                  var kecamatanTempValue = sharedController.kecamatanList.value
-                                                      .where((element) => element['id'] == value)
-                                                      .toList();
-
-                                                  kecamatanStringValue = kecamatanTempValue[0]['name'];
-                                                  timsesController.getDataTimsesByKecamatan(kecamatanStringValue);
-                                                  kelurahanValue = null;
-                                                },
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 2.w,
-                                            ),
-                                            Flexible(
-                                              flex: 1,
-                                              child: DropdownFieldWidget(
-                                                title: 'Kelurahan',
-                                                listValue: sharedController.kelurahanList.value,
-                                                value: kelurahanValue,
-                                                listName: 'name',
-                                                valueName: 'id',
-                                                itemCallback: (String value) {
-                                                  kelurahanValue = value;
-                                                  var kelurahanTempValue = sharedController.kelurahanList.value
-                                                      .where((element) => element['id'] == value)
-                                                      .toList();
-
-                                                  kelurahanStringValue = kelurahanTempValue[0]['name'];
-                                                  timsesController.getDataTimsesByKelurahan(kelurahanStringValue);
-                                                },
-                                              ),
-                                            ),
-                                          ],
+                                        SizedBox(
+                                          width: 2.w,
                                         ),
-                                      )
-                                    ],
-                                  )),
+                                        Flexible(
+                                          flex: 1,
+                                          child: DropdownFieldWidget(
+                                            title: 'Kelurahan',
+                                            listValue: sharedController.kelurahanList.value,
+                                            value: kelurahanValue,
+                                            listName: 'name',
+                                            valueName: 'id',
+                                            itemCallback: (String value) {
+                                              kelurahanValue = value;
+                                              var kelurahanTempValue = sharedController.kelurahanList.value
+                                                  .where((element) => element['id'] == value)
+                                                  .toList();
+
+                                              kelurahanStringValue = kelurahanTempValue[0]['name'];
+                                              timsesController.getDataTimsesByKelurahan(kelurahanStringValue);
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ]
                           : []),
                   SizedBox(
@@ -145,12 +145,12 @@ class TimsesScreen extends GetView<TimsesController> {
                       )),
                       DataColumn(
                           label: Text(
-                        'NIK',
+                        'Nama Lengkap',
                         style: whiteTextStyle,
                       )),
                       DataColumn(
                           label: Text(
-                        'Nama Lengkap',
+                        'Total Relawan',
                         style: whiteTextStyle,
                       )),
                     ],
@@ -174,13 +174,18 @@ class TimsesScreen extends GetView<TimsesController> {
                             ),
                           ),
                         )),
-                        DataCell(Text(
-                          e['nik'].toString(),
-                          style: greyTextStyle,
-                        )),
+                        // DataCell(Text(
+                        //   e['nik'].toString(),
+                        //   style: greyTextStyle,
+                        // )),
                         DataCell(Text(
                           e['nama_lengkap'] ?? '',
-                          style: defaultPrimaryTextStyle,
+                          style: defaultPrimaryTextStyle.copyWith(
+                              color: e['nama_lengkap'] == 'Test Developer' ? Colors.red : primaryColor),
+                        )),
+                        DataCell(Text(
+                          e['total_relawan'] ?? '',
+                          style: greyTextStyle,
                         )),
                       ]);
                     }).toList(),

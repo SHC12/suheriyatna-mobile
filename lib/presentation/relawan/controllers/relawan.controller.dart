@@ -62,15 +62,32 @@ class RelawanController extends GetxController {
       await FirebaseFirestore.instance
           .collection('relawan')
           .where('wilayah_kerja', isEqualTo: prefs.read('wilayahKerja'))
-          // .doc(docID.value)
-          // .collection('sub_relawan')
+          .where('is_deleted', isEqualTo: false)
           .get()
           .then((QuerySnapshot query) async {
+        // List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        // dataRelawan.assignAll(dataRelawanTemp);
+        // totalTimsesSelected.value = dataRelawan.length;
+        // isLoading(false);
+
         List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
-        dataRelawan.assignAll(dataRelawanTemp);
+
+        var a = [];
+        dataRelawanTemp.forEach((element) {
+          if (a
+              .where((elementa) =>
+                  element['nik'] == elementa['nik'] &&
+                  element['nama_lengkap'] == elementa['nama_lengkap'] &&
+                  element['no_telp'] == elementa['no_telp'])
+              .toList()
+              .isEmpty) {
+            a.add(element);
+          }
+        });
+
+        dataRelawan.assignAll(a);
         totalTimsesSelected.value = dataRelawan.length;
         isLoading(false);
-        // print('data sub relawan : $dataRelawanTemp');
       });
     } else {
       await FirebaseFirestore.instance
@@ -79,11 +96,29 @@ class RelawanController extends GetxController {
           .collection('sub_relawan')
           .get()
           .then((QuerySnapshot query) async {
+        // List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
+        // dataRelawan.assignAll(dataRelawanTemp);
+        // totalTimsesSelected.value = dataRelawan.length;
+        // isLoading(false);
+        // print('data sub relawan : $dataRelawanTemp');
         List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
-        dataRelawan.assignAll(dataRelawanTemp);
+
+        var a = [];
+        dataRelawanTemp.forEach((element) {
+          if (a
+              .where((elementa) =>
+                  element['nik'] == elementa['nik'] &&
+                  element['nama_lengkap'] == elementa['nama_lengkap'] &&
+                  element['no_telp'] == elementa['no_telp'])
+              .toList()
+              .isEmpty) {
+            a.add(element);
+          }
+        });
+
+        dataRelawan.assignAll(a);
         totalTimsesSelected.value = dataRelawan.length;
         isLoading(false);
-        // print('data sub relawan : $dataRelawanTemp');
       });
     }
   }

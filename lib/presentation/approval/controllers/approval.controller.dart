@@ -26,6 +26,10 @@ class ApprovalController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    if (prefs.read('role') == '0' || prefs.read('role') == '00') {
+      getUnVerified();
+      // getDataTimsesDummy();
+    }
   }
 
   @override
@@ -40,6 +44,7 @@ class ApprovalController extends GetxController {
             'is_verified',
             isEqualTo: false,
           )
+          .where('is_deleted', isEqualTo: false)
           .where('wilayah_kerja', isEqualTo: prefs.read('wilayahKerja'))
           .get()
           .then((QuerySnapshot query) async {
@@ -51,7 +56,11 @@ class ApprovalController extends GetxController {
         docIDUserUnverifiedList.assignAll(query.docs.map((e) => e.id).toList());
       });
     } else {
-      await user.where('is_verified', isEqualTo: false).get().then((QuerySnapshot query) async {
+      await user
+          .where('is_verified', isEqualTo: false)
+          .where('is_deleted', isEqualTo: false)
+          .get()
+          .then((QuerySnapshot query) async {
         List userUnverifiedListTemp = query.docs.map((e) => e.data()).toList();
         userUnverifiedListTemp.forEach((element) {
           element['id'] = query.docs[userUnverifiedListTemp.indexOf(element)].id;
@@ -116,6 +125,7 @@ class ApprovalController extends GetxController {
       await FirebaseFirestore.instance
           .collection('relawan')
           .where('is_verified', isEqualTo: false)
+          .where('is_deleted', isEqualTo: false)
           .where('wilayah_kerja', isEqualTo: prefs.read('wilayahKerja'))
           .get()
           .then((QuerySnapshot query) async {
@@ -129,6 +139,7 @@ class ApprovalController extends GetxController {
       await FirebaseFirestore.instance
           .collection('relawan')
           .where('is_verified', isEqualTo: false)
+          .where('is_deleted', isEqualTo: false)
           .get()
           .then((QuerySnapshot query) async {
         List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
