@@ -84,7 +84,7 @@ class _RelawanTabbarState extends State<RelawanTabbar> {
                                   SizedBox(
                                     height: 1.h,
                                   ),
-                                  Text(cekDataController.totalTimsesSelected.value.toString(),
+                                  Text(cekDataController.dataList.length.toString(),
                                       style: headTextStyle.copyWith(
                                           color: whiteColor, fontWeight: FontWeight.bold, fontSize: 19.sp)),
                                 ],

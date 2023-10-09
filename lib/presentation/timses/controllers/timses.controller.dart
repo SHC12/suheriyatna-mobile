@@ -75,7 +75,7 @@ class TimsesController extends GetxController {
         });
         dataList.refresh();
         log('total relawan : ${dataList}');
-        totalTimsesSelected.value = dataList.length;
+        // totalTimsesSelected.value = dataList.length;
       });
     } else {
       await FirebaseFirestore.instance
@@ -109,7 +109,7 @@ class TimsesController extends GetxController {
         });
         dataList.refresh();
         log('total relawan : ${dataList}');
-        totalTimsesSelected.value = dataList.length;
+        // totalTimsesSelected.value = dataList.length;
       });
     }
   }
@@ -122,11 +122,13 @@ class TimsesController extends GetxController {
         .then((QuerySnapshot query) async {
       var docIDTemp = query.docs.first.id;
 
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(docIDTemp)
-          .update({'is_verified': false, 'is_deleted': true});
-      nonaktifRelawanByTimses(nik);
+      // await FirebaseFirestore.instance
+      //     .collection('users')
+      //     .doc(docIDTemp)
+      //     .update({'is_verified': false, 'is_deleted': true});
+      await FirebaseFirestore.instance.collection('users').doc(docIDTemp).delete().then((value) async {
+        await nonaktifRelawanByTimses(nik);
+      });
     });
   }
 
@@ -199,7 +201,7 @@ class TimsesController extends GetxController {
         });
         dataList.refresh();
         log('total relawan : ${dataList}');
-        totalTimsesSelected.value = dataList.length;
+        // totalTimsesSelected.value = dataList.length;
       });
     } else {
       await FirebaseFirestore.instance
@@ -240,7 +242,7 @@ class TimsesController extends GetxController {
         });
         dataList.refresh();
         log('total relawan : ${dataList}');
-        totalTimsesSelected.value = dataList.length;
+        // totalTimsesSelected.value = dataList.length;
       });
     }
   }
@@ -323,7 +325,7 @@ class TimsesController extends GetxController {
         });
         dataList.refresh();
         log('total relawan : ${dataList}');
-        totalTimsesSelected.value = dataList.length;
+        // totalTimsesSelected.value = dataList.length;
       });
     }
   }
@@ -367,7 +369,7 @@ class TimsesController extends GetxController {
         });
         dataList.refresh();
         log('total relawan : ${dataList}');
-        totalTimsesSelected.value = dataList.length;
+        // totalTimsesSelected.value = dataList.length;
       });
     } else {
       await FirebaseFirestore.instance
@@ -407,7 +409,7 @@ class TimsesController extends GetxController {
         });
         dataList.refresh();
         log('total relawan : ${dataList}');
-        totalTimsesSelected.value = dataList.length;
+        // totalTimsesSelected.value = dataList.length;
       });
     }
   }

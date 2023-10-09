@@ -80,7 +80,7 @@ class _TimsesTabbarState extends State<TimsesTabbar> {
                                   SizedBox(
                                     height: 1.h,
                                   ),
-                                  Text(timsesController.totalTimsesSelected.value.toString(),
+                                  Text(timsesController.dataList.length.toString(),
                                       style: headTextStyle.copyWith(
                                           color: whiteColor, fontWeight: FontWeight.bold, fontSize: 19.sp)),
                                 ],

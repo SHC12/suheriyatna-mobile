@@ -204,7 +204,7 @@ class RelawanController extends GetxController {
 
   checkNIK(var nik) async {
     bool isAvailable = false;
-    await relawan.where('nik', isEqualTo: nik).get().then((QuerySnapshot query) {
+    await relawan.where('nik', isEqualTo: nik).where('is_deleted', isEqualTo: false).get().then((QuerySnapshot query) {
       if (query.docs.length > 0) {
         Get.back();
         Get.snackbar(
@@ -224,7 +224,11 @@ class RelawanController extends GetxController {
 
   checkTelepon(var noTelp) async {
     bool isAvailable = false;
-    await relawan.where('no_telp', isEqualTo: noTelp).get().then((QuerySnapshot query) {
+    await relawan
+        .where('no_telp', isEqualTo: noTelp)
+        .where('is_deleted', isEqualTo: false)
+        .get()
+        .then((QuerySnapshot query) {
       if (query.docs.length > 0) {
         Get.back();
         Get.snackbar(
@@ -244,7 +248,11 @@ class RelawanController extends GetxController {
 
   checkNIKValidasi(var nik) async {
     if (nik.length == 16) {
-      await relawan.where('nik', isEqualTo: nik).get().then((QuerySnapshot query) {
+      await relawan
+          .where('nik', isEqualTo: nik)
+          .where('is_deleted', isEqualTo: false)
+          .get()
+          .then((QuerySnapshot query) {
         if (query.docs.length > 0) {
           Get.snackbar(
             'Gagal',
@@ -265,7 +273,11 @@ class RelawanController extends GetxController {
   }
 
   checkTeleponValidasi(var noTelp) async {
-    await relawan.where('no_telp', isEqualTo: noTelp).get().then((QuerySnapshot query) {
+    await relawan
+        .where('no_telp', isEqualTo: noTelp)
+        .where('is_deleted', isEqualTo: false)
+        .get()
+        .then((QuerySnapshot query) {
       if (query.docs.length > 0) {
         Get.snackbar(
           'Gagal',

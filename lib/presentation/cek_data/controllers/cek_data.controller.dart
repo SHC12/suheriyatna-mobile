@@ -52,7 +52,7 @@ class CekDataController extends GetxController {
         .then((QuerySnapshot query) async {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
       dataList.assignAll(dataRelawanTemp);
-      totalTimsesSelected.value = dataList.length;
+      // totalTimsesSelected.value = dataList.length;
 
       print('data relawan : $dataRelawanTemp');
     });
@@ -86,7 +86,7 @@ class CekDataController extends GetxController {
       });
 
       dataList.assignAll(a);
-      totalTimsesSelected.value = dataList.length;
+      // totalTimsesSelected.value = dataList.length;
     });
   }
 
@@ -118,7 +118,7 @@ class CekDataController extends GetxController {
       });
 
       dataList.assignAll(a);
-      totalTimsesSelected.value = dataList.length;
+      // totalTimsesSelected.value = dataList.length;
     });
   }
 
@@ -150,7 +150,7 @@ class CekDataController extends GetxController {
       });
 
       dataList.assignAll(a);
-      totalTimsesSelected.value = dataList.length;
+      // totalTimsesSelected.value = dataList.length;
     });
   }
 
@@ -180,7 +180,7 @@ class CekDataController extends GetxController {
       });
 
       dataList.assignAll(a);
-      totalTimsesSelected.value = dataList.length;
+      // totalTimsesSelected.value = dataList.length;
     });
   }
 
@@ -211,7 +211,7 @@ class CekDataController extends GetxController {
       });
 
       dataList.assignAll(a);
-      totalTimsesSelected.value = dataList.length;
+      // totalTimsesSelected.value = dataList.length;
     });
   }
 

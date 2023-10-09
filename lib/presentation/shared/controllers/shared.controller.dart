@@ -176,7 +176,9 @@ class SharedController extends GetxController {
       'Alamat',
       'RT/RW',
       'Tanggal Pendaftaran',
-      'Wilayah Kerja'
+      'Wilayah Kerja',
+      'Kode Referral',
+      'Kode Referral Pendaftar'
     ]);
     int index = 0;
     data.forEach((row) {
@@ -196,7 +198,9 @@ class SharedController extends GetxController {
         row['alamat'],
         row['rt'] + '/' + row['rw'],
         DateFormat('dd-MM-yyyy').format(DateTime.parse(t.toDate().toString())),
-        row['wilayah_kerja']
+        row['wilayah_kerja'],
+        row['my_referral_code'],
+        row['kode_referral'],
       ]);
     });
 

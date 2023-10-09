@@ -353,6 +353,38 @@ class _TimsesDetailScreenState extends State<TimsesDetailScreen> {
                                           style: defaultTextStyle,
                                         ),
                                       ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'Kode Referral',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['my_referral_code'],
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
+                                      rowSpacer,
+                                      TableRow(children: [
+                                        Text(
+                                          'Kode Referral Pendaftar',
+                                          style: defaultPrimaryTextStyle.copyWith(color: orangeColor),
+                                        ),
+                                        Text(
+                                          ':',
+                                          style: defaultPrimaryTextStyle,
+                                        ),
+                                        Text(
+                                          widget.dataTimses!['kode_referral'],
+                                          textAlign: TextAlign.left,
+                                          style: defaultTextStyle,
+                                        ),
+                                      ]),
                                     ],
                                   ),
                                 ],

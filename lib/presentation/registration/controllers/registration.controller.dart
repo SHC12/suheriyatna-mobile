@@ -118,7 +118,7 @@ class RegistrationController extends GetxController {
 
   checkNIK(var nik) async {
     bool isAvailable = false;
-    await users.where('nik', isEqualTo: nik).get().then((QuerySnapshot query) {
+    await users.where('nik', isEqualTo: nik).where('is_deleted', isEqualTo: false).get().then((QuerySnapshot query) {
       if (query.docs.length > 0) {
         Get.back();
         Get.snackbar(
@@ -138,7 +138,11 @@ class RegistrationController extends GetxController {
 
   checkTelepon(var noTelp) async {
     bool isAvailable = false;
-    await users.where('no_telp', isEqualTo: noTelp).get().then((QuerySnapshot query) {
+    await users
+        .where('no_telp', isEqualTo: noTelp)
+        .where('is_deleted', isEqualTo: false)
+        .get()
+        .then((QuerySnapshot query) {
       if (query.docs.length > 0) {
         Get.back();
         Get.snackbar(
