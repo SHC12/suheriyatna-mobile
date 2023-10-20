@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,6 +19,7 @@ class RelawanController extends GetxController {
   CekDataController cekDataController = Get.put(CekDataController());
   var docID = ''.obs;
   final CollectionReference relawan = FirebaseFirestore.instance.collection('relawan');
+  final CollectionReference user = FirebaseFirestore.instance.collection('users');
 
   var totalTimsesSelected = 0.obs;
 
@@ -143,6 +145,9 @@ class RelawanController extends GetxController {
     var isCheckNik = await checkNIK(nik);
     var isCheckTelepon = await checkTelepon(noTelp);
 
+    log('isNik : $isCheckNik');
+    log('isTelepon : $isCheckTelepon');
+
     if (isCheckNik == false || isCheckTelepon == false) {
       return;
     } else {
@@ -204,49 +209,117 @@ class RelawanController extends GetxController {
 
   checkNIK(var nik) async {
     bool isAvailable = false;
+    var isRelawanPass = false;
+    var isUserPass = false;
     await relawan.where('nik', isEqualTo: nik).where('is_deleted', isEqualTo: false).get().then((QuerySnapshot query) {
       if (query.docs.length > 0) {
-        Get.back();
-        Get.snackbar(
-          'Gagal',
-          'NIK sudah terdaftar',
-          backgroundColor: whiteColor,
-        );
-        isAvailable = false;
+        isRelawanPass = false;
+        // Get.back();
+        // Get.snackbar(
+        //   'Gagal',
+        //   'NIK sudah terdaftar',
+        //   backgroundColor: whiteColor,
+        // );
+        // isAvailable = false;
       } else {
-        print('NIK belum terdaftar');
-        isAvailable = true;
+        isRelawanPass = true;
+        // print('NIK belum terdaftar');
+        // isAvailable = true;
       }
     });
+    await user.where('nik', isEqualTo: nik).where('is_deleted', isEqualTo: false).get().then((QuerySnapshot query) {
+      if (query.docs.length > 0) {
+        isUserPass = false;
+        // Get.back();
+        // Get.snackbar(
+        //   'Gagal',
+        //   'NIK sudah terdaftar',
+        //   backgroundColor: whiteColor,
+        // );
+        // isAvailable = false;
+      } else {
+        isUserPass = true;
+        // print('NIK belum terdaftar');
+        // isAvailable = true;
+      }
+    });
+
+    if (isRelawanPass == false || isUserPass == false) {
+      Get.back();
+      Get.snackbar(
+        'Gagal',
+        'NIK sudah terdaftar',
+        backgroundColor: whiteColor,
+      );
+      isAvailable = false;
+    } else {
+      isAvailable = true;
+    }
 
     return isAvailable;
   }
 
   checkTelepon(var noTelp) async {
     bool isAvailable = false;
+    var isRelawanPass = false;
+    var isUserPass = false;
     await relawan
         .where('no_telp', isEqualTo: noTelp)
         .where('is_deleted', isEqualTo: false)
         .get()
         .then((QuerySnapshot query) {
       if (query.docs.length > 0) {
-        Get.back();
-        Get.snackbar(
-          'Gagal',
-          'Nomor Telepon sudah terdaftar',
-          backgroundColor: whiteColor,
-        );
-        isAvailable = false;
+        isRelawanPass = false;
+        // Get.back();
+        // Get.snackbar(
+        //   'Gagal',
+        //   'Nomor Telepon sudah terdaftar',
+        //   backgroundColor: whiteColor,
+        // );
+        // isAvailable = false;
       } else {
-        print('NIK belum terdaftar');
-        isAvailable = true;
+        isRelawanPass = true;
+        // isAvailable = true;
       }
     });
+    await user
+        .where('no_telp', isEqualTo: noTelp)
+        .where('is_deleted', isEqualTo: false)
+        .get()
+        .then((QuerySnapshot query) {
+      if (query.docs.length > 0) {
+        isUserPass = false;
+        // Get.back();
+        // Get.snackbar(
+        //   'Gagal',
+        //   'Nomor Telepon sudah terdaftar',
+        //   backgroundColor: whiteColor,
+        // );
+        // isAvailable = false;
+      } else {
+        isUserPass = true;
+        // isAvailable = true;
+      }
+    });
+
+    if (isRelawanPass == false || isUserPass == false) {
+      Get.back();
+      Get.snackbar(
+        'Gagal',
+        'Nomor Telepon sudah terdaftar',
+        backgroundColor: whiteColor,
+      );
+      isAvailable = false;
+    } else {
+      isAvailable = true;
+    }
 
     return isAvailable;
   }
 
   checkNIKValidasi(var nik) async {
+    var isRelawanPass = false;
+    var isUserPass = false;
     if (nik.length == 16) {
       await relawan
           .where('nik', isEqualTo: nik)
@@ -254,44 +327,119 @@ class RelawanController extends GetxController {
           .get()
           .then((QuerySnapshot query) {
         if (query.docs.length > 0) {
-          Get.snackbar(
-            'Gagal',
-            'NIK sudah terdaftar',
-            backgroundColor: whiteColor,
-          );
+          isRelawanPass = false;
+          // Get.snackbar(
+          //   'Gagal',
+          //   'NIK sudah terdaftar',
+          //   backgroundColor: whiteColor,
+          // );
         } else {
-          Get.snackbar(
-            'Berhasil',
-            'NIK belum terdaftar',
-            backgroundColor: whiteColor,
-          );
+          isRelawanPass = true;
+          // Get.snackbar(
+          //   'Berhasil',
+          //   'NIK belum terdaftar',
+          //   backgroundColor: whiteColor,
+          // );
         }
       });
+      await user.where('nik', isEqualTo: nik).where('is_deleted', isEqualTo: false).get().then((QuerySnapshot query) {
+        if (query.docs.length > 0) {
+          isUserPass = false;
+          // Get.snackbar(
+          //   'Gagal',
+          //   'NIK sudah terdaftar',
+          //   backgroundColor: whiteColor,
+          // );
+        } else {
+          isUserPass = true;
+          // Get.snackbar(
+          //   'Berhasil',
+          //   'NIK belum terdaftar',
+          //   backgroundColor: whiteColor,
+          // );
+        }
+      });
+
+      if (isUserPass == false || isRelawanPass == false) {
+        Get.snackbar(
+          'Gagal',
+          'NIK sudah terdaftar',
+          backgroundColor: whiteColor,
+        );
+        return false;
+      } else {
+        Get.snackbar(
+          'Berhasil',
+          'NIK belum terdaftar',
+          backgroundColor: whiteColor,
+        );
+        return true;
+      }
     } else {
       sharedController.showSnackbar('Gagal', 'NIK harus terdiri dari 16 digit');
     }
   }
 
   checkTeleponValidasi(var noTelp) async {
+    var isRelawanPass = false;
+    var isUserPass = false;
     await relawan
         .where('no_telp', isEqualTo: noTelp)
         .where('is_deleted', isEqualTo: false)
         .get()
         .then((QuerySnapshot query) {
       if (query.docs.length > 0) {
-        Get.snackbar(
-          'Gagal',
-          'Nomor Telepon sudah terdaftar',
-          backgroundColor: whiteColor,
-        );
+        isRelawanPass = false;
+        // Get.snackbar(
+        //   'Gagal',
+        //   'Nomor Telepon sudah terdaftar',
+        //   backgroundColor: whiteColor,
+        // );
       } else {
-        Get.snackbar(
-          'Berhasil',
-          'Nomor Telepon belum terdaftar',
-          backgroundColor: whiteColor,
-        );
+        isRelawanPass = true;
+        // Get.snackbar(
+        //   'Berhasil',
+        //   'Nomor Telepon belum terdaftar',
+        //   backgroundColor: whiteColor,
+        // );
       }
     });
+    await user
+        .where('no_telp', isEqualTo: noTelp)
+        .where('is_deleted', isEqualTo: false)
+        .get()
+        .then((QuerySnapshot query) {
+      if (query.docs.length > 0) {
+        isUserPass = false;
+        // Get.snackbar(
+        //   'Gagal',
+        //   'Nomor Telepon sudah terdaftar',
+        //   backgroundColor: whiteColor,
+        // );
+      } else {
+        isUserPass = true;
+        // Get.snackbar(
+        //   'Berhasil',
+        //   'Nomor Telepon belum terdaftar',
+        //   backgroundColor: whiteColor,
+        // );
+      }
+    });
+    if (isRelawanPass == false || isUserPass == false) {
+      Get.snackbar(
+        'Gagal',
+        'Nomor Telepon sudah terdaftar',
+        backgroundColor: whiteColor,
+      );
+      return false;
+    } else {
+      Get.snackbar(
+        'Berhasil',
+        'Nomor Telepon belum terdaftar',
+        backgroundColor: whiteColor,
+      );
+      return true;
+    }
   }
 
   nonAktifRelawan(var nik) async {

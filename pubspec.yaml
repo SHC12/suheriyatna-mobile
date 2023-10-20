@@ -1,5 +1,5 @@
 name: suheriyatna_mobile
-version: 1.9.2+18
+version: 1.9.3+19
 publish_to: none
 description: A new Flutter project.
 environment: 
@@ -12,6 +12,7 @@ dependencies:
   remixicon: 1.0.0
   google_fonts: 2.2.0
   dio: 4.0.4
+  tap_debouncer: 2.0.2
   intl: 0.17.0
   # im_stepper: 0.1.3
   readmore: 2.1.0

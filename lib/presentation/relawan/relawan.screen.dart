@@ -201,6 +201,7 @@ class _RelawanScreenState extends State<RelawanScreen> {
                               title: 'NIK',
                               isRequired: true,
                               tController: tNIK,
+                              inputType: TextInputType.number,
                             ),
                           ),
                           SizedBox(

@@ -96,6 +96,7 @@ class LoginScreen extends GetView<LoginController> {
                           color: secondaryColor,
                           title: 'Login',
                           onTap: () async {
+                            // print('login');
                             if (tNoHP.text.isEmpty ||
                                 tNoHP.text == null ||
                                 tKataSandi.text.isEmpty ||
