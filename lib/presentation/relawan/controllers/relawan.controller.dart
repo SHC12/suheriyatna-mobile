@@ -139,14 +139,12 @@ class RelawanController extends GetxController {
       var rt,
       var rw,
       var wilayahKerja,
+      var tps,
       XFile image,
       bool isRegistration,
       BuildContext context) async {
     var isCheckNik = await checkNIK(nik);
     var isCheckTelepon = await checkTelepon(noTelp);
-
-    log('isNik : $isCheckNik');
-    log('isTelepon : $isCheckTelepon');
 
     if (isCheckNik == false || isCheckTelepon == false) {
       return;
@@ -171,6 +169,7 @@ class RelawanController extends GetxController {
           'rt': rt,
           'rw': rw,
           'wilayah_kerja': wilayahKerja,
+          'tps': tps,
           'file_pendukung': '',
           'kode_referral': '',
           'created_at': DateTime.now()
@@ -195,6 +194,7 @@ class RelawanController extends GetxController {
           'rt': rt,
           'rw': rw,
           'wilayah_kerja': wilayahKerja,
+          'tps': tps,
           'file_pendukung': urlFile,
           'is_verified': false,
           'is_deleted': false,

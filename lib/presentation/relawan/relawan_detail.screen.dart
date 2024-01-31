@@ -6,6 +6,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:sizer/sizer.dart';
+import 'package:suheriyatna_mobile/main.dart';
 import 'package:suheriyatna_mobile/presentation/relawan/controllers/relawan.controller.dart';
 import 'package:suheriyatna_mobile/presentation/shared/controllers/shared.controller.dart';
 
@@ -356,6 +357,22 @@ class _RelawanDetailScreenState extends State<RelawanDetailScreen> {
                                         style: defaultTextStyle,
                                       ),
                                     ]),
+                                    rowSpacer,
+                                    TableRow(children: [
+                                      Text(
+                                        'TPS',
+                                        style: defaultPrimaryTextStyle,
+                                      ),
+                                      Text(
+                                        ':',
+                                        style: defaultPrimaryTextStyle,
+                                      ),
+                                      Text(
+                                        widget.dataRelawan!['tps'] == null ? '' : widget.dataRelawan!['tps'],
+                                        textAlign: TextAlign.left,
+                                        style: defaultTextStyle,
+                                      ),
+                                    ]),
                                   ],
                                 ),
                                 SizedBox(
@@ -375,17 +392,20 @@ class _RelawanDetailScreenState extends State<RelawanDetailScreen> {
                         ],
                       ),
                     ),
-                    ButtonWidget(
-                      color: Colors.red,
-                      title: 'Hapus Relawan',
-                      onTap: () {
-                        sharedController.popUpMessage(
-                            'Konfirmasi', 'Apakah Anda yakin ingin menghapus relawan?', 'Batal', 'Ya', () {
-                          Get.back();
-                          sharedController.loading(context);
-                          relawanController.nonAktifRelawan(widget.dataRelawan!['nik']);
-                        }, true, context);
-                      },
+                    Visibility(
+                      visible: prefs.read('role') == '0' || prefs.read('role') == '00' ? true : false,
+                      child: ButtonWidget(
+                        color: Colors.red,
+                        title: 'Hapus Relawan',
+                        onTap: () {
+                          sharedController.popUpMessage(
+                              'Konfirmasi', 'Apakah Anda yakin ingin menghapus relawan?', 'Batal', 'Ya', () {
+                            Get.back();
+                            sharedController.loading(context);
+                            relawanController.nonAktifRelawan(widget.dataRelawan!['nik']);
+                          }, true, context);
+                        },
+                      ),
                     ),
                   ],
                 ),

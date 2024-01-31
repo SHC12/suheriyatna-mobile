@@ -109,7 +109,7 @@ class RegistrationController extends GetxController {
 
       if (role == '1') {
         relawanController.addRelawan(nik, namaLengkap, noTelp, jenisKelamin, tempatLahir, tanggalLahir, kabupaten,
-            kecamatan, kelurahan, alamat, rt, rw, wilayahKerja, XFile('path'), true, context);
+            kecamatan, kelurahan, alamat, rt, rw, wilayahKerja, '', XFile('path'), true, context);
       }
 
       Get.offAll(RegistrationCompleteScreen());

@@ -129,11 +129,8 @@ class SharedController extends GetxController {
         path: '${UrlListService.urlKelurahan + idKecamatan}.json',
         onSuccess: (content) {
           kelurahanList.assignAll(content);
-          // print('kelurahan : $content');
         },
-        onError: (content) {
-          // print('kelurahan : $content');
-        });
+        onError: (content) {});
   }
 
   popUpMessage(var titleMessage, var message, var titleButtonNo, var tittleButtonYes, Function() onTap, bool isButton,
@@ -177,6 +174,7 @@ class SharedController extends GetxController {
       'RT/RW',
       'Tanggal Pendaftaran',
       'Wilayah Kerja',
+      'TPS',
       'Kode Referral',
       'Kode Referral Pendaftar'
     ]);
@@ -199,6 +197,83 @@ class SharedController extends GetxController {
         row['rt'] + '/' + row['rw'],
         DateFormat('dd-MM-yyyy').format(DateTime.parse(t.toDate().toString())),
         row['wilayah_kerja'],
+        row['tps'] == null ? '' : row['tps'],
+        row['my_referral_code'],
+        row['kode_referral'],
+      ]);
+    });
+
+    bool isSet = excel.setDefaultSheet(sheet.sheetName);
+
+    if (isSet) {
+      print("${sheet.sheetName} is set to default sheet.");
+    } else {
+      print("Unable to set ${sheet.sheetName} to default sheet.");
+    }
+
+    String? downloadsDirectoryPath = (await DownloadsPath.downloadsDirectory())?.path;
+
+    var fileBytes = excel.save();
+
+    File(join("${downloadsDirectoryPath}/$nameFile.xlsx"))
+      ..createSync(recursive: true)
+      ..writeAsBytesSync(fileBytes!);
+
+    Get.back();
+    showSnackbar('Berhasil Export Data', 'Download/$nameFile.xlsx');
+
+    print("${downloadsDirectoryPath}/$nameFile.xlsx");
+  }
+
+  exportExcelTimses(List data, var nameFile) async {
+    loading(Get.context!);
+    var status = await Permission.storage.status;
+    if (!status.isGranted) {
+      await Permission.storage.request();
+    }
+    var excel = Excel.createExcel();
+
+    var sheet = excel['sheet'];
+
+    sheet.appendRow([
+      'No',
+      'NIK',
+      'Nama Lengkap',
+      'No Telp',
+      'Jenis Kelamin',
+      'Tempat Lahir',
+      'Tanggal Lahir',
+      'Kabupaten',
+      'Kecamatan',
+      'Kelurahan',
+      'Alamat',
+      'RT/RW',
+      'Tanggal Pendaftaran',
+      'Wilayah Kerja',
+      'Total Relawan',
+      'Kode Referral',
+      'Kode Referral Pendaftar'
+    ]);
+    int index = 0;
+    data.forEach((row) {
+      Timestamp t = row['created_at'];
+      index++;
+      sheet.appendRow([
+        index,
+        row['nik'],
+        row['nama_lengkap'],
+        row['no_telp'],
+        row['jenis_kelamin'],
+        row['tempat_lahir'],
+        row['tanggal_lahir'],
+        row['kabupaten'],
+        row['kecamatan'],
+        row['kelurahan'],
+        row['alamat'],
+        row['rt'] + '/' + row['rw'],
+        DateFormat('dd-MM-yyyy').format(DateTime.parse(t.toDate().toString())),
+        row['wilayah_kerja'],
+        row['total_relawan'],
         row['my_referral_code'],
         row['kode_referral'],
       ]);

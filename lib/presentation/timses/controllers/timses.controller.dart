@@ -18,7 +18,9 @@ class TimsesController extends GetxController {
   void onInit() {
     super.onInit();
     sharedController.fetchKabupaten();
-    getTimses();
+    if (prefs.read('role') != '00') {
+      getTimses();
+    }
   }
 
   @override
@@ -38,6 +40,7 @@ class TimsesController extends GetxController {
           .where('is_verified', isEqualTo: true)
           .where('role', isEqualTo: '1')
           .where('wilayah_kerja', isEqualTo: prefs.read('wilayahKerja'))
+          .where('is_deleted', isEqualTo: false)
           .get()
           .then((QuerySnapshot query) async {
         // List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
@@ -74,13 +77,14 @@ class TimsesController extends GetxController {
           dataList[index]["total_relawan"] = a.toString();
         });
         dataList.refresh();
-        log('total relawan : ${dataList}');
+        // log('total relawan : ${dataList}');
         // totalTimsesSelected.value = dataList.length;
       });
     } else {
       await FirebaseFirestore.instance
           .collection('users')
           .where('is_verified', isEqualTo: true)
+          .where('is_deleted', isEqualTo: false)
           .where('role', isEqualTo: '1')
           .get()
           .then((QuerySnapshot query) async {
@@ -108,7 +112,7 @@ class TimsesController extends GetxController {
           dataList[index]["total_relawan"] = a.toString();
         });
         dataList.refresh();
-        log('total relawan : ${dataList}');
+        // log('total relawan : ${dataList}');
         // totalTimsesSelected.value = dataList.length;
       });
     }
@@ -200,7 +204,7 @@ class TimsesController extends GetxController {
           dataList[index]["total_relawan"] = a.toString();
         });
         dataList.refresh();
-        log('total relawan : ${dataList}');
+        // log('total relawan : ${dataList}');
         // totalTimsesSelected.value = dataList.length;
       });
     } else {
@@ -241,7 +245,7 @@ class TimsesController extends GetxController {
           dataList[index]["total_relawan"] = a.toString();
         });
         dataList.refresh();
-        log('total relawan : ${dataList}');
+        // log('total relawan : ${dataList}');
         // totalTimsesSelected.value = dataList.length;
       });
     }
@@ -285,7 +289,7 @@ class TimsesController extends GetxController {
           dataList[index]["total_relawan"] = a.toString();
         });
         dataList.refresh();
-        log('total relawan : ${dataList}');
+        // log('total relawan : ${dataList}');
         totalTimsesSelected.value = dataList.length;
       });
     } else {
@@ -324,7 +328,7 @@ class TimsesController extends GetxController {
           dataList[index]["total_relawan"] = a.toString();
         });
         dataList.refresh();
-        log('total relawan : ${dataList}');
+        // log('total relawan : ${dataList}');
         // totalTimsesSelected.value = dataList.length;
       });
     }
@@ -368,7 +372,7 @@ class TimsesController extends GetxController {
           dataList[index]["total_relawan"] = a.toString();
         });
         dataList.refresh();
-        log('total relawan : ${dataList}');
+        // log('total relawan : ${dataList}');
         // totalTimsesSelected.value = dataList.length;
       });
     } else {
@@ -408,7 +412,7 @@ class TimsesController extends GetxController {
           dataList[index]["total_relawan"] = a.toString();
         });
         dataList.refresh();
-        log('total relawan : ${dataList}');
+        // log('total relawan : ${dataList}');
         // totalTimsesSelected.value = dataList.length;
       });
     }
@@ -425,16 +429,17 @@ class TimsesController extends GetxController {
   }
 
   getTotalRelawanByTimsesReturn(var nikTimses) async {
-    var totalRelawanTemp = 0;
-    await FirebaseFirestore.instance
-        .collection('relawan')
-        .where('nik_referral', isEqualTo: nikTimses)
-        .get()
-        .then((QuerySnapshot query) {
-      totalRelawanTemp = query.docs.length;
-    });
+    // var totalRelawanTemp = 0;
+    // await FirebaseFirestore.instance
+    //     .collection('relawan')
+    //     .where('nik_referral', isEqualTo: nikTimses)
+    //     .get()
+    //     .then((QuerySnapshot query) {
+    //   totalRelawanTemp = query.docs.length;
+    // });
 
-    return totalRelawanTemp;
+    // return totalRelawanTemp;
+    return '-';
   }
 
   searchTimsesByName(var name) {

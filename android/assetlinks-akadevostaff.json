@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.akadevo.staff",
+    "sha256_cert_fingerprints":
+    ["B0:8F:C1:D0:9F:06:FE:74:22:9A:19:5F:6C:37:45:F6:47:79:CA:CB:C6:59:99:71:CC:8E:B0:D8:CC:83:0E:D7"]
+  }
+}]

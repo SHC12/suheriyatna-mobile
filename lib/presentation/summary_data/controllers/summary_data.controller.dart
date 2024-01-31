@@ -189,7 +189,7 @@ class SummaryDataController extends GetxController {
       List dataTimsesTemp = query.docs.map((e) => e.data()).toList();
       totalDataTimses.value = dataTimsesTemp.length;
 
-      timsesKabupaten.assignAll(dataTimsesTemp);
+      // timsesKabupaten.assignAll(dataTimsesTemp);
 
       await dataChartKabupaten();
 
@@ -202,7 +202,7 @@ class SummaryDataController extends GetxController {
       List dataRelawanTemp = query.docs.map((e) => e.data()).toList();
 
       totalDataRelawan.value = dataRelawanTemp.length;
-      relawanKabupaten.assignAll(dataRelawanTemp);
+      // relawanKabupaten.assignAll(dataRelawanTemp);
 
       await dataChartKabupatenRelawan();
 
@@ -213,7 +213,7 @@ class SummaryDataController extends GetxController {
   getTotalDataKuisioner() async {
     await dtdc.get().then((QuerySnapshot query) async {
       List dataKuisionerTemp = query.docs.map((e) => e.data()).toList();
-      dataKuisioner.assignAll(dataKuisionerTemp);
+      // dataKuisioner.assignAll(dataKuisionerTemp);
       totalDataKuisioner.value = dataKuisionerTemp.length;
       dataChartKuisioner();
     });

@@ -80,7 +80,7 @@ class _TimsesTabbarState extends State<TimsesTabbar> {
                                   SizedBox(
                                     height: 1.h,
                                   ),
-                                  Text(timsesController.dataList.length.toString(),
+                                  Text(summaryDataController.totalDataTimses.toString(),
                                       style: headTextStyle.copyWith(
                                           color: whiteColor, fontWeight: FontWeight.bold, fontSize: 19.sp)),
                                 ],
@@ -182,7 +182,7 @@ class _TimsesTabbarState extends State<TimsesTabbar> {
                     color: Colors.green,
                     title: 'Export Excel',
                     onTap: () {
-                      sharedController.exportExcel(timsesController.dataList.value, 'Timses');
+                      sharedController.exportExcelTimses(timsesController.dataList.value, 'Timses');
                     },
                   ),
                 ),

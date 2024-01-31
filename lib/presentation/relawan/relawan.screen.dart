@@ -47,6 +47,7 @@ class _RelawanScreenState extends State<RelawanScreen> {
   TextEditingController tEmail = TextEditingController();
   TextEditingController tKodeReferral = TextEditingController();
   TextEditingController tNoTelp = TextEditingController();
+  TextEditingController tTPS = TextEditingController();
   int activeStep = 0;
 
   int upperBound = 2;
@@ -414,6 +415,12 @@ class _RelawanScreenState extends State<RelawanScreen> {
                               },
                             ),
                           )),
+                      InputFieldWidget(
+                        title: 'TPS',
+                        tController: tTPS,
+                        isRequired: true,
+                        inputType: TextInputType.number,
+                      ),
                       SizedBox(
                         height: 2.h,
                       ),
@@ -482,6 +489,7 @@ class _RelawanScreenState extends State<RelawanScreen> {
                           var rw = tRW.text == null ? '' : tRW.text;
                           var pekerjaan = tPekerjaan.text == null ? '' : tPekerjaan.text;
                           var email = tEmail.text == null ? '' : tEmail.text;
+                          var tps = tTPS.text == null ? '' : tTPS.text;
 
                           var noTelp = tNoTelp.text == null ? '' : tNoTelp.text;
                           if (opsionalImage == null) {
@@ -506,6 +514,7 @@ class _RelawanScreenState extends State<RelawanScreen> {
                                   rt,
                                   rw,
                                   wilayahKerjaStringValue,
+                                  tps,
                                   opsionalImage!,
                                   false,
                                   context);
